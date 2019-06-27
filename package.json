@@ -4,6 +4,7 @@
   "description": "Library for simulating user interactions using JavaScript in the browser",
   "main": "dist/index.js",
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "babel src --out-dir dist"
   },
   "author": "Sam Boylett <sam.boylett@netsells.co.uk>",
