@@ -5,7 +5,7 @@ Library for simulating user interactions using JavaScript in the browser
 ## Installation
 
 ```bash
-yarn add git+ssh://git@github.com:netsells/simulate-user.git#master
+yarn add @netsells/simulate-user
 ```
 
 ## Usage
