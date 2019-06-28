@@ -21,14 +21,28 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 
 var _promiseTimeout = require("promise-timeout");
 
+/**
+ * Simulate a user
+ */
 var SimulateUser =
 /*#__PURE__*/
 function () {
+  /**
+   * Create a SimulateUser class for a page element
+   *
+   * @param {HTMLElement} node
+   */
   function SimulateUser() {
     var node = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
     (0, _classCallCheck2["default"])(this, SimulateUser);
     this.node = node;
   }
+  /**
+   * Proxy for console.log
+   *
+   * @param {*} ...args
+   */
+
 
   (0, _createClass2["default"])(SimulateUser, [{
     key: "log",
@@ -38,6 +52,12 @@ function () {
       (_console = console).log.apply(_console, arguments); // eslint-disable-line no-console
 
     }
+    /**
+     * Proxy for console.error
+     *
+     * @param {*} ...args
+     */
+
   }, {
     key: "error",
     value: function error() {
@@ -46,6 +66,14 @@ function () {
       (_console2 = console).error.apply(_console2, arguments); // eslint-disable-line no-console
 
     }
+    /**
+     * Returns a promise which resolves in a certain amount of milliseconds
+     *
+     * @param {Number} timeout
+     *
+     * @returns {Promise<undefined>}
+     */
+
   }, {
     key: "sleep",
     value: function sleep(timeout) {
@@ -53,12 +81,30 @@ function () {
         return setTimeout(resolve, timeout);
       });
     }
+    /**
+     * Returns a promise which times out if the passed in promise doesn't
+     * resolve in time
+     *
+     * @param {Function} func
+     * @param {Number} limit
+     *
+     * @returns {Promise<*>}
+     */
+
   }, {
     key: "timeout",
     value: function timeout(func) {
       var limit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2000;
       return (0, _promiseTimeout.timeout)(func(), limit);
     }
+    /**
+     * Get options for an event
+     *
+     * @param {Object} options
+     *
+     * @returns {Object}
+     */
+
   }, {
     key: "getEventOptions",
     value: function getEventOptions(options) {
@@ -66,6 +112,15 @@ function () {
         target: this.node
       }, options);
     } // Finders/Queries
+
+    /**
+     * Proxy for querySelectorAll but returns an array of wrappers instead of
+     * nods
+     *
+     * @param {String|Array<String>} query
+     *
+     * @returns {Array<SimulateUser>}
+     */
 
   }, {
     key: "querySelectorAll",
@@ -87,6 +142,14 @@ function () {
         return new SimulateUser(n);
       });
     }
+    /**
+     * getElementById but returns a wrapper
+     *
+     * @param {String} id
+     *
+     * @returns {SimulateUser|null}
+     */
+
   }, {
     key: "getElementById",
     value: function getElementById(id) {
@@ -95,6 +158,14 @@ function () {
         query: "#".concat(id)
       });
     }
+    /**
+     * getElementsByName but returns an array of wrappers
+     *
+     * @param {String} name
+     *
+     * @returns {Array<SimulateUser>}
+     */
+
   }, {
     key: "getElementsByName",
     value: function getElementsByName(name) {
@@ -103,6 +174,14 @@ function () {
         query: "[name=\"".concat(name, "\"]")
       });
     }
+    /**
+     * closest but returns a wrapper
+     *
+     * @param {*} ...args
+     *
+     * @returns {SimulateUser|null}
+     */
+
   }, {
     key: "closest",
     value: function closest() {
@@ -112,6 +191,18 @@ function () {
 
       return node && new SimulateUser(node);
     }
+    /**
+     * Search through page elements as a user would, using text
+     *
+     * @param {Object} options
+     * @param {String} [options.text] - Text to search on
+     * @param {String} [options.query] - Optional query to filter on
+     * @param {Boolean} [options.caseSensitive] - Whether text is case sensitive
+     * @param {Boolean} [options.exact] - Whether text match should be exact (not including trimmed white space)
+     *
+     * @returns {SimulateUser|null}
+     */
+
   }, {
     key: "all",
     value: function all(_ref) {
@@ -142,24 +233,44 @@ function () {
 
       return all;
     }
+    /**
+     * Get the first element of a query to `all`
+     *
+     * @param {Object} options
+     *
+     * @returns {SimulateUser|null}
+     */
+
   }, {
     key: "first",
-    value: function first(obj) {
-      return this.all(obj)[0];
+    value: function first(options) {
+      return this.all(options)[0];
     }
+    /**
+     * Get the first element of a query to `all`, but throws an error if it's
+     * not found. Will wait for an element to appear (e.g. if a form is
+     * updating)
+     *
+     * @param {Object} options
+     * @param {Number} limit
+     *
+     * @returns {SimulateUser}
+     * @throws {Error}
+     */
+
   }, {
     key: "find",
     value: function () {
       var _find = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee2(obj, limit) {
+      _regenerator["default"].mark(function _callee2(options, limit) {
         var _this2 = this;
 
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                this.log('find', obj);
+                this.log('find', options);
                 _context2.prev = 1;
                 _context2.next = 4;
                 return this.timeout(
@@ -176,7 +287,7 @@ function () {
                           return _this2.sleep(10);
 
                         case 2:
-                          node = _this2.first(obj);
+                          node = _this2.first(options);
 
                         case 3:
                           if (!node) {
@@ -207,7 +318,7 @@ function () {
                   break;
                 }
 
-                throw new Error("Could not find element: ".concat(JSON.stringify(obj, null, 2)));
+                throw new Error("Could not find element: ".concat(JSON.stringify(options, null, 2)));
 
               case 11:
                 throw _context2.t0;
@@ -226,6 +337,15 @@ function () {
 
       return find;
     }()
+    /**
+     * Get a field based on its label
+     *
+     * @param {String} label
+     *
+     * @returns {SimulateUser|null}
+     * @throws {Error}
+     */
+
   }, {
     key: "field",
     value: function () {
@@ -264,12 +384,21 @@ function () {
       return field;
     }() // Actions
 
+    /**
+     * Proxy for dispatchEvent
+     *
+     * @param {Event} event
+     */
+
   }, {
     key: "dispatchEvent",
     value: function dispatchEvent(event) {
-      // this.log('dispatchEvent', event);
       this.node.dispatchEvent(event);
     }
+    /**
+     * Click this node
+     */
+
   }, {
     key: "click",
     value: function click() {
@@ -278,6 +407,12 @@ function () {
       this.dispatchEvent(new MouseEvent('mouseup'));
       this.node.click();
     }
+    /**
+     * Attach files to this input element
+     *
+     * @param {Enumerable<Files>} files
+     */
+
   }, {
     key: "attach",
     value: function () {
@@ -352,6 +487,12 @@ function () {
 
       return attach;
     }()
+    /**
+     * Check this checkbox
+     *
+     * @param {Boolean} checked
+     */
+
   }, {
     key: "check",
     value: function check() {
@@ -359,6 +500,10 @@ function () {
       this.log('check', this.node);
       this.node.checked = checked;
     }
+    /**
+     * Focus this element
+     */
+
   }, {
     key: "focus",
     value: function focus() {
@@ -367,6 +512,12 @@ function () {
         relatedTarget: this.node
       })));
     }
+    /**
+     * Type a single key on this element
+     *
+     * @param {String} key
+     */
+
   }, {
     key: "typeKey",
     value: function typeKey(key) {
@@ -380,6 +531,12 @@ function () {
         key: key
       })));
     }
+    /**
+     * Type a string on this element
+     *
+     * @param {String} text
+     */
+
   }, {
     key: "type",
     value: function type(text) {
@@ -389,6 +546,13 @@ function () {
         return _this3.typeKey(key);
       });
     }
+    /**
+     * Type into a fields value. Only simulates the final key press then
+     * triggers a single change event
+     *
+     * @param {String} text
+     */
+
   }, {
     key: "typeValue",
     value: function typeValue(text) {
@@ -403,6 +567,15 @@ function () {
 
       this.sendChangeEvent();
     }
+    /**
+     * Find a field by its label then fill it in
+     *
+     * @param {String} label
+     * @param {String} value
+     *
+     * @returns {SimulateUser} - The field wrapper
+     */
+
   }, {
     key: "fillIn",
     value: function () {
@@ -454,6 +627,16 @@ function () {
 
       return fillIn;
     }()
+    /**
+     * Find a select by its label then fill it in
+     *
+     * @param {String} label
+     * @param {String} text
+     * @param {Object} options
+     *
+     * @returns {SimulateUser} - The field wrapper
+     */
+
   }, {
     key: "fillSelect",
     value: function () {
@@ -479,6 +662,9 @@ function () {
                 }, options));
 
               case 6:
+                return _context6.abrupt("return", field);
+
+              case 7:
               case "end":
                 return _context6.stop();
             }
@@ -492,6 +678,12 @@ function () {
 
       return fillSelect;
     }()
+    /**
+     * Change a value by the option text
+     *
+     * @param {Object} options
+     */
+
   }, {
     key: "select",
     value: function () {
@@ -536,6 +728,10 @@ function () {
 
       return select;
     }()
+    /**
+     * Send a change event
+     */
+
   }, {
     key: "sendChangeEvent",
     value: function sendChangeEvent() {
@@ -543,11 +739,23 @@ function () {
       this.dispatchEvent(new Event('change', this.getEventOptions()));
     } // Getters
 
+    /**
+     * nextElementSibling but returns a wrapper
+     *
+     * @returns {SimulateUser|null}
+     */
+
   }, {
     key: "nextElementSibling",
     get: function get() {
       return this.node.nextElementSibling && new SimulateUser(this.node.nextElementSibling);
     }
+    /**
+     * Get all select option values
+     *
+     * @returns {Array<String>}
+     */
+
   }, {
     key: "options",
     get: function get() {
@@ -559,21 +767,45 @@ function () {
         return value;
       });
     }
+    /**
+     * Get trimmed text content
+     *
+     * @returns {String}
+     */
+
   }, {
     key: "text",
     get: function get() {
       return (this.node.textContent || '').trim();
     }
+    /**
+     * Proxy for value
+     *
+     * @returns {String}
+     */
+
   }, {
     key: "value",
     get: function get() {
       return this.node.value;
     }
+    /**
+     * Proxy for htmlFor
+     *
+     * @returns {String}
+     */
+
   }, {
     key: "htmlFor",
     get: function get() {
       return this.node.htmlFor;
     }
+    /**
+     * tagName but lower case
+     *
+     * @returns {String}
+     */
+
   }, {
     key: "tag",
     get: function get() {

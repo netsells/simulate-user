@@ -1,36 +1,84 @@
 import { timeout, TimeoutError } from 'promise-timeout';
 
+/**
+ * Simulate a user
+ */
 export default class SimulateUser {
+    /**
+     * Create a SimulateUser class for a page element
+     *
+     * @param {HTMLElement} node
+     */
     constructor(node = document) {
         this.node = node;
     }
 
+    /**
+     * Proxy for console.log
+     *
+     * @param {*} ...args
+     */
     log(...args) {
         console.log(...args); // eslint-disable-line no-console
     }
 
+    /**
+     * Proxy for console.error
+     *
+     * @param {*} ...args
+     */
     error(...args) {
         console.error(...args);  // eslint-disable-line no-console
     }
 
+    /**
+     * Returns a promise which resolves in a certain amount of milliseconds
+     *
+     * @param {Number} timeout
+     *
+     * @returns {Promise<undefined>}
+     */
     sleep(timeout) {
         return new Promise(resolve => setTimeout(resolve, timeout));
     }
 
+    /**
+     * Returns a promise which times out if the passed in promise doesn't
+     * resolve in time
+     *
+     * @param {Function} func
+     * @param {Number} limit
+     *
+     * @returns {Promise<*>}
+     */
     timeout(func, limit = 2000) {
         return timeout(func(), limit);
     }
 
+    /**
+     * Get options for an event
+     *
+     * @param {Object} options
+     *
+     * @returns {Object}
+     */
     getEventOptions(options) {
         return {
             target: this.node,
-            // currentTarget: this.node,
             ...options,
         };
     }
 
     // Finders/Queries
 
+    /**
+     * Proxy for querySelectorAll but returns an array of wrappers instead of
+     * nods
+     *
+     * @param {String|Array<String>} query
+     *
+     * @returns {Array<SimulateUser>}
+     */
     querySelectorAll(query) {
         const queries = Array.isArray(query) ? query : [query];
 
@@ -49,24 +97,56 @@ export default class SimulateUser {
         return nodes.map(n => new SimulateUser(n));
     }
 
+    /**
+     * getElementById but returns a wrapper
+     *
+     * @param {String} id
+     *
+     * @returns {SimulateUser|null}
+     */
     getElementById(id) {
         this.log('getElementById', id);
 
         return this.first({ query: `#${ id }` });
     }
 
+    /**
+     * getElementsByName but returns an array of wrappers
+     *
+     * @param {String} name
+     *
+     * @returns {Array<SimulateUser>}
+     */
     getElementsByName(name) {
         this.log('getElementsByName', name);
 
         return this.all({ query: `[name="${ name }"]` });
     }
 
+    /**
+     * closest but returns a wrapper
+     *
+     * @param {*} ...args
+     *
+     * @returns {SimulateUser|null}
+     */
     closest(...args) {
         const node = this.node.closest(...args);
 
         return node && new SimulateUser(node);
     }
 
+    /**
+     * Search through page elements as a user would, using text
+     *
+     * @param {Object} options
+     * @param {String} [options.text] - Text to search on
+     * @param {String} [options.query] - Optional query to filter on
+     * @param {Boolean} [options.caseSensitive] - Whether text is case sensitive
+     * @param {Boolean} [options.exact] - Whether text match should be exact (not including trimmed white space)
+     *
+     * @returns {SimulateUser|null}
+     */
     all({
         text,
         query = '*',
@@ -92,12 +172,30 @@ export default class SimulateUser {
         return all;
     }
 
-    first(obj) {
-        return this.all(obj)[0];
+    /**
+     * Get the first element of a query to `all`
+     *
+     * @param {Object} options
+     *
+     * @returns {SimulateUser|null}
+     */
+    first(options) {
+        return this.all(options)[0];
     }
 
-    async find(obj, limit) {
-        this.log('find', obj);
+    /**
+     * Get the first element of a query to `all`, but throws an error if it's
+     * not found. Will wait for an element to appear (e.g. if a form is
+     * updating)
+     *
+     * @param {Object} options
+     * @param {Number} limit
+     *
+     * @returns {SimulateUser}
+     * @throws {Error}
+     */
+    async find(options, limit) {
+        this.log('find', options);
 
         try {
             return await this.timeout(async() => {
@@ -106,20 +204,28 @@ export default class SimulateUser {
                 do {
                     await this.sleep(10);
 
-                    node = this.first(obj);
+                    node = this.first(options);
                 } while(!node);
 
                 return node;
             }, limit);
         } catch(e) {
             if (e instanceof TimeoutError) {
-                throw new Error(`Could not find element: ${ JSON.stringify(obj, null, 2 ) }`);
+                throw new Error(`Could not find element: ${ JSON.stringify(options, null, 2 ) }`);
             }
 
             throw e;
         }
     }
 
+    /**
+     * Get a field based on its label
+     *
+     * @param {String} label
+     *
+     * @returns {SimulateUser|null}
+     * @throws {Error}
+     */
     async field(label) {
         const wrapper = await this.find({ query: 'label', text: label, caseSensitive: true });
 
@@ -130,12 +236,18 @@ export default class SimulateUser {
 
     // Actions
 
+    /**
+     * Proxy for dispatchEvent
+     *
+     * @param {Event} event
+     */
     dispatchEvent(event) {
-        // this.log('dispatchEvent', event);
-
         this.node.dispatchEvent(event);
     }
 
+    /**
+     * Click this node
+     */
     click() {
         this.log('click', this.node);
 
@@ -144,6 +256,11 @@ export default class SimulateUser {
         this.node.click();
     }
 
+    /**
+     * Attach files to this input element
+     *
+     * @param {Enumerable<Files>} files
+     */
     async attach(files) {
         const dataTransfer = new DataTransfer();
 
@@ -156,27 +273,51 @@ export default class SimulateUser {
         this.sendChangeEvent();
     }
 
+    /**
+     * Check this checkbox
+     *
+     * @param {Boolean} checked
+     */
     check(checked = true) {
         this.log('check', this.node);
 
         this.node.checked = checked;
     }
 
+    /**
+     * Focus this element
+     */
     focus() {
         this.node.focus();
         this.dispatchEvent(new FocusEvent(this.getEventOptions({ relatedTarget: this.node })));
     }
 
+    /**
+     * Type a single key on this element
+     *
+     * @param {String} key
+     */
     typeKey(key) {
         this.dispatchEvent(new KeyboardEvent('keydown', this.getEventOptions({ key })));
         this.dispatchEvent(new KeyboardEvent('keypress', this.getEventOptions({ key })));
         this.dispatchEvent(new KeyboardEvent('keyup', this.getEventOptions({ key })));
     }
 
+    /**
+     * Type a string on this element
+     *
+     * @param {String} text
+     */
     type(text) {
         text.forEach(key => this.typeKey(key));
     }
 
+    /**
+     * Type into a fields value. Only simulates the final key press then
+     * triggers a single change event
+     *
+     * @param {String} text
+     */
     typeValue(text) {
         this.log('typeValue', text);
 
@@ -192,6 +333,14 @@ export default class SimulateUser {
         this.sendChangeEvent();
     }
 
+    /**
+     * Find a field by its label then fill it in
+     *
+     * @param {String} label
+     * @param {String} value
+     *
+     * @returns {SimulateUser} - The field wrapper
+     */
     async fillIn(label, value) {
         this.log('fillIn', label);
 
@@ -212,6 +361,15 @@ export default class SimulateUser {
         return field;
     }
 
+    /**
+     * Find a select by its label then fill it in
+     *
+     * @param {String} label
+     * @param {String} text
+     * @param {Object} options
+     *
+     * @returns {SimulateUser} - The field wrapper
+     */
     async fillSelect(label, text, options = {}) {
         const field = await this.field(label);
 
@@ -219,8 +377,15 @@ export default class SimulateUser {
             text,
             ...options,
         });
+
+        return field;
     }
 
+    /**
+     * Change a value by the option text
+     *
+     * @param {Object} options
+     */
     async select({ text, exact, caseSensitive }) {
         this.log('select', { text, exact, caseSensitive });
 
@@ -236,6 +401,9 @@ export default class SimulateUser {
         this.sendChangeEvent();
     }
 
+    /**
+     * Send a change event
+     */
     sendChangeEvent() {
         this.dispatchEvent(new Event('input', this.getEventOptions()));
         this.dispatchEvent(new Event('change', this.getEventOptions()));
@@ -243,28 +411,58 @@ export default class SimulateUser {
 
     // Getters
 
+    /**
+     * nextElementSibling but returns a wrapper
+     *
+     * @returns {SimulateUser|null}
+     */
     get nextElementSibling() {
         return this.node.nextElementSibling && new SimulateUser(this.node.nextElementSibling);
     }
 
+    /**
+     * Get all select option values
+     *
+     * @returns {Array<String>}
+     */
     get options() {
         const options = this.all({ query: 'option' });
 
         return options.map(({ value }) => value);
     }
 
+    /**
+     * Get trimmed text content
+     *
+     * @returns {String}
+     */
     get text() {
         return (this.node.textContent || '').trim();
     }
 
+    /**
+     * Proxy for value
+     *
+     * @returns {String}
+     */
     get value() {
         return this.node.value;
     }
 
+    /**
+     * Proxy for htmlFor
+     *
+     * @returns {String}
+     */
     get htmlFor() {
         return this.node.htmlFor;
     }
 
+    /**
+     * tagName but lower case
+     *
+     * @returns {String}
+     */
     get tag() {
         return this.node.tagName.toLowerCase();
     }
