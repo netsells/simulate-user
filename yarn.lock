@@ -645,15 +645,23 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@netsells/eslint-config@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@netsells/eslint-config/-/eslint-config-2.3.0.tgz#62b8cad0cbc37801a0c010f1d186ce6893db6ba8"
-  integrity sha512-/M8USqN5I+sCwN4d29xhLdCFjQc7ewUSpdQCjayZQrNqaDaDmoUP9PFycwgCadRbxAYztUvt4dnk8oeVZa+a+A==
+"@netsells/eslint-config@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@netsells/eslint-config/-/eslint-config-2.4.0.tgz#da242b3ce79ec169a26ced92c7eb1ab319377504"
+  integrity sha512-hb0GGEStPTaFvhCRPuo8q293nD9wL1p/5x7WHHPC5+zCgKCXUEziBZAb46b115qWgzibNjzET6iduT7srC0atA==
   dependencies:
+    "@netsells/eslint-plugin-netsells" "^1.0.0"
     eslint "^5.16.0"
+    eslint-plugin-jquery "^1.5.1"
+    eslint-plugin-nuxt "^0.4.3"
     eslint-plugin-require-jsdoc-except "^1.3.0"
     eslint-plugin-vue "^5.2.2"
     glob "^7.1.4"
+
+"@netsells/eslint-plugin-netsells@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@netsells/eslint-plugin-netsells/-/eslint-plugin-netsells-1.0.0.tgz#1c081b6f9b9ed7f40421d5bbb6bd660e069fb2a3"
+  integrity sha512-CMjB4tYD3CjpZqdx5tBVpp7KZdpBHQxgfQ7/Acgn736eb533t9c/MQsH+TdviUw7jzlI9m44I5/tRl/H99qoqg==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -1260,6 +1268,19 @@ escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
+
+eslint-plugin-jquery@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jquery/-/eslint-plugin-jquery-1.5.1.tgz#d6bac643acf9484ce76394e27e2b07baca06662e"
+  integrity sha512-L7v1eaK5t80C0lvUXPFP9MKnBOqPSKhCOYyzy4LZ0+iK+TJwN8S9gAkzzP1AOhypRIwA88HF6phQ9C7jnOpW8w==
+
+eslint-plugin-nuxt@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-nuxt/-/eslint-plugin-nuxt-0.4.3.tgz#4a6114372c3b1311685d19a00a470233fa6a477e"
+  integrity sha512-Irw6YjbfNJpC8zykyvWA8cMRGfF97xGNKhwFLyMEeXKMXug9o/FKe7fHhN1qEoMJWI1SKgFr/spVW6ZV41geAQ==
+  dependencies:
+    eslint-plugin-vue "^5.2.2"
+    vue-eslint-parser "^5.0.0"
 
 eslint-plugin-require-jsdoc-except@^1.3.0:
   version "1.3.0"
