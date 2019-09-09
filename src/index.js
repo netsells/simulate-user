@@ -144,6 +144,8 @@ export default class SimulateUser {
      * @param {String} [options.query] - Optional query to filter on
      * @param {Boolean} [options.caseSensitive] - Whether text is case sensitive
      * @param {Boolean} [options.exact] - Whether text match should be exact (not including trimmed white space)
+     * @param {Function} [options.predicate] - Predicate function wrappers must match
+     * @param {Function} [options.visible] - If element must be visible or not
      *
      * @returns {SimulateUser|null}
      */
@@ -152,6 +154,8 @@ export default class SimulateUser {
         query = '*',
         caseSensitive = false,
         exact = false,
+        predicate = null,
+        visible = false,
     }) {
         let all = this.querySelectorAll(query);
 
@@ -167,6 +171,14 @@ export default class SimulateUser {
                     ? texts[0] === texts[1]
                     : texts[0].includes(texts[1]);
             });
+        }
+
+        if (visible) {
+            all = all.filter(wrapper => wrapper.visible);
+        }
+
+        if (predicate) {
+            all = all.filter(predicate);
         }
 
         return all;
@@ -232,6 +244,40 @@ export default class SimulateUser {
         this.log('field', label, '->', wrapper.node);
 
         return this.getElementById(wrapper.htmlFor) || this.getElementsByName(wrapper.htmlFor)[0];
+    }
+
+    /**
+     * Check if the node is visible
+     *
+     * @returns {Boolean}
+     */
+    get visible() {
+        return !this.hidden;
+    }
+
+    /**
+     * Check if the node is hidden
+     *
+     * @returns {Boolean}
+     */
+    get hidden() {
+        return !this.node.offsetParent || window.getComputedStyle(this.node).display === 'none';
+    }
+
+    /**
+     * Get a fieldset based on its legend
+     *
+     * @param {String} legend
+     *
+     * @returns {SimulateUser|null}
+     * @throws {Error}
+     */
+    async fieldSet(legend) {
+        const wrapper = await this.find({ query: 'legend', text: legend, caseSensitive: true });
+
+        this.log('fieldset', legend, '->', wrapper.node);
+
+        return wrapper.closest('fieldset');
     }
 
     // Actions

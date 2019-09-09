@@ -199,6 +199,8 @@ function () {
      * @param {String} [options.query] - Optional query to filter on
      * @param {Boolean} [options.caseSensitive] - Whether text is case sensitive
      * @param {Boolean} [options.exact] - Whether text match should be exact (not including trimmed white space)
+     * @param {Function} [options.predicate] - Predicate function wrappers must match
+     * @param {Function} [options.visible] - If element must be visible or not
      *
      * @returns {SimulateUser|null}
      */
@@ -212,7 +214,11 @@ function () {
           _ref$caseSensitive = _ref.caseSensitive,
           caseSensitive = _ref$caseSensitive === void 0 ? false : _ref$caseSensitive,
           _ref$exact = _ref.exact,
-          exact = _ref$exact === void 0 ? false : _ref$exact;
+          exact = _ref$exact === void 0 ? false : _ref$exact,
+          _ref$predicate = _ref.predicate,
+          predicate = _ref$predicate === void 0 ? null : _ref$predicate,
+          _ref$visible = _ref.visible,
+          visible = _ref$visible === void 0 ? false : _ref$visible;
       var all = this.querySelectorAll(query);
 
       if (text) {
@@ -229,6 +235,16 @@ function () {
 
           return exact ? texts[0] === texts[1] : texts[0].includes(texts[1]);
         });
+      }
+
+      if (visible) {
+        all = all.filter(function (wrapper) {
+          return wrapper.visible;
+        });
+      }
+
+      if (predicate) {
+        all = all.filter(predicate);
       }
 
       return all;
@@ -382,6 +398,58 @@ function () {
       }
 
       return field;
+    }()
+    /**
+     * Check if the node is visible
+     *
+     * @returns {Boolean}
+     */
+
+  }, {
+    key: "fieldSet",
+
+    /**
+     * Get a fieldset based on its legend
+     *
+     * @param {String} legend
+     *
+     * @returns {SimulateUser|null}
+     * @throws {Error}
+     */
+    value: function () {
+      var _fieldSet = (0, _asyncToGenerator2["default"])(
+      /*#__PURE__*/
+      _regenerator["default"].mark(function _callee4(legend) {
+        var wrapper;
+        return _regenerator["default"].wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return this.find({
+                  query: 'legend',
+                  text: legend,
+                  caseSensitive: true
+                });
+
+              case 2:
+                wrapper = _context4.sent;
+                this.log('fieldset', legend, '->', wrapper.node);
+                return _context4.abrupt("return", wrapper.closest('fieldset'));
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function fieldSet(_x4) {
+        return _fieldSet.apply(this, arguments);
+      }
+
+      return fieldSet;
     }() // Actions
 
     /**
@@ -418,56 +486,56 @@ function () {
     value: function () {
       var _attach = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee4(files) {
+      _regenerator["default"].mark(function _callee5(files) {
         var dataTransfer, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, file;
 
-        return _regenerator["default"].wrap(function _callee4$(_context4) {
+        return _regenerator["default"].wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 dataTransfer = new DataTransfer();
                 _iteratorNormalCompletion = true;
                 _didIteratorError = false;
                 _iteratorError = undefined;
-                _context4.prev = 4;
+                _context5.prev = 4;
 
                 for (_iterator = files[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                   file = _step.value;
                   dataTransfer.items.add(file);
                 }
 
-                _context4.next = 12;
+                _context5.next = 12;
                 break;
 
               case 8:
-                _context4.prev = 8;
-                _context4.t0 = _context4["catch"](4);
+                _context5.prev = 8;
+                _context5.t0 = _context5["catch"](4);
                 _didIteratorError = true;
-                _iteratorError = _context4.t0;
+                _iteratorError = _context5.t0;
 
               case 12:
-                _context4.prev = 12;
-                _context4.prev = 13;
+                _context5.prev = 12;
+                _context5.prev = 13;
 
                 if (!_iteratorNormalCompletion && _iterator["return"] != null) {
                   _iterator["return"]();
                 }
 
               case 15:
-                _context4.prev = 15;
+                _context5.prev = 15;
 
                 if (!_didIteratorError) {
-                  _context4.next = 18;
+                  _context5.next = 18;
                   break;
                 }
 
                 throw _iteratorError;
 
               case 18:
-                return _context4.finish(15);
+                return _context5.finish(15);
 
               case 19:
-                return _context4.finish(12);
+                return _context5.finish(12);
 
               case 20:
                 this.node.files = dataTransfer.files;
@@ -475,13 +543,13 @@ function () {
 
               case 22:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, this, [[4, 8, 12, 20], [13,, 15, 19]]);
+        }, _callee5, this, [[4, 8, 12, 20], [13,, 15, 19]]);
       }));
 
-      function attach(_x4) {
+      function attach(_x5) {
         return _attach.apply(this, arguments);
       }
 
@@ -581,47 +649,47 @@ function () {
     value: function () {
       var _fillIn = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee5(label, value) {
+      _regenerator["default"].mark(function _callee6(label, value) {
         var field;
-        return _regenerator["default"].wrap(function _callee5$(_context5) {
+        return _regenerator["default"].wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
                 this.log('fillIn', label);
-                _context5.next = 3;
+                _context6.next = 3;
                 return this.field(label);
 
               case 3:
-                field = _context5.sent;
-                _context5.t0 = field.tag;
-                _context5.next = _context5.t0 === 'select' ? 7 : 10;
+                field = _context6.sent;
+                _context6.t0 = field.tag;
+                _context6.next = _context6.t0 === 'select' ? 7 : 10;
                 break;
 
               case 7:
-                _context5.next = 9;
+                _context6.next = 9;
                 return field.select({
                   text: value
                 });
 
               case 9:
-                return _context5.abrupt("break", 12);
+                return _context6.abrupt("break", 12);
 
               case 10:
-                _context5.next = 12;
+                _context6.next = 12;
                 return field.typeValue(value);
 
               case 12:
-                return _context5.abrupt("return", field);
+                return _context6.abrupt("return", field);
 
               case 13:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5, this);
+        }, _callee6, this);
       }));
 
-      function fillIn(_x5, _x6) {
+      function fillIn(_x6, _x7) {
         return _fillIn.apply(this, arguments);
       }
 
@@ -642,37 +710,37 @@ function () {
     value: function () {
       var _fillSelect = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee6(label, text) {
+      _regenerator["default"].mark(function _callee7(label, text) {
         var options,
             field,
-            _args6 = arguments;
-        return _regenerator["default"].wrap(function _callee6$(_context6) {
+            _args7 = arguments;
+        return _regenerator["default"].wrap(function _callee7$(_context7) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
-                options = _args6.length > 2 && _args6[2] !== undefined ? _args6[2] : {};
-                _context6.next = 3;
+                options = _args7.length > 2 && _args7[2] !== undefined ? _args7[2] : {};
+                _context7.next = 3;
                 return this.field(label);
 
               case 3:
-                field = _context6.sent;
-                _context6.next = 6;
+                field = _context7.sent;
+                _context7.next = 6;
                 return field.select((0, _objectSpread2["default"])({
                   text: text
                 }, options));
 
               case 6:
-                return _context6.abrupt("return", field);
+                return _context7.abrupt("return", field);
 
               case 7:
               case "end":
-                return _context6.stop();
+                return _context7.stop();
             }
           }
-        }, _callee6, this);
+        }, _callee7, this);
       }));
 
-      function fillSelect(_x7, _x8) {
+      function fillSelect(_x8, _x9) {
         return _fillSelect.apply(this, arguments);
       }
 
@@ -689,11 +757,11 @@ function () {
     value: function () {
       var _select = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee7(_ref3) {
+      _regenerator["default"].mark(function _callee8(_ref3) {
         var text, exact, caseSensitive, option;
-        return _regenerator["default"].wrap(function _callee7$(_context7) {
+        return _regenerator["default"].wrap(function _callee8$(_context8) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context8.prev = _context8.next) {
               case 0:
                 text = _ref3.text, exact = _ref3.exact, caseSensitive = _ref3.caseSensitive;
                 this.log('select', {
@@ -701,7 +769,7 @@ function () {
                   exact: exact,
                   caseSensitive: caseSensitive
                 });
-                _context7.next = 4;
+                _context8.next = 4;
                 return this.find({
                   query: 'option',
                   text: text,
@@ -710,19 +778,19 @@ function () {
                 });
 
               case 4:
-                option = _context7.sent;
+                option = _context8.sent;
                 this.node.value = option.value;
                 this.sendChangeEvent();
 
               case 7:
               case "end":
-                return _context7.stop();
+                return _context8.stop();
             }
           }
-        }, _callee7, this);
+        }, _callee8, this);
       }));
 
-      function select(_x9) {
+      function select(_x10) {
         return _select.apply(this, arguments);
       }
 
@@ -745,6 +813,22 @@ function () {
      * @returns {SimulateUser|null}
      */
 
+  }, {
+    key: "visible",
+    get: function get() {
+      return !this.hidden;
+    }
+    /**
+     * Check if the node is hidden
+     *
+     * @returns {Boolean}
+     */
+
+  }, {
+    key: "hidden",
+    get: function get() {
+      return !this.node.offsetParent || window.getComputedStyle(this.node).display === 'none';
+    }
   }, {
     key: "nextElementSibling",
     get: function get() {
