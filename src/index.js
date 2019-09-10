@@ -433,19 +433,28 @@ export default class SimulateUser {
 
         const field = await this.field(label);
 
-        switch (field.tag) {
+        field.fill(value);
+
+        return field;
+    }
+
+    /**
+     * Fill in this node as a field
+     *
+     * @param {String} text
+     */
+    async fill(text) {
+        switch (this.tag) {
             case 'select': {
-                await field.select({ text: value });
+                await this.select({ text });
 
                 break;
             }
 
             default: {
-                await field.typeValue(value);
+                await this.typeValue(text);
             }
         }
-
-        return field;
     }
 
     /**

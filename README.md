@@ -133,6 +133,9 @@ triggers a single change event</p>
 <dt><a href="#fillIn">fillIn(label, value)</a> ⇒ <code>SimulateUser</code></dt>
 <dd><p>Find a field by its label then fill it in</p>
 </dd>
+<dt><a href="#fill">fill(text)</a></dt>
+<dd><p>Fill in this node as a field</p>
+</dd>
 <dt><a href="#fillSelect">fillSelect(label, text, options)</a> ⇒ <code>SimulateUser</code></dt>
 <dd><p>Find a select by its label then fill it in</p>
 </dd>
@@ -474,6 +477,17 @@ Find a field by its label then fill it in
 | --- | --- |
 | label | <code>String</code> | 
 | value | <code>String</code> | 
+
+<a name="fill"></a>
+
+## fill(text)
+Fill in this node as a field
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| text | <code>String</code> | 
 
 <a name="fillSelect"></a>
 

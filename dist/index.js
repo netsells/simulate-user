@@ -703,27 +703,10 @@ function () {
 
               case 3:
                 field = _context6.sent;
-                _context6.t0 = field.tag;
-                _context6.next = _context6.t0 === 'select' ? 7 : 10;
-                break;
-
-              case 7:
-                _context6.next = 9;
-                return field.select({
-                  text: value
-                });
-
-              case 9:
-                return _context6.abrupt("break", 12);
-
-              case 10:
-                _context6.next = 12;
-                return field.typeValue(value);
-
-              case 12:
+                field.fill(value);
                 return _context6.abrupt("return", field);
 
-              case 13:
+              case 6:
               case "end":
                 return _context6.stop();
             }
@@ -736,6 +719,53 @@ function () {
       }
 
       return fillIn;
+    }()
+    /**
+     * Fill in this node as a field
+     *
+     * @param {String} text
+     */
+
+  }, {
+    key: "fill",
+    value: function () {
+      var _fill = (0, _asyncToGenerator2["default"])(
+      /*#__PURE__*/
+      _regenerator["default"].mark(function _callee7(text) {
+        return _regenerator["default"].wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.t0 = this.tag;
+                _context7.next = _context7.t0 === 'select' ? 3 : 6;
+                break;
+
+              case 3:
+                _context7.next = 5;
+                return this.select({
+                  text: text
+                });
+
+              case 5:
+                return _context7.abrupt("break", 8);
+
+              case 6:
+                _context7.next = 8;
+                return this.typeValue(text);
+
+              case 8:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7, this);
+      }));
+
+      function fill(_x8) {
+        return _fill.apply(this, arguments);
+      }
+
+      return fill;
     }()
     /**
      * Find a select by its label then fill it in
@@ -752,37 +782,37 @@ function () {
     value: function () {
       var _fillSelect = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee7(label, text) {
+      _regenerator["default"].mark(function _callee8(label, text) {
         var options,
             field,
-            _args7 = arguments;
-        return _regenerator["default"].wrap(function _callee7$(_context7) {
+            _args8 = arguments;
+        return _regenerator["default"].wrap(function _callee8$(_context8) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context8.prev = _context8.next) {
               case 0:
-                options = _args7.length > 2 && _args7[2] !== undefined ? _args7[2] : {};
-                _context7.next = 3;
+                options = _args8.length > 2 && _args8[2] !== undefined ? _args8[2] : {};
+                _context8.next = 3;
                 return this.field(label);
 
               case 3:
-                field = _context7.sent;
-                _context7.next = 6;
+                field = _context8.sent;
+                _context8.next = 6;
                 return field.select((0, _objectSpread2["default"])({
                   text: text
                 }, options));
 
               case 6:
-                return _context7.abrupt("return", field);
+                return _context8.abrupt("return", field);
 
               case 7:
               case "end":
-                return _context7.stop();
+                return _context8.stop();
             }
           }
-        }, _callee7, this);
+        }, _callee8, this);
       }));
 
-      function fillSelect(_x8, _x9) {
+      function fillSelect(_x9, _x10) {
         return _fillSelect.apply(this, arguments);
       }
 
@@ -799,11 +829,11 @@ function () {
     value: function () {
       var _select = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee8(_ref3) {
+      _regenerator["default"].mark(function _callee9(_ref3) {
         var text, exact, caseSensitive, option;
-        return _regenerator["default"].wrap(function _callee8$(_context8) {
+        return _regenerator["default"].wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context8.prev = _context8.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
                 text = _ref3.text, exact = _ref3.exact, caseSensitive = _ref3.caseSensitive;
                 this.log('select', {
@@ -811,7 +841,7 @@ function () {
                   exact: exact,
                   caseSensitive: caseSensitive
                 });
-                _context8.next = 4;
+                _context9.next = 4;
                 return this.find({
                   query: 'option',
                   text: text,
@@ -820,19 +850,19 @@ function () {
                 });
 
               case 4:
-                option = _context8.sent;
+                option = _context9.sent;
                 this.node.value = option.value;
                 this.sendChangeEvent();
 
               case 7:
               case "end":
-                return _context8.stop();
+                return _context9.stop();
             }
           }
-        }, _callee8, this);
+        }, _callee9, this);
       }));
 
-      function select(_x10) {
+      function select(_x11) {
         return _select.apply(this, arguments);
       }
 

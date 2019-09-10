@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Add `fill` function and refactor `fillIn` to use it
+
 ## 1.0.5 (10/9/19)
 
 - Add fuzzy search to find
