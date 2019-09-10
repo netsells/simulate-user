@@ -703,10 +703,13 @@ function () {
 
               case 3:
                 field = _context6.sent;
-                field.fill(value);
-                return _context6.abrupt("return", field);
+                _context6.next = 6;
+                return field.fill(value);
 
               case 6:
+                return _context6.abrupt("return", field);
+
+              case 7:
               case "end":
                 return _context6.stop();
             }

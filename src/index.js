@@ -433,7 +433,7 @@ export default class SimulateUser {
 
         const field = await this.field(label);
 
-        field.fill(value);
+        await field.fill(value);
 
         return field;
     }
