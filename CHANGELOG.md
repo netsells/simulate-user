@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Add `fill` function and refactor `fillIn` to use it
+- Add event options bubbles and cancelable
 
 ## 1.0.5 (10/9/19)
 
