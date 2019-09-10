@@ -90,8 +90,6 @@ export default class SimulateUser {
     getEventOptions(options) {
         return {
             target: this.node,
-            bubbles: true,
-            cancelable: true,
             ...options,
         };
     }
@@ -378,7 +376,17 @@ export default class SimulateUser {
      */
     focus() {
         this.node.focus();
-        this.dispatchEvent(new FocusEvent(this.getEventOptions({ relatedTarget: this.node })));
+        this.dispatchEvent(new FocusEvent('focus', this.getEventOptions({ relatedTarget: this.node })));
+        this.dispatchEvent(new FocusEvent('focusin', this.getEventOptions({ relatedTarget: this.node, bubbles: true })));
+    }
+
+    /**
+     * Blur this element
+     */
+    blur() {
+        this.node.blur();
+        this.dispatchEvent(new FocusEvent('blur', this.getEventOptions({ relatedTarget: this.node })));
+        this.dispatchEvent(new FocusEvent('focusout', this.getEventOptions({ relatedTarget: this.node, bubbles: true })));
     }
 
     /**
@@ -503,8 +511,16 @@ export default class SimulateUser {
      * Send a change event
      */
     sendChangeEvent() {
-        this.dispatchEvent(new Event('input', this.getEventOptions()));
-        this.dispatchEvent(new Event('change', this.getEventOptions()));
+        const options = {
+            bubbles: true,
+            cancelable: true,
+
+            ...this.getEventOptions(),
+        };
+
+        ['input', 'change'].forEach(event => {
+            this.dispatchEvent(new Event(event, options));
+        });
     }
 
     // Getters

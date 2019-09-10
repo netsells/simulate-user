@@ -132,9 +132,7 @@ function () {
     key: "getEventOptions",
     value: function getEventOptions(options) {
       return (0, _objectSpread2["default"])({
-        target: this.node,
-        bubbles: true,
-        cancelable: true
+        target: this.node
       }, options);
     } // Finders/Queries
 
@@ -620,8 +618,28 @@ function () {
     key: "focus",
     value: function focus() {
       this.node.focus();
-      this.dispatchEvent(new FocusEvent(this.getEventOptions({
+      this.dispatchEvent(new FocusEvent('focus', this.getEventOptions({
         relatedTarget: this.node
+      })));
+      this.dispatchEvent(new FocusEvent('focusin', this.getEventOptions({
+        relatedTarget: this.node,
+        bubbles: true
+      })));
+    }
+    /**
+     * Blur this element
+     */
+
+  }, {
+    key: "blur",
+    value: function blur() {
+      this.node.blur();
+      this.dispatchEvent(new FocusEvent('blur', this.getEventOptions({
+        relatedTarget: this.node
+      })));
+      this.dispatchEvent(new FocusEvent('focusout', this.getEventOptions({
+        relatedTarget: this.node,
+        bubbles: true
       })));
     }
     /**
@@ -880,8 +898,15 @@ function () {
   }, {
     key: "sendChangeEvent",
     value: function sendChangeEvent() {
-      this.dispatchEvent(new Event('input', this.getEventOptions()));
-      this.dispatchEvent(new Event('change', this.getEventOptions()));
+      var _this4 = this;
+
+      var options = (0, _objectSpread2["default"])({
+        bubbles: true,
+        cancelable: true
+      }, this.getEventOptions());
+      ['input', 'change'].forEach(function (event) {
+        _this4.dispatchEvent(new Event(event, options));
+      });
     } // Getters
 
     /**

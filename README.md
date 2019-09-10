@@ -120,6 +120,9 @@ updating)</p>
 <dt><a href="#focus">focus()</a></dt>
 <dd><p>Focus this element</p>
 </dd>
+<dt><a href="#blur">blur()</a></dt>
+<dd><p>Blur this element</p>
+</dd>
 <dt><a href="#typeKey">typeKey(key)</a></dt>
 <dd><p>Type a single key on this element</p>
 </dd>
@@ -429,6 +432,12 @@ Check this checkbox
 
 ## focus()
 Focus this element
+
+**Kind**: global function  
+<a name="blur"></a>
+
+## blur()
+Blur this element
 
 **Kind**: global function  
 <a name="typeKey"></a>
