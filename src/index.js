@@ -90,6 +90,8 @@ export default class SimulateUser {
     getEventOptions(options) {
         return {
             target: this.node,
+            bubbles: true,
+            cancelable: true,
             ...options,
         };
     }

@@ -132,7 +132,9 @@ function () {
     key: "getEventOptions",
     value: function getEventOptions(options) {
       return (0, _objectSpread2["default"])({
-        target: this.node
+        target: this.node,
+        bubbles: true,
+        cancelable: true
       }, options);
     } // Finders/Queries
 
