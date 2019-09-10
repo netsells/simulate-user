@@ -13,6 +13,14 @@ export default class SimulateUser {
         this.node = node;
     }
 
+    static build(...args) {
+        const Klass = this;
+
+        console.log({ Klass });
+
+        return new Klass(...args);
+    }
+
     /**
      * Proxy for console.log
      *
@@ -94,7 +102,7 @@ export default class SimulateUser {
             }
         });
 
-        return nodes.map(n => new SimulateUser(n));
+        return nodes.map(n => this.constructor.build(n));
     }
 
     /**
@@ -133,7 +141,7 @@ export default class SimulateUser {
     closest(...args) {
         const node = this.node.closest(...args);
 
-        return node && new SimulateUser(node);
+        return node && this.constructor.build(node);
     }
 
     /**
@@ -463,7 +471,7 @@ export default class SimulateUser {
      * @returns {SimulateUser|null}
      */
     get nextElementSibling() {
-        return this.node.nextElementSibling && new SimulateUser(this.node.nextElementSibling);
+        return this.node.nextElementSibling && this.constructor.build(this.node.nextElementSibling);
     }
 
     /**

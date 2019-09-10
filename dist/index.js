@@ -7,6 +7,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
+var _construct2 = _interopRequireDefault(require("@babel/runtime/helpers/construct"));
+
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
@@ -37,15 +39,15 @@ function () {
     (0, _classCallCheck2["default"])(this, SimulateUser);
     this.node = node;
   }
-  /**
-   * Proxy for console.log
-   *
-   * @param {*} ...args
-   */
-
 
   (0, _createClass2["default"])(SimulateUser, [{
     key: "log",
+
+    /**
+     * Proxy for console.log
+     *
+     * @param {*} ...args
+     */
     value: function log() {
       var _console;
 
@@ -139,7 +141,7 @@ function () {
         }
       });
       return nodes.map(function (n) {
-        return new SimulateUser(n);
+        return _this.constructor.build(n);
       });
     }
     /**
@@ -189,7 +191,7 @@ function () {
 
       var node = (_this$node = this.node).closest.apply(_this$node, arguments);
 
-      return node && new SimulateUser(node);
+      return node && this.constructor.build(node);
     }
     /**
      * Search through page elements as a user would, using text
@@ -832,7 +834,7 @@ function () {
   }, {
     key: "nextElementSibling",
     get: function get() {
-      return this.node.nextElementSibling && new SimulateUser(this.node.nextElementSibling);
+      return this.node.nextElementSibling && this.constructor.build(this.node.nextElementSibling);
     }
     /**
      * Get all select option values
@@ -894,6 +896,20 @@ function () {
     key: "tag",
     get: function get() {
       return this.node.tagName.toLowerCase();
+    }
+  }], [{
+    key: "build",
+    value: function build() {
+      var Klass = this;
+      console.log({
+        Klass: Klass
+      });
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return (0, _construct2["default"])(Klass, args);
     }
   }]);
   return SimulateUser;
