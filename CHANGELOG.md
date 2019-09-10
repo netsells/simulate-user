@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.0.6 (10/9/19)
 
 - Add `fill` function and refactor `fillIn` to use it
 - Add change/input event options bubbles and cancelable
