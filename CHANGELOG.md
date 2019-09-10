@@ -3,6 +3,7 @@
 ## 1.0.5 (10/9/19)
 
 - Add fuzzy search to find
+- Add jsDoc to readme
 
 ## 1.0.4 (10/9/19)
 

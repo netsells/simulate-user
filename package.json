@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist",
+    "jsdoc": "jsdoc2md -t README.hbs ./src/index.js > README.md",
     "lint": "eslint ./src --max-warnings=0 --ext .js"
   },
   "author": "Sam Boylett <sam.boylett@netsells.co.uk>",
@@ -19,11 +20,12 @@
     "eslint-plugin-jquery": "^1.5.1",
     "eslint-plugin-require-jsdoc-except": "^1.3.0",
     "eslint-plugin-vue": "^5.2.3",
-    "husky": "^2.7.0"
+    "husky": "^2.7.0",
+    "jsdoc-to-markdown": "^5.0.1"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint && yarn build && git add dist"
+      "pre-commit": "yarn lint && yarn jsdoc && yarn build && git add dist"
     }
   },
   "dependencies": {
