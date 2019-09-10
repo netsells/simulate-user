@@ -13,10 +13,15 @@ export default class SimulateUser {
         this.node = node;
     }
 
+    /**
+     * Generate a instance using the same class constructor
+     *
+     * @param {*} ...args
+     *
+     * @returns {SimulateUser}
+     */
     static build(...args) {
         const Klass = this;
-
-        console.log({ Klass });
 
         return new Klass(...args);
     }

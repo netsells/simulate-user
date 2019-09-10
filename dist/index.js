@@ -39,6 +39,14 @@ function () {
     (0, _classCallCheck2["default"])(this, SimulateUser);
     this.node = node;
   }
+  /**
+   * Generate a instance using the same class constructor
+   *
+   * @param {*} ...args
+   *
+   * @returns {SimulateUser}
+   */
+
 
   (0, _createClass2["default"])(SimulateUser, [{
     key: "log",
@@ -901,9 +909,6 @@ function () {
     key: "build",
     value: function build() {
       var Klass = this;
-      console.log({
-        Klass: Klass
-      });
 
       for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
