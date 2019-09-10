@@ -23,6 +23,19 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 
 var _promiseTimeout = require("promise-timeout");
 
+var _stringSimilarity = _interopRequireDefault(require("string-similarity"));
+
+/**
+ * @typedef SearchProperties
+ * @type {Object}
+ * @property {String} text - Text to search on
+ * @property {String} query - Optional query to filter on
+ * @property {Boolean} caseSensitive - Whether text is case sensitive
+ * @property {Boolean} exact - Whether text match should be exact (not including trimmed white space)
+ * @property {Function} predicate - Predicate function wrappers must match
+ * @property {Function} visible - If element must be visible or not
+ */
+
 /**
  * Simulate a user
  */
@@ -204,13 +217,7 @@ function () {
     /**
      * Search through page elements as a user would, using text
      *
-     * @param {Object} options
-     * @param {String} [options.text] - Text to search on
-     * @param {String} [options.query] - Optional query to filter on
-     * @param {Boolean} [options.caseSensitive] - Whether text is case sensitive
-     * @param {Boolean} [options.exact] - Whether text match should be exact (not including trimmed white space)
-     * @param {Function} [options.predicate] - Predicate function wrappers must match
-     * @param {Function} [options.visible] - If element must be visible or not
+     * @param {SearchProperties} options
      *
      * @returns {SimulateUser|null}
      */
@@ -262,7 +269,7 @@ function () {
     /**
      * Get the first element of a query to `all`
      *
-     * @param {Object} options
+     * @param {SearchProperties} options
      *
      * @returns {SimulateUser|null}
      */
@@ -277,7 +284,8 @@ function () {
      * not found. Will wait for an element to appear (e.g. if a form is
      * updating)
      *
-     * @param {Object} options
+     * @param {SearchProperties} options
+     * @param {Boolean} [options.similar] - If no exact matches found, fall back to a fuzzy search
      * @param {Number} limit
      *
      * @returns {SimulateUser}
@@ -292,6 +300,7 @@ function () {
       _regenerator["default"].mark(function _callee2(options, limit) {
         var _this2 = this;
 
+        var wrappers, matches, bestMatchIndex, bestWrapper;
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -339,17 +348,40 @@ function () {
                 _context2.prev = 7;
                 _context2.t0 = _context2["catch"](1);
 
+                if (!options.similar) {
+                  _context2.next = 17;
+                  break;
+                }
+
+                wrappers = this.all((0, _objectSpread2["default"])({}, options, {
+                  text: undefined
+                }));
+
+                if (!wrappers.length) {
+                  _context2.next = 17;
+                  break;
+                }
+
+                matches = _stringSimilarity["default"].findBestMatch(options.text.toLowerCase(), wrappers.map(function (n) {
+                  return n.text.toLowerCase();
+                }));
+                bestMatchIndex = matches.bestMatchIndex;
+                bestWrapper = wrappers[bestMatchIndex];
+                this.log('most similar', bestWrapper.node);
+                return _context2.abrupt("return", bestWrapper);
+
+              case 17:
                 if (!(_context2.t0 instanceof _promiseTimeout.TimeoutError)) {
-                  _context2.next = 11;
+                  _context2.next = 19;
                   break;
                 }
 
                 throw new Error("Could not find element: ".concat(JSON.stringify(options, null, 2)));
 
-              case 11:
+              case 19:
                 throw _context2.t0;
 
-              case 12:
+              case 20:
               case "end":
                 return _context2.stop();
             }

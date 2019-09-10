@@ -1,4 +1,16 @@
 import { timeout, TimeoutError } from 'promise-timeout';
+import stringSimilarity from 'string-similarity';
+
+/**
+ * @typedef SearchProperties
+ * @type {Object}
+ * @property {String} text - Text to search on
+ * @property {String} query - Optional query to filter on
+ * @property {Boolean} caseSensitive - Whether text is case sensitive
+ * @property {Boolean} exact - Whether text match should be exact (not including trimmed white space)
+ * @property {Function} predicate - Predicate function wrappers must match
+ * @property {Function} visible - If element must be visible or not
+ */
 
 /**
  * Simulate a user
@@ -152,13 +164,7 @@ export default class SimulateUser {
     /**
      * Search through page elements as a user would, using text
      *
-     * @param {Object} options
-     * @param {String} [options.text] - Text to search on
-     * @param {String} [options.query] - Optional query to filter on
-     * @param {Boolean} [options.caseSensitive] - Whether text is case sensitive
-     * @param {Boolean} [options.exact] - Whether text match should be exact (not including trimmed white space)
-     * @param {Function} [options.predicate] - Predicate function wrappers must match
-     * @param {Function} [options.visible] - If element must be visible or not
+     * @param {SearchProperties} options
      *
      * @returns {SimulateUser|null}
      */
@@ -200,7 +206,7 @@ export default class SimulateUser {
     /**
      * Get the first element of a query to `all`
      *
-     * @param {Object} options
+     * @param {SearchProperties} options
      *
      * @returns {SimulateUser|null}
      */
@@ -213,7 +219,8 @@ export default class SimulateUser {
      * not found. Will wait for an element to appear (e.g. if a form is
      * updating)
      *
-     * @param {Object} options
+     * @param {SearchProperties} options
+     * @param {Boolean} [options.similar] - If no exact matches found, fall back to a fuzzy search
      * @param {Number} limit
      *
      * @returns {SimulateUser}
@@ -235,6 +242,27 @@ export default class SimulateUser {
                 return node;
             }, limit);
         } catch(e) {
+            if (options.similar) {
+                const wrappers = this.all({
+                    ...options,
+                    text: undefined,
+                });
+
+                if (wrappers.length) {
+                    const matches = stringSimilarity.findBestMatch(
+                        options.text.toLowerCase(),
+                        wrappers.map(n => n.text.toLowerCase())
+                    );
+
+                    const { bestMatchIndex } = matches;
+                    const bestWrapper = wrappers[bestMatchIndex];
+
+                    this.log('most similar', bestWrapper.node);
+
+                    return bestWrapper;
+                }
+            }
+
             if (e instanceof TimeoutError) {
                 throw new Error(`Could not find element: ${ JSON.stringify(options, null, 2 ) }`);
             }
