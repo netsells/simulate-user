@@ -962,6 +962,17 @@ function () {
       }).join(' ').trim();
     }
     /**
+     * Get the parentElement in a wrapper
+     *
+     * @returns {SimulateUser}
+     */
+
+  }, {
+    key: "parentElement",
+    get: function get() {
+      return this.node.parentElement && this.constructor.build(this.node.parentElement);
+    }
+    /**
      * Proxy for value
      *
      * @returns {String}

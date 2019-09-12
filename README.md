@@ -59,6 +59,7 @@ Simulate a user
         * [.options](#SimulateUser+options) ⇒ <code>Array.&lt;String&gt;</code>
         * [.text](#SimulateUser+text) ⇒ <code>String</code>
         * [.directText](#SimulateUser+directText) ⇒ <code>String</code>
+        * [.parentElement](#SimulateUser+parentElement) ⇒ [<code>SimulateUser</code>](#SimulateUser)
         * [.value](#SimulateUser+value) ⇒ <code>String</code>
         * [.htmlFor](#SimulateUser+htmlFor) ⇒ <code>String</code>
         * [.tag](#SimulateUser+tag) ⇒ <code>String</code>
@@ -135,6 +136,12 @@ Get trimmed text content
 
 ### simulateUser.directText ⇒ <code>String</code>
 Get text content which is a direct child of this node
+
+**Kind**: instance property of [<code>SimulateUser</code>](#SimulateUser)  
+<a name="SimulateUser+parentElement"></a>
+
+### simulateUser.parentElement ⇒ [<code>SimulateUser</code>](#SimulateUser)
+Get the parentElement in a wrapper
 
 **Kind**: instance property of [<code>SimulateUser</code>](#SimulateUser)  
 <a name="SimulateUser+value"></a>

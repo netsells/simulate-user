@@ -571,6 +571,15 @@ class SimulateUser {
     }
 
     /**
+     * Get the parentElement in a wrapper
+     *
+     * @returns {SimulateUser}
+     */
+    get parentElement() {
+        return this.node.parentElement && this.constructor.build(this.node.parentElement);
+    }
+
+    /**
      * Proxy for value
      *
      * @returns {String}
