@@ -58,6 +58,7 @@ Simulate a user
         * [.nextElementSibling](#SimulateUser+nextElementSibling) ⇒ [<code>SimulateUser</code>](#SimulateUser) \| <code>null</code>
         * [.options](#SimulateUser+options) ⇒ <code>Array.&lt;String&gt;</code>
         * [.text](#SimulateUser+text) ⇒ <code>String</code>
+        * [.directText](#SimulateUser+directText) ⇒ <code>String</code>
         * [.value](#SimulateUser+value) ⇒ <code>String</code>
         * [.htmlFor](#SimulateUser+htmlFor) ⇒ <code>String</code>
         * [.tag](#SimulateUser+tag) ⇒ <code>String</code>
@@ -128,6 +129,12 @@ Get all select option values
 
 ### simulateUser.text ⇒ <code>String</code>
 Get trimmed text content
+
+**Kind**: instance property of [<code>SimulateUser</code>](#SimulateUser)  
+<a name="SimulateUser+directText"></a>
+
+### simulateUser.directText ⇒ <code>String</code>
+Get text content which is a direct child of this node
 
 **Kind**: instance property of [<code>SimulateUser</code>](#SimulateUser)  
 <a name="SimulateUser+value"></a>
@@ -465,7 +472,8 @@ Generate a instance using the same class constructor
 | caseSensitive | <code>Boolean</code> | Whether text is case sensitive |
 | exact | <code>Boolean</code> | Whether text match should be exact (not including trimmed white space) |
 | predicate | <code>function</code> | Predicate function wrappers must match |
-| visible | <code>function</code> | If element must be visible or not |
+| visible | <code>Boolean</code> | If element must be visible or not |
+| direct | <code>Boolean</code> | If text should be a direct child or not |
 
 <a name="ValueSelector"></a>
 

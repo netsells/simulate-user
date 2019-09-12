@@ -9,7 +9,8 @@ import stringSimilarity from 'string-similarity';
  * @property {Boolean} caseSensitive - Whether text is case sensitive
  * @property {Boolean} exact - Whether text match should be exact (not including trimmed white space)
  * @property {Function} predicate - Predicate function wrappers must match
- * @property {Function} visible - If element must be visible or not
+ * @property {Boolean} visible - If element must be visible or not
+ * @property {Boolean} direct - If text should be a direct child or not
  */
 
 /**
@@ -165,12 +166,16 @@ class SimulateUser {
         exact = false,
         predicate = null,
         visible = false,
+        direct = false,
     }) {
         let all = this.querySelectorAll(query);
 
         if (text) {
             all = all.filter(wrapper => {
-                let texts = [wrapper.text, text].map(t => (t || '').toString());
+                let texts = [
+                    wrapper[direct ? 'directText' : 'text'],
+                    text,
+                ].map(t => (t || '').toString());
 
                 if (!caseSensitive) {
                     texts = texts.map(t => t.toLowerCase());
@@ -550,6 +555,19 @@ class SimulateUser {
      */
     get text() {
         return (this.node.textContent || '').trim();
+    }
+
+    /**
+     * Get text content which is a direct child of this node
+     *
+     * @returns {String}
+     */
+    get directText() {
+        return Array.from(this.node.childNodes)
+            .filter(node => node instanceof Text)
+            .map(node => node.textContent)
+            .join(' ')
+            .trim();
     }
 
     /**

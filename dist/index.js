@@ -35,7 +35,8 @@ var _stringSimilarity = _interopRequireDefault(require("string-similarity"));
  * @property {Boolean} caseSensitive - Whether text is case sensitive
  * @property {Boolean} exact - Whether text match should be exact (not including trimmed white space)
  * @property {Function} predicate - Predicate function wrappers must match
- * @property {Function} visible - If element must be visible or not
+ * @property {Boolean} visible - If element must be visible or not
+ * @property {Boolean} direct - If text should be a direct child or not
  */
 
 /**
@@ -217,12 +218,14 @@ function () {
           _ref$predicate = _ref.predicate,
           predicate = _ref$predicate === void 0 ? null : _ref$predicate,
           _ref$visible = _ref.visible,
-          visible = _ref$visible === void 0 ? false : _ref$visible;
+          visible = _ref$visible === void 0 ? false : _ref$visible,
+          _ref$direct = _ref.direct,
+          direct = _ref$direct === void 0 ? false : _ref$direct;
       var all = this.querySelectorAll(query);
 
       if (text) {
         all = all.filter(function (wrapper) {
-          var texts = [wrapper.text, text].map(function (t) {
+          var texts = [wrapper[direct ? 'directText' : 'text'], text].map(function (t) {
             return (t || '').toString();
           });
 
@@ -942,6 +945,21 @@ function () {
     key: "text",
     get: function get() {
       return (this.node.textContent || '').trim();
+    }
+    /**
+     * Get text content which is a direct child of this node
+     *
+     * @returns {String}
+     */
+
+  }, {
+    key: "directText",
+    get: function get() {
+      return Array.from(this.node.childNodes).filter(function (node) {
+        return node instanceof Text;
+      }).map(function (node) {
+        return node.textContent;
+      }).join(' ').trim();
     }
     /**
      * Proxy for value
