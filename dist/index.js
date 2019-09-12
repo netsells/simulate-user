@@ -37,6 +37,13 @@ var _stringSimilarity = _interopRequireDefault(require("string-similarity"));
  */
 
 /**
+ * A generic value selector. For a `textarea` or `input` it should always be a
+ * string, for a `select` it can be a string or a `SearchProperties`
+ * @typedef ValueSelector
+ * @type {SearchProperties|String}
+ */
+
+/**
  * Simulate a user
  */
 var SimulateUser =
@@ -62,33 +69,8 @@ function () {
 
 
   (0, _createClass2["default"])(SimulateUser, [{
-    key: "log",
+    key: "sleep",
 
-    /**
-     * Proxy for console.log
-     *
-     * @param {*} ...args
-     */
-    value: function log() {
-      var _console;
-
-      (_console = console).log.apply(_console, arguments); // eslint-disable-line no-console
-
-    }
-    /**
-     * Proxy for console.error
-     *
-     * @param {*} ...args
-     */
-
-  }, {
-    key: "error",
-    value: function error() {
-      var _console2;
-
-      (_console2 = console).error.apply(_console2, arguments); // eslint-disable-line no-console
-
-    }
     /**
      * Returns a promise which resolves in a certain amount of milliseconds
      *
@@ -96,9 +78,6 @@ function () {
      *
      * @returns {Promise<undefined>}
      */
-
-  }, {
-    key: "sleep",
     value: function sleep(timeout) {
       return new Promise(function (resolve) {
         return setTimeout(resolve, timeout);
@@ -687,6 +666,11 @@ function () {
     key: "typeValue",
     value: function typeValue(text) {
       this.log('typeValue', text);
+
+      if (typeof text !== 'string') {
+        throw new Error('Must be a string');
+      }
+
       this.focus();
       this.node.value = text;
       var key = (text || '').toString().slice(-1)[0];
@@ -701,7 +685,7 @@ function () {
      * Find a field by its label then fill it in
      *
      * @param {String} label
-     * @param {String} value
+     * @param {ValueSelector} value
      *
      * @returns {SimulateUser} - The field wrapper
      */
@@ -746,7 +730,7 @@ function () {
     /**
      * Fill in this node as a field
      *
-     * @param {String} text
+     * @param {ValueSelector} value
      */
 
   }, {
@@ -754,7 +738,7 @@ function () {
     value: function () {
       var _fill = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee7(text) {
+      _regenerator["default"].mark(function _callee7(value) {
         return _regenerator["default"].wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
@@ -765,16 +749,14 @@ function () {
 
               case 3:
                 _context7.next = 5;
-                return this.select({
-                  text: text
-                });
+                return this.select(value);
 
               case 5:
                 return _context7.abrupt("break", 8);
 
               case 6:
                 _context7.next = 8;
-                return this.typeValue(text);
+                return this.typeValue(value);
 
               case 8:
               case "end":
@@ -795,7 +777,7 @@ function () {
      *
      * @param {String} label
      * @param {String} text
-     * @param {Object} options
+     * @param {SearchProperties} options
      *
      * @returns {SimulateUser} - The field wrapper
      */
@@ -814,20 +796,21 @@ function () {
             switch (_context8.prev = _context8.next) {
               case 0:
                 options = _args8.length > 2 && _args8[2] !== undefined ? _args8[2] : {};
-                _context8.next = 3;
+                this.warn('fillSelect is deprecated. Use fillIn');
+                _context8.next = 4;
                 return this.field(label);
 
-              case 3:
+              case 4:
                 field = _context8.sent;
-                _context8.next = 6;
+                _context8.next = 7;
                 return field.select((0, _objectSpread2["default"])({
                   text: text
                 }, options));
 
-              case 6:
+              case 7:
                 return _context8.abrupt("return", field);
 
-              case 7:
+              case 8:
               case "end":
                 return _context8.stop();
             }
@@ -844,7 +827,7 @@ function () {
     /**
      * Change a value by the option text
      *
-     * @param {Object} options
+     * @param {ValueSelector} value
      */
 
   }, {
@@ -852,25 +835,24 @@ function () {
     value: function () {
       var _select = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee9(_ref3) {
-        var text, exact, caseSensitive, option;
+      _regenerator["default"].mark(function _callee9(value) {
+        var options, option;
         return _regenerator["default"].wrap(function _callee9$(_context9) {
           while (1) {
             switch (_context9.prev = _context9.next) {
               case 0:
-                text = _ref3.text, exact = _ref3.exact, caseSensitive = _ref3.caseSensitive;
                 this.log('select', {
                   text: text,
                   exact: exact,
                   caseSensitive: caseSensitive
                 });
+                options = typeof value === 'string' ? {
+                  text: value
+                } : value;
                 _context9.next = 4;
-                return this.find({
-                  query: 'option',
-                  text: text,
-                  exact: exact,
-                  caseSensitive: caseSensitive
-                });
+                return this.find((0, _objectSpread2["default"])({
+                  query: 'option'
+                }, options));
 
               case 4:
                 option = _context9.sent;
@@ -948,8 +930,8 @@ function () {
       var options = this.all({
         query: 'option'
       });
-      return options.map(function (_ref4) {
-        var value = _ref4.value;
+      return options.map(function (_ref3) {
+        var value = _ref3.value;
         return value;
       });
     }
@@ -1012,4 +994,13 @@ function () {
   return SimulateUser;
 }();
 
-exports["default"] = SimulateUser;
+['log', 'error', 'warn'].forEach(function (which) {
+  SimulateUser.prototype[which] = function () {
+    var _console;
+
+    (_console = console)[which].apply(_console, arguments); // eslint-disable-line no-console
+
+  };
+});
+var _default = SimulateUser;
+exports["default"] = _default;

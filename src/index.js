@@ -13,9 +13,16 @@ import stringSimilarity from 'string-similarity';
  */
 
 /**
+ * A generic value selector. For a `textarea` or `input` it should always be a
+ * string, for a `select` it can be a string or a `SearchProperties`
+ * @typedef ValueSelector
+ * @type {SearchProperties|String}
+ */
+
+/**
  * Simulate a user
  */
-export default class SimulateUser {
+class SimulateUser {
     /**
      * Create a SimulateUser class for a page element
      *
@@ -36,24 +43,6 @@ export default class SimulateUser {
         const Klass = this;
 
         return new Klass(...args);
-    }
-
-    /**
-     * Proxy for console.log
-     *
-     * @param {*} ...args
-     */
-    log(...args) {
-        console.log(...args); // eslint-disable-line no-console
-    }
-
-    /**
-     * Proxy for console.error
-     *
-     * @param {*} ...args
-     */
-    error(...args) {
-        console.error(...args);  // eslint-disable-line no-console
     }
 
     /**
@@ -418,6 +407,10 @@ export default class SimulateUser {
     typeValue(text) {
         this.log('typeValue', text);
 
+        if (typeof text !== 'string') {
+            throw new Error('Must be a string');
+        }
+
         this.focus();
         this.node.value = text;
 
@@ -434,7 +427,7 @@ export default class SimulateUser {
      * Find a field by its label then fill it in
      *
      * @param {String} label
-     * @param {String} value
+     * @param {ValueSelector} value
      *
      * @returns {SimulateUser} - The field wrapper
      */
@@ -451,18 +444,18 @@ export default class SimulateUser {
     /**
      * Fill in this node as a field
      *
-     * @param {String} text
+     * @param {ValueSelector} value
      */
-    async fill(text) {
+    async fill(value) {
         switch (this.tag) {
             case 'select': {
-                await this.select({ text });
+                await this.select(value);
 
                 break;
             }
 
             default: {
-                await this.typeValue(text);
+                await this.typeValue(value);
             }
         }
     }
@@ -472,11 +465,13 @@ export default class SimulateUser {
      *
      * @param {String} label
      * @param {String} text
-     * @param {Object} options
+     * @param {SearchProperties} options
      *
      * @returns {SimulateUser} - The field wrapper
      */
     async fillSelect(label, text, options = {}) {
+        this.warn('fillSelect is deprecated. Use fillIn');
+
         const field = await this.field(label);
 
         await field.select({
@@ -490,16 +485,18 @@ export default class SimulateUser {
     /**
      * Change a value by the option text
      *
-     * @param {Object} options
+     * @param {ValueSelector} value
      */
-    async select({ text, exact, caseSensitive }) {
+    async select(value) {
         this.log('select', { text, exact, caseSensitive });
+
+        const options = typeof value === 'string'
+            ? { text: value }
+            : value;
 
         const option = await this.find({
             query: 'option',
-            text,
-            exact,
-            caseSensitive,
+            ...options,
         });
 
         this.node.value = option.value;
@@ -581,3 +578,11 @@ export default class SimulateUser {
         return this.node.tagName.toLowerCase();
     }
 }
+
+['log', 'error', 'warn'].forEach(which => {
+    SimulateUser.prototype[which] = function(...args) {
+        console[which](...args); // eslint-disable-line no-console
+    };
+});
+
+export default SimulateUser;
