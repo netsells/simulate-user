@@ -329,9 +329,17 @@ class SimulateUser {
 
     /**
      * Click this node
+     *
+     * @param {SearchProperties?} search
      */
-    click() {
-        this.log('click', this.node);
+    async click(search = null) {
+        this.log('click', this.node, search);
+
+        if (search) {
+            await this.find(search).then(el => el.click());
+
+            return;
+        }
 
         const options = this.getEventOptions({ bubbles: true });
 

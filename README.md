@@ -77,7 +77,7 @@ Simulate a user
         * [.field(label)](#SimulateUser+field) ⇒ [<code>SimulateUser</code>](#SimulateUser) \| <code>null</code>
         * [.fieldSet(legend)](#SimulateUser+fieldSet) ⇒ [<code>SimulateUser</code>](#SimulateUser) \| <code>null</code>
         * [.dispatchEvent(event)](#SimulateUser+dispatchEvent)
-        * [.click()](#SimulateUser+click)
+        * [.click(search)](#SimulateUser+click)
         * [.attach(files)](#SimulateUser+attach)
         * [.check(checked)](#SimulateUser+check)
         * [.focus()](#SimulateUser+focus)
@@ -333,10 +333,15 @@ Proxy for dispatchEvent
 
 <a name="SimulateUser+click"></a>
 
-### simulateUser.click()
+### simulateUser.click(search)
 Click this node
 
 **Kind**: instance method of [<code>SimulateUser</code>](#SimulateUser)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| search | [<code>SearchProperties</code>](#SearchProperties) | <code></code> | 
+
 <a name="SimulateUser+attach"></a>
 
 ### simulateUser.attach(files)
