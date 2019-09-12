@@ -498,8 +498,11 @@ function () {
     key: "click",
     value: function click() {
       this.log('click', this.node);
-      this.dispatchEvent(new MouseEvent('mousedown'));
-      this.dispatchEvent(new MouseEvent('mouseup'));
+      var options = this.getEventOptions({
+        bubbles: true
+      });
+      this.dispatchEvent(new MouseEvent('mousedown', options));
+      this.dispatchEvent(new MouseEvent('mouseup', options));
       this.node.click();
     }
     /**
