@@ -84,7 +84,7 @@ Simulate a user
         * [.typeValue(text)](#SimulateUser+typeValue)
         * [.fillIn(label, value)](#SimulateUser+fillIn) ⇒ [<code>SimulateUser</code>](#SimulateUser)
         * [.fill(value)](#SimulateUser+fill)
-        * [.fillSelect(label, text, options)](#SimulateUser+fillSelect) ⇒ [<code>SimulateUser</code>](#SimulateUser)
+        * ~~[.fillSelect(label, text, options)](#SimulateUser+fillSelect) ⇒ [<code>SimulateUser</code>](#SimulateUser)~~
         * [.select(value)](#SimulateUser+select)
         * [.sendChangeEvent()](#SimulateUser+sendChangeEvent)
     * _static_
@@ -410,7 +410,9 @@ Fill in this node as a field
 
 <a name="SimulateUser+fillSelect"></a>
 
-### simulateUser.fillSelect(label, text, options) ⇒ [<code>SimulateUser</code>](#SimulateUser)
+### ~~simulateUser.fillSelect(label, text, options) ⇒ [<code>SimulateUser</code>](#SimulateUser)~~
+***Deprecated***
+
 Find a select by its label then fill it in
 
 **Kind**: instance method of [<code>SimulateUser</code>](#SimulateUser)  

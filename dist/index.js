@@ -774,6 +774,8 @@ function () {
     /**
      * Find a select by its label then fill it in
      *
+     * @deprecated since version 1.1.0
+     *
      * @param {String} label
      * @param {String} text
      * @param {SearchProperties} options
