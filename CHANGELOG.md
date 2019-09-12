@@ -7,6 +7,7 @@
 - Added `directText`
 - Add `direct` option for when finding elements based on text content
 - Added `className`
+- Add optional search argument to click child elements
 
 ## 1.0.6 (10/9/19)
 
