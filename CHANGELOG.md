@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0 (12/9/19)
+
+- Deprecated `fillSelect`, `fillIn` now can take SearchProperties or a string as the second parameter
+
 ## 1.0.6 (10/9/19)
 
 - Add `fill` function and refactor `fillIn` to use it
