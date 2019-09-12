@@ -9,6 +9,8 @@ exports["default"] = void 0;
 
 var _construct2 = _interopRequireDefault(require("@babel/runtime/helpers/construct"));
 
+var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
+
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
@@ -38,9 +40,10 @@ var _stringSimilarity = _interopRequireDefault(require("string-similarity"));
 
 /**
  * A generic value selector. For a `textarea` or `input` it should always be a
- * string, for a `select` it can be a string or a `SearchProperties`
+ * string or number, for a `select` it can be a string or a `SearchProperties`
+ *
  * @typedef ValueSelector
- * @type {SearchProperties|String}
+ * @type {SearchProperties|String|Number}
  */
 
 /**
@@ -659,21 +662,17 @@ function () {
      * Type into a fields value. Only simulates the final key press then
      * triggers a single change event
      *
-     * @param {String} text
+     * @param {String|Number} text
      */
 
   }, {
     key: "typeValue",
     value: function typeValue(text) {
       this.log('typeValue', text);
-
-      if (typeof text !== 'string') {
-        throw new Error('Must be a string');
-      }
-
+      var value = (text || '').toString();
       this.focus();
-      this.node.value = text;
-      var key = (text || '').toString().slice(-1)[0];
+      this.node.value = value;
+      var key = value.slice(-1)[0];
 
       if (key) {
         this.typeKey(key);
@@ -841,14 +840,10 @@ function () {
           while (1) {
             switch (_context9.prev = _context9.next) {
               case 0:
-                this.log('select', {
-                  text: text,
-                  exact: exact,
-                  caseSensitive: caseSensitive
-                });
-                options = typeof value === 'string' ? {
+                this.log('select', value);
+                options = (0, _typeof2["default"])(value) === 'object' ? value : {
                   text: value
-                } : value;
+                };
                 _context9.next = 4;
                 return this.find((0, _objectSpread2["default"])({
                   query: 'option'

@@ -14,9 +14,10 @@ import stringSimilarity from 'string-similarity';
 
 /**
  * A generic value selector. For a `textarea` or `input` it should always be a
- * string, for a `select` it can be a string or a `SearchProperties`
+ * string or number, for a `select` it can be a string or a `SearchProperties`
+ *
  * @typedef ValueSelector
- * @type {SearchProperties|String}
+ * @type {SearchProperties|String|Number}
  */
 
 /**
@@ -402,19 +403,17 @@ class SimulateUser {
      * Type into a fields value. Only simulates the final key press then
      * triggers a single change event
      *
-     * @param {String} text
+     * @param {String|Number} text
      */
     typeValue(text) {
         this.log('typeValue', text);
 
-        if (typeof text !== 'string') {
-            throw new Error('Must be a string');
-        }
+        const value = (text || '').toString();
 
         this.focus();
-        this.node.value = text;
+        this.node.value = value;
 
-        const key = (text || '').toString().slice(-1)[0];
+        const key = value.slice(-1)[0];
 
         if (key) {
             this.typeKey(key);
@@ -488,11 +487,11 @@ class SimulateUser {
      * @param {ValueSelector} value
      */
     async select(value) {
-        this.log('select', { text, exact, caseSensitive });
+        this.log('select', value);
 
-        const options = typeof value === 'string'
-            ? { text: value }
-            : value;
+        const options = typeof value === 'object'
+            ? value
+            : { text: value };
 
         const option = await this.find({
             query: 'option',

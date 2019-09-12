@@ -37,9 +37,9 @@ await el.click();
 <dl>
 <dt><a href="#SearchProperties">SearchProperties</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#ValueSelector">ValueSelector</a> : <code><a href="#SearchProperties">SearchProperties</a></code> | <code>String</code></dt>
+<dt><a href="#ValueSelector">ValueSelector</a> : <code><a href="#SearchProperties">SearchProperties</a></code> | <code>String</code> | <code>Number</code></dt>
 <dd><p>A generic value selector. For a <code>textarea</code> or <code>input</code> it should always be a
-string, for a <code>select</code> it can be a string or a <code>SearchProperties</code></p>
+string or number, for a <code>select</code> it can be a string or a <code>SearchProperties</code></p>
 </dd>
 </dl>
 
@@ -382,7 +382,7 @@ triggers a single change event
 
 | Param | Type |
 | --- | --- |
-| text | <code>String</code> | 
+| text | <code>String</code> \| <code>Number</code> | 
 
 <a name="SimulateUser+fillIn"></a>
 
@@ -467,8 +467,8 @@ Generate a instance using the same class constructor
 
 <a name="ValueSelector"></a>
 
-## ValueSelector : [<code>SearchProperties</code>](#SearchProperties) \| <code>String</code>
+## ValueSelector : [<code>SearchProperties</code>](#SearchProperties) \| <code>String</code> \| <code>Number</code>
 A generic value selector. For a `textarea` or `input` it should always be a
-string, for a `select` it can be a string or a `SearchProperties`
+string or number, for a `select` it can be a string or a `SearchProperties`
 
 **Kind**: global typedef  
