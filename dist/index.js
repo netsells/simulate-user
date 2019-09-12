@@ -973,6 +973,17 @@ function () {
       return this.node.parentElement && this.constructor.build(this.node.parentElement);
     }
     /**
+     * Proxy for className
+     *
+     * @returns {String}
+     */
+
+  }, {
+    key: "className",
+    get: function get() {
+      return this.node.className;
+    }
+    /**
      * Proxy for value
      *
      * @returns {String}

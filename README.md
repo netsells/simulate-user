@@ -60,6 +60,7 @@ Simulate a user
         * [.text](#SimulateUser+text) ⇒ <code>String</code>
         * [.directText](#SimulateUser+directText) ⇒ <code>String</code>
         * [.parentElement](#SimulateUser+parentElement) ⇒ [<code>SimulateUser</code>](#SimulateUser)
+        * [.className](#SimulateUser+className) ⇒ <code>String</code>
         * [.value](#SimulateUser+value) ⇒ <code>String</code>
         * [.htmlFor](#SimulateUser+htmlFor) ⇒ <code>String</code>
         * [.tag](#SimulateUser+tag) ⇒ <code>String</code>
@@ -142,6 +143,12 @@ Get text content which is a direct child of this node
 
 ### simulateUser.parentElement ⇒ [<code>SimulateUser</code>](#SimulateUser)
 Get the parentElement in a wrapper
+
+**Kind**: instance property of [<code>SimulateUser</code>](#SimulateUser)  
+<a name="SimulateUser+className"></a>
+
+### simulateUser.className ⇒ <code>String</code>
+Proxy for className
 
 **Kind**: instance property of [<code>SimulateUser</code>](#SimulateUser)  
 <a name="SimulateUser+value"></a>

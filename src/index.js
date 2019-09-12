@@ -580,6 +580,15 @@ class SimulateUser {
     }
 
     /**
+     * Proxy for className
+     *
+     * @returns {String}
+     */
+    get className() {
+        return this.node.className;
+    }
+
+    /**
      * Proxy for value
      *
      * @returns {String}

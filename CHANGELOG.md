@@ -3,6 +3,10 @@
 ## 1.1.0 (12/9/19)
 
 - Deprecated `fillSelect`, `fillIn` now can take SearchProperties or a string as the second parameter
+- Added `parentElement`
+- Added `directText`
+- Add `direct` option for when finding elements based on text content
+- Added `className`
 
 ## 1.0.6 (10/9/19)
 
