@@ -23,11 +23,18 @@
     "eslint-plugin-vue": "^5.2.3",
     "husky": "^2.7.0",
     "jest": "^24.9.0",
+    "jest-raw-loader": "^1.0.1",
     "jsdoc-to-markdown": "^5.0.1"
   },
   "husky": {
     "hooks": {
       "pre-commit": "yarn lint && yarn jsdoc && git add README.md && yarn build && git add dist"
+    }
+  },
+  "jest": {
+    "transform": {
+      "\\.html$": "jest-raw-loader",
+      "\\.js$": "babel-jest"
     }
   },
   "dependencies": {
