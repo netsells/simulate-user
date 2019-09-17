@@ -379,6 +379,83 @@ describe('SimulateUser', () => {
             });
         });
 
+        describe('typeValue', () => {
+            let input;
+
+            beforeEach(async () => {
+                input = await user.field('Input');
+
+                expect(input.value).toBe('');
+            });
+
+            it('focuses the input', () => {
+                expect(document.activeElement).not.toBe(input.node);
+                input.typeValue('foobar');
+                expect(document.activeElement).toBe(input.node);
+            });
+
+            it('changes the inputs value', () => {
+                input.typeValue('foobar');
+
+                expect(input.value).toBe('foobar');
+            });
+
+            it('only types the last key', () => {
+                let keyPresses = 0;
+                let lastKey;
+
+                input.node.addEventListener('keypress', ({ key }) => {
+                    lastKey = key;
+                    keyPresses++;
+                });
+
+                input.typeValue('foobar');
+
+                expect(keyPresses).toBe(1);
+                expect(lastKey).toBe('r');
+            });
+
+            it('sends change event', done => {
+                input.node.addEventListener('change', ({ target }) => {
+                    expect(target.value).toBe('foobar');
+
+                    done();
+                });
+
+                input.typeValue('foobar');
+            });
+
+            it('sends input event', done => {
+                input.node.addEventListener('input', ({ target }) => {
+                    expect(target.value).toBe('foobar');
+
+                    done();
+                });
+
+                input.typeValue('foobar');
+            });
+
+            describe('when typing nothing', () => {
+                it('changes the inputs value', () => {
+                    input.typeValue('');
+
+                    expect(input.value).toBe('');
+                });
+
+                it('does not type any keys', () => {
+                    let keyPresses = 0;
+
+                    input.node.addEventListener('keypress', () => {
+                        keyPresses++;
+                    });
+
+                    input.typeValue('');
+
+                    expect(keyPresses).toBe(0);
+                });
+            });
+        });
+
         // describe('attach', () => {
         //     let files;
         //     let input;
