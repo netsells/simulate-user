@@ -167,5 +167,55 @@ describe('SimulateUser', () => {
                 expect(els[0].text).toBe('Input');
             });
         });
+
+        describe('find', () => {
+            it('will wait to find an element', async () => {
+                const promise = user.find({ query: 'p', text: 'Added' });
+
+                await new Promise(resolve => setTimeout(resolve, 100));
+
+                const p = document.createElement('p');
+                p.textContent = 'Added';
+                document.body.appendChild(p);
+
+                const wrapper = await promise;
+
+                expect(wrapper.node).toBe(p);
+                expect(wrapper.text).toBe('Added');
+            });
+
+            it('will timeout if waiting too long', async () => {
+                await expect(user.find({ query: 'p', text: 'Added' })).rejects.toThrow();
+            });
+
+            it('will find most similar based on text if similar option passed', async () => {
+                const els = await user.find({
+                    query: 'label',
+                    text: 'Inpot',
+                    similar: true,
+                });
+
+                expect(els.tag).toBe('label');
+                expect(els.text).toBe('Input');
+            });
+
+            it('will error if similar option passed but no similar elements', async () => {
+                await expect(user.find({
+                    query: 'b',
+                    text: '',
+                    similar: true,
+                })).rejects.toThrow();
+            });
+
+            it('will reject with any other error thrown', async () => {
+                const e = new Error();
+
+                await expect(user.find({
+                    predicate() {
+                        throw e;
+                    },
+                })).rejects.toThrow(e);
+            });
+        });
     });
 });
