@@ -353,6 +353,32 @@ describe('SimulateUser', () => {
             });
         });
 
+        describe('type', () => {
+            let input;
+
+            beforeEach(async () => {
+                input = await user.field('Input');
+            });
+
+            it('emits all key events in order', done => {
+                expect.assertions(1);
+
+                let real = '';
+                const expected = 'foobar';
+
+                input.node.addEventListener('keypress', ({ key }) => {
+                    real += key;
+
+                    if (real.length === expected.length) {
+                        expect(expected).toEqual(real);
+                        done();
+                    }
+                });
+
+                input.type('foobar');
+            });
+        });
+
         // describe('attach', () => {
         //     let files;
         //     let input;

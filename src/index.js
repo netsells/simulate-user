@@ -408,7 +408,7 @@ class SimulateUser {
      * @param {String} text
      */
     type(text) {
-        text.forEach(key => this.typeKey(key));
+        text.split('').forEach(key => this.typeKey(key));
     }
 
     /**

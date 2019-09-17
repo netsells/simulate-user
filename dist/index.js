@@ -699,7 +699,7 @@ function () {
     value: function type(text) {
       var _this3 = this;
 
-      text.forEach(function (key) {
+      text.split('').forEach(function (key) {
         return _this3.typeKey(key);
       });
     }
