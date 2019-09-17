@@ -167,6 +167,20 @@ describe('SimulateUser', () => {
                 expect(els[0].tag).toBe('tr');
                 expect(els[0].text).toBe('Input');
             });
+
+            it('can filter elements by visibility', () => {
+                const tr = document.querySelector('tr');
+                jest.spyOn(tr, 'offsetParent', 'get')
+                    .mockReturnValue(tr.parentElement);
+
+                const els = user.all({
+                    query: 'tr',
+                    visible: true,
+                });
+
+                expect(els.length).toBe(1);
+                expect(els[0].node).toBe(tr);
+            });
         });
 
         describe('find', () => {
