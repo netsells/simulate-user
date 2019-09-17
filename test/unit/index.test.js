@@ -1,6 +1,16 @@
 import SimulateUser from '../../src/index';
 import app from './app.html';
 
+global.DataTransfer = class {
+    constructor() {
+        this.items = new Set();
+    }
+
+    get files() {
+        return [...this.items];
+    }
+}
+
 describe('SimulateUser', () => {
     beforeEach(() => {
         document.body.innerHTML = app;
@@ -569,19 +579,35 @@ describe('SimulateUser', () => {
             });
         });
 
-        // describe('attach', () => {
-        //     let files;
-        //     let input;
+        describe('attach', () => {
+            let files;
+            let input;
+            let mock;
 
-        //     beforeEach(async () => {
-        //         files = [new Blob()];
-        //         input = await user.field('File');
-        //     });
+            beforeEach(async () => {
+                files = [new Blob()];
+                input = await user.field('File');
+                mock = jest.spyOn(input.node, 'files', 'set').mockReturnValue();
+            });
 
-        //     it('attaches files to an input', async () => {
-        //         await input.attach(files);
-        //     });
-        // });
+            it('attaches files to an input', async () => {
+                await input.attach(files);
+
+                expect(mock).toHaveBeenCalledWith(files);
+            });
+
+            it('sends change event', done => {
+                input.node.addEventListener('change', () => done());
+
+                input.attach(files);
+            });
+
+            it('sends input event', done => {
+                input.node.addEventListener('input', () => done());
+
+                input.attach(files);
+            });
+        });
 
         describe('click', () => {
             let input;
