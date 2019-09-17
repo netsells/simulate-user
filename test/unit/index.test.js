@@ -20,6 +20,37 @@ describe('SimulateUser', () => {
         });
     });
 
+    describe('loggers', () => {
+        ['log', 'warn', 'error'].forEach(logger => {
+            describe(logger, () => {
+                let wrapper;
+
+                beforeEach(() => {
+                    wrapper = new SimulateUser();
+                    jest.spyOn(console, logger).mockReturnValue();
+                });
+
+                describe('when not debug mode', () => {
+                    it(`does not call console.${ logger }`, () => {
+                        wrapper[logger]('foobar');
+                        expect(console[logger]).not.toHaveBeenCalled();
+                    });
+                });
+
+                describe('when in debug mode', () => {
+                    beforeEach(() => {
+                        wrapper.debug = true;
+                    });
+
+                    it(`call console.${ logger } with same arguments`, () => {
+                        wrapper[logger]('foobar', 'barfoo');
+                        expect(console[logger]).toHaveBeenCalledWith('foobar', 'barfoo');
+                    });
+                });
+            });
+        });
+    });
+
     describe('finders', () => {
         let user;
 
