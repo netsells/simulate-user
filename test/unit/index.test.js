@@ -271,7 +271,31 @@ describe('SimulateUser', () => {
                 input.check(false);
                 expect(input.node.checked).toBe(false);
             });
-        })
+        });
+
+        describe('focus', () => {
+            let input;
+
+            beforeEach(async () => {
+                input = await user.field('Input');
+                expect(document.activeElement).toBe(document.body);
+            });
+
+            it('will focus an element', () => {
+                input.focus();
+                expect(document.activeElement).toBe(input.node);
+            });
+
+            it('will emit focus event', done => {
+                input.node.addEventListener('focus', () => done());
+                input.focus();
+            });
+
+            it('will emit focusIn event', done => {
+                input.node.addEventListener('focusin', () => done());
+                input.focus();
+            });
+        });
 
         // describe('attach', () => {
         //     let files;
@@ -287,21 +311,56 @@ describe('SimulateUser', () => {
         //     });
         // });
 
-        // describe('click', () => {
-        //     let input;
-        //     let inputWrapper;
-        //     let tr;
+        describe('click', () => {
+            let input;
+            let inputWrapper;
+            let tr;
 
-        //     beforeEach(() => {
-        //         input = document.getElementById('a');
-        //         tr = input.closest('tr');
-        //         inputWrapper = user.getElementById('a');
-        //     });
+            beforeEach(() => {
+                input = document.getElementById('a');
+                tr = input.closest('tr');
+                inputWrapper = user.getElementById('a');
+            });
 
-        //     it('emits a click event on the element', done => {
-        //         input.addEventListener('click', done);
-        //         inputWrapper.node.click();
-        //     });
-        // });
+            it('emits mousedown, mouseup and click in the correct order', done => {
+                expect.assertions(1);
+
+                const events = [];
+                const order = ['mousedown', 'mouseup', 'click'];
+
+                order.forEach(name => {
+                    input.addEventListener(name, () => {
+                        events.push(name);
+
+                        if (events.length === order.length) {
+                            expect(events).toEqual(order);
+                            done();
+                        }
+                    });
+                });
+
+                inputWrapper.click();
+            });
+
+            it('bubbles up to other elements', done => {
+                expect.assertions(1);
+
+                const events = [];
+                const order = ['mousedown', 'mouseup', 'click'];
+
+                order.forEach(name => {
+                    tr.addEventListener(name, () => {
+                        events.push(name);
+
+                        if (events.length === order.length) {
+                            expect(events).toEqual(order);
+                            done();
+                        }
+                    });
+                });
+
+                inputWrapper.click();
+            });
+        });
     });
 });
