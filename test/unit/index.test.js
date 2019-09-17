@@ -298,6 +298,31 @@ describe('SimulateUser', () => {
             });
         });
 
+        describe('blur', () => {
+            let input;
+
+            beforeEach(async () => {
+                input = await user.field('Input');
+                input.focus();
+            });
+
+            it('will blur an element', () => {
+                expect(document.activeElement).toBe(input.node);
+                input.blur();
+                expect(document.activeElement).not.toBe(input.node);
+            });
+
+            it('will emit blur event', done => {
+                input.node.addEventListener('blur', () => done());
+                input.blur();
+            });
+
+            it('will emit focusout event', done => {
+                input.node.addEventListener('focusout', () => done());
+                input.blur();
+            });
+        });
+
         // describe('attach', () => {
         //     let files;
         //     let input;
@@ -307,7 +332,7 @@ describe('SimulateUser', () => {
         //         input = await user.field('File');
         //     });
 
-        //     fit('attaches files to an input', async () => {
+        //     it('attaches files to an input', async () => {
         //         await input.attach(files);
         //     });
         // });
