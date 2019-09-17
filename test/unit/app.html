@@ -22,7 +22,7 @@
             <label for="c">Select</label>
         </td>
         <td>
-            <select id="c">
+            <select name="c">
                 <option value="">Select something</option>
                 <option value="foo">Foo</option>
                 <option value="bar">Bar</option>
@@ -49,5 +49,13 @@
     </tr>
 </table>
 
-<input name="foo" />
-<textarea name="foo" />
+<fieldset>
+    <legend>Foos</legend>
+
+    <input name="foo" />
+    <textarea name="foo" />
+</fieldset>
+
+<fieldset>
+    <legend>Bars</legend>
+</fieldset>

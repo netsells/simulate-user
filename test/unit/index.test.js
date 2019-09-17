@@ -217,5 +217,91 @@ describe('SimulateUser', () => {
                 })).rejects.toThrow(e);
             });
         });
+
+        describe('field', () => {
+            it('can get field based on label for id', async () => {
+                const field = await user.field('Textarea');
+                expect(field.tag).toBe('textarea');
+            });
+
+            it('can get field based on label for name', async () => {
+                const field = await user.field('Select');
+                expect(field.tag).toBe('select');
+            });
+        });
+
+        describe('fieldSet', () => {
+            it('can get field set by legend', async () => {
+                const fieldset = await user.fieldSet('Foos');
+                expect(fieldset.tag).toBe('fieldset');
+
+                const legend = await fieldset.find({ query: 'legend' });
+
+                expect(legend.text).toBe('Foos');
+            });
+        });
+
+        describe('dispatchEvent', () => {
+            it('dispatches an event on the element', done => {
+                expect.assertions(1);
+                const event = new Event('click');
+                const input = document.getElementById('a');
+                input.addEventListener('click', (e) => {
+                    expect(e).toBe(event);
+                    done();
+                });
+
+                const inputWrapper = user.getElementById('a');
+                a.dispatchEvent(event);
+            });
+        });
+
+        describe('check', () => {
+            let input;
+
+            beforeEach(async () => {
+                input = await user.field('Checkbox');
+                expect(input.node.checked).toBe(false);
+            });
+
+            it('can check and uncheck a checkbox', () => {
+                input.check();
+                expect(input.node.checked).toBe(true);
+
+                input.check(false);
+                expect(input.node.checked).toBe(false);
+            });
+        })
+
+        // describe('attach', () => {
+        //     let files;
+        //     let input;
+
+        //     beforeEach(async () => {
+        //         files = [new Blob()];
+        //         input = await user.field('File');
+        //     });
+
+        //     fit('attaches files to an input', async () => {
+        //         await input.attach(files);
+        //     });
+        // });
+
+        // describe('click', () => {
+        //     let input;
+        //     let inputWrapper;
+        //     let tr;
+
+        //     beforeEach(() => {
+        //         input = document.getElementById('a');
+        //         tr = input.closest('tr');
+        //         inputWrapper = user.getElementById('a');
+        //     });
+
+        //     it('emits a click event on the element', done => {
+        //         input.addEventListener('click', done);
+        //         inputWrapper.node.click();
+        //     });
+        // });
     });
 });
