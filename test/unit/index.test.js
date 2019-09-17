@@ -660,6 +660,77 @@ describe('SimulateUser', () => {
                     expect(div.className).toBe('lots-of-text');
                 });
             });
+
+            describe('visible', () => {
+                let input;
+
+                beforeEach(async () => {
+                    input = await user.find({ query: 'input' });
+                });
+
+                describe('when hidden', () => {
+                    beforeEach(() => {
+                        jest.spyOn(input, 'hidden', 'get')
+                            .mockReturnValue(true);
+                    });
+
+                    it('returns false', () => {
+                        expect(input.visible).toBe(false);
+                    });
+                });
+
+                describe('when not hidden', () => {
+                    beforeEach(() => {
+                        jest.spyOn(input, 'hidden', 'get')
+                            .mockReturnValue(false);
+                    });
+
+                    it('returns true', () => {
+                        expect(input.visible).toBe(true);
+                    });
+                });
+            });
+
+            describe('hidden', () => {
+                let input;
+
+                beforeEach(async () => {
+                    input = await user.find({ query: 'input' });
+                });
+
+                describe('when offsetParent is falsy', () => {
+                    beforeEach(() => {
+                        expect(input.node.offsetParent).toBeFalsy();
+                    });
+
+                    it('returns true', () => {
+                        expect(input.hidden).toBe(true);
+                    });
+                });
+
+                describe('when offsetParent is truthy', () => {
+                    beforeEach(() => {
+                        jest.spyOn(input.node, 'offsetParent', 'get')
+                            .mockReturnValue(input.node.parentElement);
+
+                        expect(input.node.offsetParent).toBeTruthy();
+                    });
+
+                    it('returns false', () => {
+                        expect(input.hidden).toBe(false);
+                    });
+
+                    describe('when display is set to none', () => {
+                        beforeEach(() => {
+                            input.node.style.display = 'none';
+                        });
+
+                        it('returns true', () => {
+                            expect(input.hidden).toBe(true);
+                        });
+                    });
+                });
+            });
         });
     });
 });
