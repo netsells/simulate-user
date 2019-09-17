@@ -482,6 +482,48 @@ describe('SimulateUser', () => {
             });
         });
 
+        describe('select', () => {
+            let input;
+
+            beforeEach(async () => {
+                input = await user.find({ query: 'select' });
+
+                expect(input.value).toBe('');
+            });
+
+            it('can select by text', async () => {
+                await input.select('Bar');
+
+                expect(input.value).toBe('bar');
+            });
+
+            it('can select by query', async () => {
+                await input.select({ query: '[value=foo]' });
+
+                expect(input.value).toBe('foo');
+            });
+
+            it('sends change event', done => {
+                input.node.addEventListener('change', ({ target }) => {
+                    expect(target.value).toBe('bar');
+
+                    done();
+                });
+
+                input.select('Bar');
+            });
+
+            it('sends input event', done => {
+                input.node.addEventListener('input', ({ target }) => {
+                    expect(target.value).toBe('bar');
+
+                    done();
+                });
+
+                input.select('Bar');
+            });
+        });
+
         // describe('attach', () => {
         //     let files;
         //     let input;
