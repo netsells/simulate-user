@@ -464,6 +464,24 @@ describe('SimulateUser', () => {
             });
         });
 
+        describe('fill', () => {
+            it('can set an input value', async () => {
+                const input = user.getElementById('a');
+
+                input.fill('bam');
+
+                expect(input.value).toBe('bam');
+            });
+
+            it('can set a select value', async () => {
+                const select = await user.find({ query: 'select' });
+
+                await select.fill('Foo');
+
+                expect(select.value).toBe('foo');
+            });
+        });
+
         // describe('attach', () => {
         //     let files;
         //     let input;
