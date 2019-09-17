@@ -25,6 +25,7 @@ describe('SimulateUser', () => {
 
         beforeEach(() => {
             user = new SimulateUser();
+            // user.debug = true;
         });
 
         describe('querySelectorAll', () => {
@@ -360,6 +361,13 @@ describe('SimulateUser', () => {
                 });
 
                 inputWrapper.click();
+            });
+
+            describe('when passed a search', () => {
+                it('will click that element', done => {
+                    input.addEventListener('click', () => done());
+                    inputWrapper.closest('tr').click({ query: 'input' });
+                });
             });
         });
     });
