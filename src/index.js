@@ -472,30 +472,6 @@ class SimulateUser {
     }
 
     /**
-     * Find a select by its label then fill it in
-     *
-     * @deprecated since version 1.1.0
-     *
-     * @param {String} label
-     * @param {String} text
-     * @param {SearchProperties} options
-     *
-     * @returns {SimulateUser} - The field wrapper
-     */
-    async fillSelect(label, text, options = {}) {
-        this.warn('fillSelect is deprecated. Use fillIn');
-
-        const field = await this.field(label);
-
-        await field.select({
-            text,
-            ...options,
-        });
-
-        return field;
-    }
-
-    /**
      * Change a value by the option text
      *
      * @param {ValueSelector} value

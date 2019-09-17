@@ -817,60 +817,6 @@ function () {
       return fill;
     }()
     /**
-     * Find a select by its label then fill it in
-     *
-     * @deprecated since version 1.1.0
-     *
-     * @param {String} label
-     * @param {String} text
-     * @param {SearchProperties} options
-     *
-     * @returns {SimulateUser} - The field wrapper
-     */
-
-  }, {
-    key: "fillSelect",
-    value: function () {
-      var _fillSelect = (0, _asyncToGenerator2["default"])(
-      /*#__PURE__*/
-      _regenerator["default"].mark(function _callee9(label, text) {
-        var options,
-            field,
-            _args9 = arguments;
-        return _regenerator["default"].wrap(function _callee9$(_context9) {
-          while (1) {
-            switch (_context9.prev = _context9.next) {
-              case 0:
-                options = _args9.length > 2 && _args9[2] !== undefined ? _args9[2] : {};
-                this.warn('fillSelect is deprecated. Use fillIn');
-                _context9.next = 4;
-                return this.field(label);
-
-              case 4:
-                field = _context9.sent;
-                _context9.next = 7;
-                return field.select((0, _objectSpread2["default"])({
-                  text: text
-                }, options));
-
-              case 7:
-                return _context9.abrupt("return", field);
-
-              case 8:
-              case "end":
-                return _context9.stop();
-            }
-          }
-        }, _callee9, this);
-      }));
-
-      function fillSelect(_x9, _x10) {
-        return _fillSelect.apply(this, arguments);
-      }
-
-      return fillSelect;
-    }()
-    /**
      * Change a value by the option text
      *
      * @param {ValueSelector} value
@@ -881,35 +827,35 @@ function () {
     value: function () {
       var _select = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee10(value) {
+      _regenerator["default"].mark(function _callee9(value) {
         var options, option;
-        return _regenerator["default"].wrap(function _callee10$(_context10) {
+        return _regenerator["default"].wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context10.prev = _context10.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
                 this.log('select', value);
                 options = (0, _typeof2["default"])(value) === 'object' ? value : {
                   text: value
                 };
-                _context10.next = 4;
+                _context9.next = 4;
                 return this.find((0, _objectSpread2["default"])({
                   query: 'option'
                 }, options));
 
               case 4:
-                option = _context10.sent;
+                option = _context9.sent;
                 this.node.value = option.value;
                 this.sendChangeEvent();
 
               case 7:
               case "end":
-                return _context10.stop();
+                return _context9.stop();
             }
           }
-        }, _callee10, this);
+        }, _callee9, this);
       }));
 
-      function select(_x11) {
+      function select(_x9) {
         return _select.apply(this, arguments);
       }
 
