@@ -6,7 +6,8 @@
   "scripts": {
     "build": "babel src --out-dir dist",
     "jsdoc": "jsdoc2md -t README.hbs ./src/index.js > README.md",
-    "lint": "eslint ./src --max-warnings=0 --ext .js"
+    "lint": "eslint ./src --max-warnings=0 --ext .js",
+    "test": "jest"
   },
   "author": "Sam Boylett <sam.boylett@netsells.co.uk>",
   "license": "ISC",
