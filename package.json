@@ -36,7 +36,9 @@
       "\\.html$": "jest-raw-loader",
       "\\.js$": "babel-jest"
     },
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "collectCoverage": true,
+    "collectCoverageFrom": ["src/**/*.js"]
   },
   "dependencies": {
     "promise-timeout": "^1.3.0",

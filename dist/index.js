@@ -62,6 +62,7 @@ function () {
     var node = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
     (0, _classCallCheck2["default"])(this, SimulateUser);
     this.node = node;
+    this.debug = false;
   }
   /**
    * Generate a instance using the same class constructor
@@ -136,13 +137,9 @@ function () {
       var queries = Array.isArray(query) ? query : [query];
       var nodes = [];
       queries.forEach(function (q) {
-        try {
-          var nodeList = _this.node.querySelectorAll(q);
+        var nodeList = _this.node.querySelectorAll(q);
 
-          nodes.push.apply(nodes, (0, _toConsumableArray2["default"])(Array.from(nodeList)));
-        } catch (e) {
-          _this.error(e);
-        }
+        nodes.push.apply(nodes, (0, _toConsumableArray2["default"])(Array.from(nodeList)));
       });
       return nodes.map(function (n) {
         return _this.constructor.build(n);
@@ -1078,10 +1075,12 @@ function () {
 
 ['log', 'error', 'warn'].forEach(function (which) {
   SimulateUser.prototype[which] = function () {
-    var _console;
+    if (this.debug) {
+      var _console;
 
-    (_console = console)[which].apply(_console, arguments); // eslint-disable-line no-console
+      (_console = console)[which].apply(_console, arguments); // eslint-disable-line no-console
 
+    }
   };
 });
 var _default = SimulateUser;

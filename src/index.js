@@ -32,6 +32,7 @@ class SimulateUser {
      */
     constructor(node = document) {
         this.node = node;
+        this.debug = false;
     }
 
     /**
@@ -101,13 +102,9 @@ class SimulateUser {
         const nodes = [];
 
         queries.forEach(q => {
-            try {
-                const nodeList = this.node.querySelectorAll(q);
+            const nodeList = this.node.querySelectorAll(q);
 
-                nodes.push(...Array.from(nodeList));
-            } catch(e) {
-                this.error(e);
-            }
+            nodes.push(...Array.from(nodeList));
         });
 
         return nodes.map(n => this.constructor.build(n));
@@ -628,7 +625,9 @@ class SimulateUser {
 
 ['log', 'error', 'warn'].forEach(which => {
     SimulateUser.prototype[which] = function(...args) {
-        console[which](...args); // eslint-disable-line no-console
+        if (this.debug) {
+            console[which](...args); // eslint-disable-line no-console
+        }
     };
 });
 
