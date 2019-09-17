@@ -456,6 +456,14 @@ describe('SimulateUser', () => {
             });
         });
 
+        describe('fillIn', () => {
+            it('can set an input via the label', async () => {
+                await user.fillIn('Input', 'filled in');
+
+                expect(document.getElementById('a').value).toBe('filled in');
+            });
+        });
+
         // describe('attach', () => {
         //     let files;
         //     let input;
