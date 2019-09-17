@@ -549,7 +549,7 @@ class SimulateUser {
         return Array.from(this.node.childNodes)
             .filter(node => node instanceof Text)
             .map(node => node.textContent)
-            .join(' ')
+            .join('')
             .trim();
     }
 

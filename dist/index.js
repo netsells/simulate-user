@@ -947,7 +947,7 @@ function () {
         return node instanceof Text;
       }).map(function (node) {
         return node.textContent;
-      }).join(' ').trim();
+      }).join('').trim();
     }
     /**
      * Get the parentElement in a wrapper

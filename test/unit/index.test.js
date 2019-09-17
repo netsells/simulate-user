@@ -596,5 +596,70 @@ describe('SimulateUser', () => {
                 });
             });
         });
+
+        describe('getters', () => {
+            describe('nextElementSibling', () => {
+                it('gets the next element', async () => {
+                    const legend = await user.find({ query: 'fieldset legend' });
+                    const next = legend.nextElementSibling;
+                    expect(next.tag).toBe('input');
+                });
+            });
+
+            describe('options', () => {
+                it('gets all the options on a select', async () => {
+                    const select = await user.find({ query: 'select' });
+
+                    expect(select.options).toEqual([
+                        '',
+                        'foo',
+                        'bar',
+                    ]);
+                });
+            });
+
+            describe('text', () => {
+                it('returns text trimmed', async () => {
+                    const div = await user.find({ query: '.lots-of-text' });
+
+                    const { textContent } = div.node;
+                    const trimmed = textContent.trim();
+
+                    expect(div.text).not.toEqual(textContent);
+                    expect(div.text).toEqual(trimmed);
+                });
+
+                it('returns empty string when called on an element without text', async () => {
+                    const input = await user.find({ query: 'input' });
+
+                    expect(input.text).toBe('');
+                });
+            });
+
+            describe('directText', () => {
+                it('only returns text on this element', async () => {
+                    const div = await user.find({ query: '.lots-of-text' });
+
+                    expect(div.directText).toBe('Lots of text  here');
+                });
+            });
+
+            describe('parentElement', () => {
+                it('gets the parent element', async () => {
+                    const select = await user.find({ query: 'select' });
+                    const parent = select.parentElement;
+
+                    expect(parent.tag).toBe('td');
+                });
+            });
+
+            describe('className', () => {
+                it('returns the className', async () => {
+                    const div = await user.find({ query: '.lots-of-text' });
+
+                    expect(div.className).toBe('lots-of-text');
+                });
+            });
+        });
     });
 });
