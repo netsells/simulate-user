@@ -35,7 +35,8 @@
     "transform": {
       "\\.html$": "jest-raw-loader",
       "\\.js$": "babel-jest"
-    }
+    },
+    "testEnvironment": "jsdom"
   },
   "dependencies": {
     "promise-timeout": "^1.3.0",

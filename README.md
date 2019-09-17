@@ -208,7 +208,7 @@ Get options for an event
 
 ### simulateUser.querySelectorAll(query) ⇒ [<code>Array.&lt;SimulateUser&gt;</code>](#SimulateUser)
 Proxy for querySelectorAll but returns an array of wrappers instead of
-nods
+nodes
 
 **Kind**: instance method of [<code>SimulateUser</code>](#SimulateUser)  
 

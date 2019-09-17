@@ -3,7 +3,7 @@ import app from './app.html';
 
 describe('SimulateUser', () => {
     beforeEach(() => {
-        document.innerHTML = app;
+        document.body.innerHTML = app;
     });
 
     describe('constructor', () => {
@@ -17,6 +17,24 @@ describe('SimulateUser', () => {
 
             const user = new SimulateUser(node);
             expect(user.node).toBe(node);
+        });
+    });
+
+    describe('finders', () => {
+        let user;
+
+        beforeEach(() => {
+            user = new SimulateUser();
+        });
+
+        describe('querySelectorAll', () => {
+            it('returns all elements matching the query', () => {
+                const labels = user.querySelectorAll('label');
+
+                expect(labels.length).toBe(5);
+                expect(labels[0].node.textContent).toBe('Input');
+                expect(labels[4].node.textContent).toBe('File');
+            });
         });
     });
 });

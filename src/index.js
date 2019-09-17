@@ -89,7 +89,7 @@ class SimulateUser {
 
     /**
      * Proxy for querySelectorAll but returns an array of wrappers instead of
-     * nods
+     * nodes
      *
      * @param {String|Array<String>} query
      *
