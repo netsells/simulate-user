@@ -7,7 +7,8 @@
     "build": "babel src --out-dir dist",
     "jsdoc": "jsdoc2md -t README.hbs ./src/index.js > README.md",
     "lint": "eslint ./src --max-warnings=0 --ext .js",
-    "test": "jest"
+    "test": "jest",
+    "test:mutate": "stryker run"
   },
   "author": "Sam Boylett <sam.boylett@netsells.co.uk>",
   "license": "ISC",
@@ -19,6 +20,7 @@
     "@babel/runtime": "^7.6.0",
     "@netsells/eslint-config": "^2.4.0",
     "@stryker-mutator/core": "^2.1.0",
+    "@stryker-mutator/html-reporter": "^2.1.0",
     "@stryker-mutator/javascript-mutator": "^2.1.0",
     "@stryker-mutator/jest-runner": "^2.1.0",
     "eslint": "^4.10.0",
