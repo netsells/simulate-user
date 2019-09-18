@@ -32,6 +32,7 @@ class SimulateUser {
      */
     constructor(node = document) {
         this.node = node;
+        this.debug = false;
     }
 
     /**
@@ -67,7 +68,7 @@ class SimulateUser {
      *
      * @returns {Promise<*>}
      */
-    timeout(func, limit = 2000) {
+    timeout(func, limit = this.constructor.timeoutLimit) {
         return timeout(func(), limit);
     }
 
@@ -89,7 +90,7 @@ class SimulateUser {
 
     /**
      * Proxy for querySelectorAll but returns an array of wrappers instead of
-     * nods
+     * nodes
      *
      * @param {String|Array<String>} query
      *
@@ -101,13 +102,9 @@ class SimulateUser {
         const nodes = [];
 
         queries.forEach(q => {
-            try {
-                const nodeList = this.node.querySelectorAll(q);
+            const nodeList = this.node.querySelectorAll(q);
 
-                nodes.push(...Array.from(nodeList));
-            } catch(e) {
-                this.error(e);
-            }
+            nodes.push(...Array.from(nodeList));
         });
 
         return nodes.map(n => this.constructor.build(n));
@@ -229,7 +226,7 @@ class SimulateUser {
                 let node;
 
                 do {
-                    await this.sleep(10);
+                    await this.sleep(this.constructor.sleepTime);
 
                     node = this.first(options);
                 } while(!node);
@@ -381,7 +378,7 @@ class SimulateUser {
      */
     focus() {
         this.node.focus();
-        this.dispatchEvent(new FocusEvent('focus', this.getEventOptions({ relatedTarget: this.node })));
+        // this.dispatchEvent(new FocusEvent('focus', this.getEventOptions({ relatedTarget: this.node })));
         this.dispatchEvent(new FocusEvent('focusin', this.getEventOptions({ relatedTarget: this.node, bubbles: true })));
     }
 
@@ -390,7 +387,7 @@ class SimulateUser {
      */
     blur() {
         this.node.blur();
-        this.dispatchEvent(new FocusEvent('blur', this.getEventOptions({ relatedTarget: this.node })));
+        // this.dispatchEvent(new FocusEvent('blur', this.getEventOptions({ relatedTarget: this.node })));
         this.dispatchEvent(new FocusEvent('focusout', this.getEventOptions({ relatedTarget: this.node, bubbles: true })));
     }
 
@@ -411,7 +408,7 @@ class SimulateUser {
      * @param {String} text
      */
     type(text) {
-        text.forEach(key => this.typeKey(key));
+        text.split('').forEach(key => this.typeKey(key));
     }
 
     /**
@@ -472,30 +469,6 @@ class SimulateUser {
                 await this.typeValue(value);
             }
         }
-    }
-
-    /**
-     * Find a select by its label then fill it in
-     *
-     * @deprecated since version 1.1.0
-     *
-     * @param {String} label
-     * @param {String} text
-     * @param {SearchProperties} options
-     *
-     * @returns {SimulateUser} - The field wrapper
-     */
-    async fillSelect(label, text, options = {}) {
-        this.warn('fillSelect is deprecated. Use fillIn');
-
-        const field = await this.field(label);
-
-        await field.select({
-            text,
-            ...options,
-        });
-
-        return field;
     }
 
     /**
@@ -576,7 +549,7 @@ class SimulateUser {
         return Array.from(this.node.childNodes)
             .filter(node => node instanceof Text)
             .map(node => node.textContent)
-            .join(' ')
+            .join('')
             .trim();
     }
 
@@ -628,8 +601,13 @@ class SimulateUser {
 
 ['log', 'error', 'warn'].forEach(which => {
     SimulateUser.prototype[which] = function(...args) {
-        console[which](...args); // eslint-disable-line no-console
+        if (this.debug) {
+            console[which](...args); // eslint-disable-line no-console
+        }
     };
 });
+
+SimulateUser.timeoutLimit = 2000;
+SimulateUser.sleepTime = 10;
 
 export default SimulateUser;

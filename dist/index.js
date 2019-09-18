@@ -62,6 +62,7 @@ function () {
     var node = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
     (0, _classCallCheck2["default"])(this, SimulateUser);
     this.node = node;
+    this.debug = false;
   }
   /**
    * Generate a instance using the same class constructor
@@ -100,7 +101,7 @@ function () {
   }, {
     key: "timeout",
     value: function timeout(func) {
-      var limit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2000;
+      var limit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.constructor.timeoutLimit;
       return (0, _promiseTimeout.timeout)(func(), limit);
     }
     /**
@@ -121,7 +122,7 @@ function () {
 
     /**
      * Proxy for querySelectorAll but returns an array of wrappers instead of
-     * nods
+     * nodes
      *
      * @param {String|Array<String>} query
      *
@@ -136,13 +137,9 @@ function () {
       var queries = Array.isArray(query) ? query : [query];
       var nodes = [];
       queries.forEach(function (q) {
-        try {
-          var nodeList = _this.node.querySelectorAll(q);
+        var nodeList = _this.node.querySelectorAll(q);
 
-          nodes.push.apply(nodes, (0, _toConsumableArray2["default"])(Array.from(nodeList)));
-        } catch (e) {
-          _this.error(e);
-        }
+        nodes.push.apply(nodes, (0, _toConsumableArray2["default"])(Array.from(nodeList)));
       });
       return nodes.map(function (n) {
         return _this.constructor.build(n);
@@ -304,7 +301,7 @@ function () {
                       switch (_context.prev = _context.next) {
                         case 0:
                           _context.next = 2;
-                          return _this2.sleep(10);
+                          return _this2.sleep(_this2.constructor.sleepTime);
 
                         case 2:
                           node = _this2.first(options);
@@ -647,10 +644,8 @@ function () {
   }, {
     key: "focus",
     value: function focus() {
-      this.node.focus();
-      this.dispatchEvent(new FocusEvent('focus', this.getEventOptions({
-        relatedTarget: this.node
-      })));
+      this.node.focus(); // this.dispatchEvent(new FocusEvent('focus', this.getEventOptions({ relatedTarget: this.node })));
+
       this.dispatchEvent(new FocusEvent('focusin', this.getEventOptions({
         relatedTarget: this.node,
         bubbles: true
@@ -663,10 +658,8 @@ function () {
   }, {
     key: "blur",
     value: function blur() {
-      this.node.blur();
-      this.dispatchEvent(new FocusEvent('blur', this.getEventOptions({
-        relatedTarget: this.node
-      })));
+      this.node.blur(); // this.dispatchEvent(new FocusEvent('blur', this.getEventOptions({ relatedTarget: this.node })));
+
       this.dispatchEvent(new FocusEvent('focusout', this.getEventOptions({
         relatedTarget: this.node,
         bubbles: true
@@ -702,7 +695,7 @@ function () {
     value: function type(text) {
       var _this3 = this;
 
-      text.forEach(function (key) {
+      text.split('').forEach(function (key) {
         return _this3.typeKey(key);
       });
     }
@@ -820,60 +813,6 @@ function () {
       return fill;
     }()
     /**
-     * Find a select by its label then fill it in
-     *
-     * @deprecated since version 1.1.0
-     *
-     * @param {String} label
-     * @param {String} text
-     * @param {SearchProperties} options
-     *
-     * @returns {SimulateUser} - The field wrapper
-     */
-
-  }, {
-    key: "fillSelect",
-    value: function () {
-      var _fillSelect = (0, _asyncToGenerator2["default"])(
-      /*#__PURE__*/
-      _regenerator["default"].mark(function _callee9(label, text) {
-        var options,
-            field,
-            _args9 = arguments;
-        return _regenerator["default"].wrap(function _callee9$(_context9) {
-          while (1) {
-            switch (_context9.prev = _context9.next) {
-              case 0:
-                options = _args9.length > 2 && _args9[2] !== undefined ? _args9[2] : {};
-                this.warn('fillSelect is deprecated. Use fillIn');
-                _context9.next = 4;
-                return this.field(label);
-
-              case 4:
-                field = _context9.sent;
-                _context9.next = 7;
-                return field.select((0, _objectSpread2["default"])({
-                  text: text
-                }, options));
-
-              case 7:
-                return _context9.abrupt("return", field);
-
-              case 8:
-              case "end":
-                return _context9.stop();
-            }
-          }
-        }, _callee9, this);
-      }));
-
-      function fillSelect(_x9, _x10) {
-        return _fillSelect.apply(this, arguments);
-      }
-
-      return fillSelect;
-    }()
-    /**
      * Change a value by the option text
      *
      * @param {ValueSelector} value
@@ -884,35 +823,35 @@ function () {
     value: function () {
       var _select = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee10(value) {
+      _regenerator["default"].mark(function _callee9(value) {
         var options, option;
-        return _regenerator["default"].wrap(function _callee10$(_context10) {
+        return _regenerator["default"].wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context10.prev = _context10.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
                 this.log('select', value);
                 options = (0, _typeof2["default"])(value) === 'object' ? value : {
                   text: value
                 };
-                _context10.next = 4;
+                _context9.next = 4;
                 return this.find((0, _objectSpread2["default"])({
                   query: 'option'
                 }, options));
 
               case 4:
-                option = _context10.sent;
+                option = _context9.sent;
                 this.node.value = option.value;
                 this.sendChangeEvent();
 
               case 7:
               case "end":
-                return _context10.stop();
+                return _context9.stop();
             }
           }
-        }, _callee10, this);
+        }, _callee9, this);
       }));
 
-      function select(_x11) {
+      function select(_x9) {
         return _select.apply(this, arguments);
       }
 
@@ -1004,7 +943,7 @@ function () {
         return node instanceof Text;
       }).map(function (node) {
         return node.textContent;
-      }).join(' ').trim();
+      }).join('').trim();
     }
     /**
      * Get the parentElement in a wrapper
@@ -1078,11 +1017,15 @@ function () {
 
 ['log', 'error', 'warn'].forEach(function (which) {
   SimulateUser.prototype[which] = function () {
-    var _console;
+    if (this.debug) {
+      var _console;
 
-    (_console = console)[which].apply(_console, arguments); // eslint-disable-line no-console
+      (_console = console)[which].apply(_console, arguments); // eslint-disable-line no-console
 
+    }
   };
 });
+SimulateUser.timeoutLimit = 2000;
+SimulateUser.sleepTime = 10;
 var _default = SimulateUser;
 exports["default"] = _default;

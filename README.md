@@ -1,5 +1,7 @@
 [![npm version](https://badge.fury.io/js/%40netsells%2Fsimulate-user.svg)](https://badge.fury.io/js/%40netsells%2Fsimulate-user)
 [![Build Status](https://travis-ci.org/netsells/simulate-user.svg?branch=master)](https://travis-ci.org/netsells/simulate-user)
+[![codecov](https://codecov.io/gh/netsells/simulate-user/branch/master/graph/badge.svg)](https://codecov.io/gh/netsells/simulate-user)
+[![Mutation testing badge](https://badge.stryker-mutator.io/github.com/netsells/simulate-user/master)](https://stryker-mutator.github.io)
 
 # @netsells/simulate-user
 
@@ -87,7 +89,6 @@ Simulate a user
         * [.typeValue(text)](#SimulateUser+typeValue)
         * [.fillIn(label, value)](#SimulateUser+fillIn) ⇒ [<code>SimulateUser</code>](#SimulateUser)
         * [.fill(value)](#SimulateUser+fill)
-        * ~~[.fillSelect(label, text, options)](#SimulateUser+fillSelect) ⇒ [<code>SimulateUser</code>](#SimulateUser)~~
         * [.select(value)](#SimulateUser+select)
         * [.sendChangeEvent()](#SimulateUser+sendChangeEvent)
     * _static_
@@ -188,10 +189,10 @@ resolve in time
 
 **Kind**: instance method of [<code>SimulateUser</code>](#SimulateUser)  
 
-| Param | Type | Default |
-| --- | --- | --- |
-| func | <code>function</code> |  | 
-| limit | <code>Number</code> | <code>2000</code> | 
+| Param | Type |
+| --- | --- |
+| func | <code>function</code> | 
+| limit | <code>Number</code> | 
 
 <a name="SimulateUser+getEventOptions"></a>
 
@@ -208,7 +209,7 @@ Get options for an event
 
 ### simulateUser.querySelectorAll(query) ⇒ [<code>Array.&lt;SimulateUser&gt;</code>](#SimulateUser)
 Proxy for querySelectorAll but returns an array of wrappers instead of
-nods
+nodes
 
 **Kind**: instance method of [<code>SimulateUser</code>](#SimulateUser)  
 
@@ -433,22 +434,6 @@ Fill in this node as a field
 | Param | Type |
 | --- | --- |
 | value | [<code>ValueSelector</code>](#ValueSelector) | 
-
-<a name="SimulateUser+fillSelect"></a>
-
-### ~~simulateUser.fillSelect(label, text, options) ⇒ [<code>SimulateUser</code>](#SimulateUser)~~
-***Deprecated***
-
-Find a select by its label then fill it in
-
-**Kind**: instance method of [<code>SimulateUser</code>](#SimulateUser)  
-**Returns**: [<code>SimulateUser</code>](#SimulateUser) - - The field wrapper  
-
-| Param | Type |
-| --- | --- |
-| label | <code>String</code> | 
-| text | <code>String</code> | 
-| options | [<code>SearchProperties</code>](#SearchProperties) | 
 
 <a name="SimulateUser+select"></a>
 

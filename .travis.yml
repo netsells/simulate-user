@@ -5,6 +5,11 @@ jobs:
     - stage: lint
       script:
         - yarn run lint
+    - stage: test
+      script:
+        - yarn test
+        - yarn codecov
+        - yarn test:mutate
     - stage: build
       script:
         - yarn run build
