@@ -390,12 +390,23 @@ describe('SimulateUser', () => {
             });
 
             it('will emit focus event', done => {
-                input.node.addEventListener('focus', () => done());
+                input.node.addEventListener('focus', (e) => {
+                    expect(e.bubbles).toBeFalsy();
+
+                    done()
+                });
+
                 input.focus();
             });
 
-            it('will emit focusIn event', done => {
-                input.node.addEventListener('focusin', () => done());
+            it('will emit focusin event', done => {
+                input.node.addEventListener('focusin', (e) => {
+                    expect(e.relatedTarget).toBe(input.node);
+                    expect(e.bubbles).toBe(true);
+
+                    done()
+                });
+
                 input.focus();
             });
         });
@@ -415,12 +426,23 @@ describe('SimulateUser', () => {
             });
 
             it('will emit blur event', done => {
-                input.node.addEventListener('blur', () => done());
+                input.node.addEventListener('blur', (e) => {
+                    expect(e.bubbles).toBeFalsy();
+
+                    done()
+                });
+
                 input.blur();
             });
 
             it('will emit focusout event', done => {
-                input.node.addEventListener('focusout', () => done());
+                input.node.addEventListener('focusout', (e) => {
+                    expect(e.relatedTarget).toBe(input.node);
+                    expect(e.bubbles).toBe(true);
+
+                    done()
+                });
+
                 input.blur();
             });
         });

@@ -378,7 +378,7 @@ class SimulateUser {
      */
     focus() {
         this.node.focus();
-        this.dispatchEvent(new FocusEvent('focus', this.getEventOptions({ relatedTarget: this.node })));
+        // this.dispatchEvent(new FocusEvent('focus', this.getEventOptions({ relatedTarget: this.node })));
         this.dispatchEvent(new FocusEvent('focusin', this.getEventOptions({ relatedTarget: this.node, bubbles: true })));
     }
 
@@ -387,7 +387,7 @@ class SimulateUser {
      */
     blur() {
         this.node.blur();
-        this.dispatchEvent(new FocusEvent('blur', this.getEventOptions({ relatedTarget: this.node })));
+        // this.dispatchEvent(new FocusEvent('blur', this.getEventOptions({ relatedTarget: this.node })));
         this.dispatchEvent(new FocusEvent('focusout', this.getEventOptions({ relatedTarget: this.node, bubbles: true })));
     }
 
