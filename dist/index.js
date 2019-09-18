@@ -101,7 +101,7 @@ function () {
   }, {
     key: "timeout",
     value: function timeout(func) {
-      var limit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2000;
+      var limit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.constructor.timeoutLimit;
       return (0, _promiseTimeout.timeout)(func(), limit);
     }
     /**
@@ -301,7 +301,7 @@ function () {
                       switch (_context.prev = _context.next) {
                         case 0:
                           _context.next = 2;
-                          return _this2.sleep(10);
+                          return _this2.sleep(_this2.constructor.sleepTime);
 
                         case 2:
                           node = _this2.first(options);
@@ -1029,5 +1029,7 @@ function () {
     }
   };
 });
+SimulateUser.timeoutLimit = 2000;
+SimulateUser.sleepTime = 10;
 var _default = SimulateUser;
 exports["default"] = _default;

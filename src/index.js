@@ -68,7 +68,7 @@ class SimulateUser {
      *
      * @returns {Promise<*>}
      */
-    timeout(func, limit = 2000) {
+    timeout(func, limit = this.constructor.timeoutLimit) {
         return timeout(func(), limit);
     }
 
@@ -226,7 +226,7 @@ class SimulateUser {
                 let node;
 
                 do {
-                    await this.sleep(10);
+                    await this.sleep(this.constructor.sleepTime);
 
                     node = this.first(options);
                 } while(!node);
@@ -606,5 +606,8 @@ class SimulateUser {
         }
     };
 });
+
+SimulateUser.timeoutLimit = 2000;
+SimulateUser.sleepTime = 10;
 
 export default SimulateUser;

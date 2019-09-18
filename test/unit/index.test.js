@@ -11,6 +11,10 @@ global.DataTransfer = class {
     }
 }
 
+// Speed up tests
+SimulateUser.timeoutLimit = 5;
+SimulateUser.sleepTime = 0.1;
+
 describe('SimulateUser', () => {
     beforeEach(() => {
         document.body.innerHTML = app;
@@ -224,11 +228,50 @@ describe('SimulateUser', () => {
             });
         });
 
+        describe('getEventOptions', () => {
+            let input;
+
+            beforeEach(async () => {
+                input = await user.find({ query: 'input' });
+            });
+
+            it('returns related as current node', () => {
+                expect(input.getEventOptions().target).toBe(input.node);
+            });
+
+            it('appends extra options when supplied', () => {
+                expect(input.getEventOptions({ foo: 'bar' }).foo).toBe('bar');
+            });
+        });
+
+        describe('sendChangeEvent', () => {
+            let input;
+
+            beforeEach(async () => {
+                input = await user.find({ query: 'input' });
+            });
+
+            ['input', 'change'].forEach(name => {
+                it(`sends a ${ name } event with the correct options`, done => {
+                    expect.assertions(2);
+
+                    input.node.addEventListener(name, (e) => {
+                        expect(e.bubbles).toBe(true);
+                        expect(e.cancelable).toBe(true);
+
+                        done();
+                    });
+
+                    input.sendChangeEvent();
+                });
+            });
+        });
+
         describe('find', () => {
             it('will wait to find an element', async () => {
                 const promise = user.find({ query: 'p', text: 'Added' });
 
-                await new Promise(resolve => setTimeout(resolve, 100));
+                await new Promise(resolve => setTimeout(resolve, SimulateUser.timeoutLimit / 2));
 
                 const p = document.createElement('p');
                 p.textContent = 'Added';
@@ -241,7 +284,11 @@ describe('SimulateUser', () => {
             });
 
             it('will timeout if waiting too long', async () => {
-                await expect(user.find({ query: 'p', text: 'Added' })).rejects.toThrow();
+                const options = { query: 'p', text: 'Added' };
+
+                await expect(user.find(options)).rejects.toThrow(
+                    new Error(`Could not find element: ${ JSON.stringify(options, null, 2 ) }`)
+                );
             });
 
             it('will find most similar based on text if similar option passed', async () => {
@@ -416,12 +463,14 @@ describe('SimulateUser', () => {
             });
 
             it('emits all key events in order', done => {
-                expect.assertions(1);
+                expect.assertions(7);
 
                 let real = '';
                 const expected = 'foobar';
 
                 input.node.addEventListener('keypress', ({ key }) => {
+                    expect(key.length).toBe(1);
+
                     real += key;
 
                     if (real.length === expected.length) {

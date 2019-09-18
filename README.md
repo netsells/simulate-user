@@ -187,10 +187,10 @@ resolve in time
 
 **Kind**: instance method of [<code>SimulateUser</code>](#SimulateUser)  
 
-| Param | Type | Default |
-| --- | --- | --- |
-| func | <code>function</code> |  | 
-| limit | <code>Number</code> | <code>2000</code> | 
+| Param | Type |
+| --- | --- |
+| func | <code>function</code> | 
+| limit | <code>Number</code> | 
 
 <a name="SimulateUser+getEventOptions"></a>
 
