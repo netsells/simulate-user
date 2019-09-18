@@ -1,5 +1,6 @@
 [![npm version](https://badge.fury.io/js/%40netsells%2Fsimulate-user.svg)](https://badge.fury.io/js/%40netsells%2Fsimulate-user)
 [![Build Status](https://travis-ci.org/netsells/simulate-user.svg?branch=master)](https://travis-ci.org/netsells/simulate-user)
+[![codecov](https://codecov.io/gh/netsells/simulate-user/branch/master/graph/badge.svg)](https://codecov.io/gh/netsells/simulate-user)
 
 # @netsells/simulate-user
 
