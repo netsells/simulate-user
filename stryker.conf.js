@@ -8,8 +8,8 @@ module.exports = function(config) {
         coverageAnalysis: 'off',
         thresholds: {
             high: 90,
-            low: 90,
-            break: 90,
+            low: 89,
+            break: 89,
         },
     });
 };
