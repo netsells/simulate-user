@@ -1,7 +1,11 @@
 import { timeout, TimeoutError } from 'promise-timeout';
 import stringSimilarity from 'string-similarity';
+import EventEmitter from 'events';
 
-import logger from './logger';
+const UNLOGGABLE = [
+    'constructor',
+    'on',
+];
 
 /**
  * @typedef SearchProperties
@@ -34,20 +38,79 @@ class SimulateUser {
      */
     constructor(node = document) {
         this.node = node;
-        this.debug = false;
+        this.parent = null;
+
+        new Proxy(this, {
+            get(target, method) {
+                const value = target[method];
+
+                console.log('get', target, value);
+
+                if (UNLOGGABLE.includes(method) || typeof value !== 'function') {
+                    return value;
+                }
+
+                return function(...args) {
+                    if (this.debug) {
+                        this.emitter.emit('call', {
+                            method,
+                            args,
+                        });
+                    }
+
+                    return value.call(this, ...args);
+                };
+            },
+        })
+    }
+
+    get emitter() {
+        if (this.parent) {
+            return this.parent.emitter;
+        }
+
+        this._emitter = this._emitter || new EventEmitter();
+
+        return this._emitter;
+    }
+
+    get debug() {
+        if (this.parent) {
+            return this.parent.debug;
+        }
+
+        return this._debug;
+    }
+
+    set debug(val) {
+        if (this.parent) {
+            throw new Error('Can not change debug state on a child wrapper');
+        }
+
+        this._debug = val;
+    }
+
+    on(...args) {
+        if (!this.debug) {
+            return;
+        }
+
+        this.emitter.on(...args);
     }
 
     /**
-     * Generate a instance using the same class constructor
+     * Generate a instance using the same class constructor and debug emitter
      *
      * @param {*} ...args
      *
-     * @returns {SimulateUser}
+     * @returns {Proxy<SimulateUser>}
      */
-    static build(...args) {
-        const Klass = this;
+    build(...args) {
+        const Klass = this.constructor;
+        const instance = new Klass(...args);
+        instance.parent = this;
 
-        return new Klass(...args);
+        return instance;
     }
 
     /**
@@ -109,7 +172,7 @@ class SimulateUser {
             nodes.push(...Array.from(nodeList));
         });
 
-        return nodes.map(n => this.constructor.build(n));
+        return nodes.map(n => this.build(n));
     }
 
     /**
@@ -120,8 +183,6 @@ class SimulateUser {
      * @returns {SimulateUser|null}
      */
     getElementById(id) {
-        this.log('getElementById', id);
-
         return this.first({ query: `#${ id }` });
     }
 
@@ -133,8 +194,6 @@ class SimulateUser {
      * @returns {Array<SimulateUser>}
      */
     getElementsByName(name) {
-        this.log('getElementsByName', name);
-
         return this.all({ query: `[name="${ name }"]` });
     }
 
@@ -148,7 +207,7 @@ class SimulateUser {
     closest(...args) {
         const node = this.node.closest(...args);
 
-        return node && this.constructor.build(node);
+        return node && this.build(node);
     }
 
     /**
@@ -221,8 +280,6 @@ class SimulateUser {
      * @throws {Error}
      */
     async find(options, limit) {
-        this.log('find', options);
-
         try {
             return await this.timeout(async() => {
                 let node;
@@ -251,8 +308,6 @@ class SimulateUser {
                     const { bestMatchIndex } = matches;
                     const bestWrapper = wrappers[bestMatchIndex];
 
-                    this.log('most similar', bestWrapper.node);
-
                     return bestWrapper;
                 }
             }
@@ -275,8 +330,6 @@ class SimulateUser {
      */
     async field(label) {
         const wrapper = await this.find({ query: 'label', text: label, caseSensitive: true });
-
-        this.log('field', label, '->', wrapper.node);
 
         return this.getElementById(wrapper.htmlFor) || this.getElementsByName(wrapper.htmlFor)[0];
     }
@@ -310,8 +363,6 @@ class SimulateUser {
     async fieldSet(legend) {
         const wrapper = await this.find({ query: 'legend', text: legend, caseSensitive: true });
 
-        this.log('fieldset', legend, '->', wrapper.node);
-
         return wrapper.closest('fieldset');
     }
 
@@ -332,8 +383,6 @@ class SimulateUser {
      * @param {SearchProperties?} search
      */
     async click(search = null) {
-        this.log('click', this.node, search);
-
         if (search) {
             await this.find(search).then(el => el.click());
 
@@ -370,8 +419,6 @@ class SimulateUser {
      * @param {Boolean} checked
      */
     check(checked = true) {
-        this.log('check', this.node);
-
         this.node.checked = checked;
     }
 
@@ -420,8 +467,6 @@ class SimulateUser {
      * @param {String|Number} text
      */
     typeValue(text) {
-        this.log('typeValue', text);
-
         const value = (text || '').toString();
 
         this.focus();
@@ -445,8 +490,6 @@ class SimulateUser {
      * @returns {SimulateUser} - The field wrapper
      */
     async fillIn(label, value) {
-        this.log('fillIn', label);
-
         const field = await this.field(label);
 
         await field.fill(value);
@@ -479,8 +522,6 @@ class SimulateUser {
      * @param {ValueSelector} value
      */
     async select(value) {
-        this.log('select', value);
-
         const options = typeof value === 'object'
             ? value
             : { text: value };
@@ -519,7 +560,7 @@ class SimulateUser {
      * @returns {SimulateUser|null}
      */
     get nextElementSibling() {
-        return this.node.nextElementSibling && this.constructor.build(this.node.nextElementSibling);
+        return this.node.nextElementSibling && this.build(this.node.nextElementSibling);
     }
 
     /**
@@ -561,7 +602,7 @@ class SimulateUser {
      * @returns {SimulateUser}
      */
     get parentElement() {
-        return this.node.parentElement && this.constructor.build(this.node.parentElement);
+        return this.node.parentElement && this.build(this.node.parentElement);
     }
 
     /**
@@ -600,14 +641,6 @@ class SimulateUser {
         return this.node.tagName.toLowerCase();
     }
 }
-
-['log', 'error', 'warn'].forEach(which => {
-    SimulateUser.prototype[which] = function(...args) {
-        if (this.debug) {
-            logger[which](...args);
-        }
-    };
-});
 
 SimulateUser.timeoutLimit = 2000;
 SimulateUser.sleepTime = 10;

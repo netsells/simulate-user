@@ -1,5 +1,4 @@
 import SimulateUser from '../../src/index';
-import consola from '../../src/logger';
 
 import app from './app.html';
 
@@ -36,43 +35,11 @@ describe('SimulateUser', () => {
         });
     });
 
-    describe('loggers', () => {
-        ['log', 'warn', 'error'].forEach(logger => {
-            describe(logger, () => {
-                let wrapper;
-
-                beforeEach(() => {
-                    wrapper = new SimulateUser();
-                    jest.spyOn(consola, logger).mockReturnValue();
-                });
-
-                describe('when not debug mode', () => {
-                    it(`does not call console.${ logger }`, () => {
-                        wrapper[logger]('foobar');
-                        expect(consola[logger]).not.toHaveBeenCalled();
-                    });
-                });
-
-                describe('when in debug mode', () => {
-                    beforeEach(() => {
-                        wrapper.debug = true;
-                    });
-
-                    it(`call console.${ logger } with same arguments`, () => {
-                        wrapper[logger]('foobar', 'barfoo');
-                        expect(consola[logger]).toHaveBeenCalledWith('foobar', 'barfoo');
-                    });
-                });
-            });
-        });
-    });
-
     describe('finders', () => {
         let user;
 
         beforeEach(() => {
             user = new SimulateUser();
-            // user.debug = true;
         });
 
         describe('querySelectorAll', () => {
@@ -875,6 +842,44 @@ describe('SimulateUser', () => {
                     });
                 });
             });
+        });
+    });
+
+    describe('debug', () => {
+        let user;
+        let onCall;
+        let inputWrapper;
+
+        beforeEach(() => {
+            user = new SimulateUser();
+            onCall = jest.fn();
+            user.on('call', onCall);
+            inputWrapper = user.getElementById('a');
+        });
+
+        describe('when not debug mode', () => {
+            it('does not call onCall', () => {
+                inputWrapper.click();
+                expect(onCall).not.toHaveBeenCalled();
+            });
+        });
+
+        describe('when in debug mode', () => {
+            beforeEach(() => {
+                user.debug = true;
+            });
+
+            it('will set debug mode of the child wrapper', () => {
+                expect(inputWrapper.debug).toBe(true);
+            });
+
+            // it('will emit debug messages', () => {
+            //     inputWrapper.click();
+            //     expect(onCall).toHaveBeenCalledWith({
+            //         method: 'click',
+            //         args: [],
+            //     });
+            // });
         });
     });
 });
