@@ -1,4 +1,6 @@
 import SimulateUser from '../../src/index';
+import consola from '../../src/logger';
+
 import app from './app.html';
 
 global.DataTransfer = class {
@@ -41,13 +43,13 @@ describe('SimulateUser', () => {
 
                 beforeEach(() => {
                     wrapper = new SimulateUser();
-                    jest.spyOn(console, logger).mockReturnValue();
+                    jest.spyOn(consola, logger).mockReturnValue();
                 });
 
                 describe('when not debug mode', () => {
                     it(`does not call console.${ logger }`, () => {
                         wrapper[logger]('foobar');
-                        expect(console[logger]).not.toHaveBeenCalled();
+                        expect(consola[logger]).not.toHaveBeenCalled();
                     });
                 });
 
@@ -58,7 +60,7 @@ describe('SimulateUser', () => {
 
                     it(`call console.${ logger } with same arguments`, () => {
                         wrapper[logger]('foobar', 'barfoo');
-                        expect(console[logger]).toHaveBeenCalledWith('foobar', 'barfoo');
+                        expect(consola[logger]).toHaveBeenCalledWith('foobar', 'barfoo');
                     });
                 });
             });

@@ -1,6 +1,8 @@
 import { timeout, TimeoutError } from 'promise-timeout';
 import stringSimilarity from 'string-similarity';
 
+import logger from './logger';
+
 /**
  * @typedef SearchProperties
  * @type {Object}
@@ -602,7 +604,7 @@ class SimulateUser {
 ['log', 'error', 'warn'].forEach(which => {
     SimulateUser.prototype[which] = function(...args) {
         if (this.debug) {
-            console[which](...args); // eslint-disable-line no-console
+            logger[which](...args);
         }
     };
 });

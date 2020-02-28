@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1 (28/2/19)
+
+- Use consola instead of console for debug
+
 ## 1.1.0 (12/9/19)
 
 - Deprecated `fillSelect`, `fillIn` now can take SearchProperties or a string as the second parameter

@@ -27,6 +27,8 @@ var _promiseTimeout = require("promise-timeout");
 
 var _stringSimilarity = _interopRequireDefault(require("string-similarity"));
 
+var _logger = _interopRequireDefault(require("./logger"));
+
 /**
  * @typedef SearchProperties
  * @type {Object}
@@ -1018,10 +1020,7 @@ function () {
 ['log', 'error', 'warn'].forEach(function (which) {
   SimulateUser.prototype[which] = function () {
     if (this.debug) {
-      var _console;
-
-      (_console = console)[which].apply(_console, arguments); // eslint-disable-line no-console
-
+      _logger["default"][which].apply(_logger["default"], arguments);
     }
   };
 });
