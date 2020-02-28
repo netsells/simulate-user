@@ -122,7 +122,9 @@ class SimulateUser {
     getElementById(id) {
         this.log('getElementById', id);
 
-        return this.first({ query: `#${ id }` });
+        const node = document.getElementById(id);
+
+        return node && this.constructor.build(node);
     }
 
     /**
