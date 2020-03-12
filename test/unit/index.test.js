@@ -845,41 +845,41 @@ describe('SimulateUser', () => {
         });
     });
 
-    describe('debug', () => {
-        let user;
-        let onCall;
-        let inputWrapper;
+    // describe('debug', () => {
+    //     let user;
+    //     let onCall;
+    //     let inputWrapper;
 
-        beforeEach(() => {
-            user = new SimulateUser();
-            onCall = jest.fn();
-            user.on('call', onCall);
-            inputWrapper = user.getElementById('a');
-        });
+    //     beforeEach(() => {
+    //         user = new SimulateUser();
+    //         onCall = jest.fn();
+    //         user.on('call', onCall);
+    //         inputWrapper = user.getElementById('a');
+    //     });
 
-        describe('when not debug mode', () => {
-            it('does not call onCall', () => {
-                inputWrapper.click();
-                expect(onCall).not.toHaveBeenCalled();
-            });
-        });
+    //     describe('when not debug mode', () => {
+    //         it('does not call onCall', () => {
+    //             inputWrapper.click();
+    //             expect(onCall).not.toHaveBeenCalled();
+    //         });
+    //     });
 
-        describe('when in debug mode', () => {
-            beforeEach(() => {
-                user.debug = true;
-            });
+    //     describe('when in debug mode', () => {
+    //         beforeEach(() => {
+    //             user.debug = true;
+    //         });
 
-            it('will set debug mode of the child wrapper', () => {
-                expect(inputWrapper.debug).toBe(true);
-            });
+    //         it('will set debug mode of the child wrapper', () => {
+    //             expect(inputWrapper.debug).toBe(true);
+    //         });
 
-            // it('will emit debug messages', () => {
-            //     inputWrapper.click();
-            //     expect(onCall).toHaveBeenCalledWith({
-            //         method: 'click',
-            //         args: [],
-            //     });
-            // });
-        });
-    });
+    //         it('will emit debug messages', () => {
+    //             inputWrapper.click();
+    //             expect(onCall).toHaveBeenCalledWith({
+    //                 method: 'click',
+    //                 args: [],
+    //             });
+    //         });
+    //     });
+    // });
 });

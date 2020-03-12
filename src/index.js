@@ -38,56 +38,6 @@ class SimulateUser {
      */
     constructor(node = document) {
         this.node = node;
-        this.parent = null;
-
-        new Proxy(this, {
-            get(target, method) {
-                const value = target[method];
-
-                console.log('get', target, value);
-
-                if (UNLOGGABLE.includes(method) || typeof value !== 'function') {
-                    return value;
-                }
-
-                return function(...args) {
-                    if (this.debug) {
-                        this.emitter.emit('call', {
-                            method,
-                            args,
-                        });
-                    }
-
-                    return value.call(this, ...args);
-                };
-            },
-        })
-    }
-
-    get emitter() {
-        if (this.parent) {
-            return this.parent.emitter;
-        }
-
-        this._emitter = this._emitter || new EventEmitter();
-
-        return this._emitter;
-    }
-
-    get debug() {
-        if (this.parent) {
-            return this.parent.debug;
-        }
-
-        return this._debug;
-    }
-
-    set debug(val) {
-        if (this.parent) {
-            throw new Error('Can not change debug state on a child wrapper');
-        }
-
-        this._debug = val;
     }
 
     on(...args) {
@@ -108,7 +58,6 @@ class SimulateUser {
     build(...args) {
         const Klass = this.constructor;
         const instance = new Klass(...args);
-        instance.parent = this;
 
         return instance;
     }
@@ -185,7 +134,7 @@ class SimulateUser {
     getElementById(id) {
         const node = document.getElementById(id);
 
-        return node && this.constructor.build(node);
+        return node && this.build(node);
     }
 
     /**
