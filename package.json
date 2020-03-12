@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist",
-    "jsdoc": "jsdoc2md -t README.hbs ./src/index.js > README.md",
+    "jsdoc": "jsdoc2md -t README.hbs ./src/**/*.js > README.md",
     "lint": "eslint ./src --max-warnings=0 --ext .js",
     "test": "jest",
     "test:mutate": "stryker run",
