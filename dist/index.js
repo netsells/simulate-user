@@ -159,9 +159,8 @@ function () {
     key: "getElementById",
     value: function getElementById(id) {
       this.log('getElementById', id);
-      return this.first({
-        query: "#".concat(id)
-      });
+      var node = document.getElementById(id);
+      return node && this.constructor.build(node);
     }
     /**
      * getElementsByName but returns an array of wrappers

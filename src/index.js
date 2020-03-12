@@ -183,7 +183,9 @@ class SimulateUser {
      * @returns {SimulateUser|null}
      */
     getElementById(id) {
-        return this.first({ query: `#${ id }` });
+        const node = document.getElementById(id);
+
+        return node && this.constructor.build(node);
     }
 
     /**
