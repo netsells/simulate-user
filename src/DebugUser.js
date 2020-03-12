@@ -1,12 +1,12 @@
 import EventEmitter from 'events';
 import SimulateUser from './SimulateUser';
 
-const OWN_PROPERTIES = ['on', 'emit'];
+const OWN_PROPERTIES = Object.freeze(['on', 'emit']);
 
-const CALLBACKS = {
+const CALLBACKS = Object.freeze({
     BEFORE_CALL: 'beforeCall',
     AFTER_CALL: 'afterCall',
-};
+});
 
 /**
  * Helper class for providing debug information.
