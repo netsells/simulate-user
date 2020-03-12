@@ -1,5 +1,5 @@
 import SimulateUser from './SimulateUser';
-import DebugUser from './DebugUser';
+import getDebugUser from './DebugUser';
 
-export { DebugUser };
+export { getDebugUser };
 export default SimulateUser;

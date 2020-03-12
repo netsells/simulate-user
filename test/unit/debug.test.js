@@ -1,6 +1,7 @@
-import { DebugUser } from '../../src/index';
-
+import { getDebugUser } from '../../src/index';
 import app from './app.html';
+
+const DebugUser = getDebugUser();
 
 DebugUser.timeoutLimit = 5;
 DebugUser.sleepTime = 0.1;

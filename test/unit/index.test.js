@@ -1,6 +1,7 @@
-import SimulateUser, { DebugUser } from '../../src/index';
-
+import SimulateUser, { getDebugUser } from '../../src/index';
 import app from './app.html';
+
+const DebugUser = getDebugUser();
 
 global.DataTransfer = class {
     constructor() {

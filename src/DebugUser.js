@@ -9,101 +9,109 @@ const CALLBACKS = Object.freeze({
 });
 
 /**
- * Helper class for providing debug information.
+ * Get a debug user extending a user class.user
+ *
+ * @param {SimulateUser} Klass
+ * @returns {DebugUser}
  */
-class DebugUser extends SimulateUser {
+function getDebugUser(Klass = SimulateUser) {
     /**
-     * Setup the class.
-     *
-     * @param {any} args
-     * @returns {Proxy}
+     * Helper class for providing debug information.
      */
-    constructor(...args) {
-        super(...args);
+    return class DebugUser extends Klass {
+        /**
+         * Setup the class.
+         *
+         * @param {any} args
+         * @returns {Proxy}
+         */
+        constructor(...args) {
+            super(...args);
 
-        this.emitter = new EventEmitter();
-        this.logs = [];
+            this.emitter = new EventEmitter();
+            this.logs = [];
 
-        return new Proxy(this, {
-            /**
-             * Get the needed property.
-             *
-             * @param {DebugUser} target
-             * @param {any} prop
-             * @returns {any}
-             */
-            get(target, prop) {
-                if (OWN_PROPERTIES.includes(prop)) {
-                    return target[prop];
-                }
-
-                if (typeof target[prop] !== 'function') {
-                    return target[prop];
-                }
-
-                return function(...args) {
-                    let returned;
-
-                    target.emit(CALLBACKS.BEFORE_CALL, { method: prop, args });
-
-                    try {
-                        returned = target[prop](...args);
-
-                        return returned;
-                    } finally {
-                        target.emit(CALLBACKS.AFTER_CALL, {
-                            method: prop,
-                            args,
-                            returned,
-                        });
+            return new Proxy(this, {
+                /**
+                 * Get the needed property.
+                 *
+                 * @param {DebugUser} target
+                 * @param {any} prop
+                 * @returns {any}
+                 */
+                get(target, prop) {
+                    if (OWN_PROPERTIES.includes(prop)) {
+                        return target[prop];
                     }
-                };
-            },
-        });
-    }
 
-    /**
-     * Generate a instance using the same class constructor and debug emitter
-     *
-     * @param {*} ...args
-     *
-     * @returns {Proxy<DebugUser>}
-     */
-    build(...args) {
-        const Klass = this.constructor;
-        const instance = new Klass(...args);
-        instance.emitter = this.emitter;
+                    if (typeof target[prop] !== 'function') {
+                        return target[prop];
+                    }
 
-        this.logs.push({
-            child: instance.logs,
-        });
+                    return function(...args) {
+                        let returned;
 
-        return instance;
-    }
+                        target.emit(CALLBACKS.BEFORE_CALL, { method: prop, args });
 
-    /**
-     * Emit and log an event.
-     *
-     * @param {string} callback
-     * @param {any} args
-     */
-    emit(callback, ...args) {
-        this.logs.push({
-            callback,
-            args,
-        });
+                        try {
+                            returned = target[prop](...args);
 
-        this.emitter.emit(callback, ...args);
-    }
+                            return returned;
+                        } finally {
+                            target.emit(CALLBACKS.AFTER_CALL, {
+                                method: prop,
+                                args,
+                                returned,
+                            });
+                        }
+                    };
+                },
+            });
+        }
 
-    /**
-     * Listen to a debug event.
-     *
-     * @param {any} args
-     */
-    on(...args) {
-        this.emitter.on(...args);
-    }
+        /**
+         * Generate a instance using the same class constructor and debug emitter
+         *
+         * @param {*} ...args
+         *
+         * @returns {Proxy<DebugUser>}
+         */
+        build(...args) {
+            const Klass = this.constructor;
+            const instance = new Klass(...args);
+            instance.emitter = this.emitter;
+
+            this.logs.push({
+                child: instance.logs,
+            });
+
+            return instance;
+        }
+
+        /**
+         * Emit and log an event.
+         *
+         * @param {string} callback
+         * @param {any} args
+         */
+        emit(callback, ...args) {
+            this.logs.push({
+                callback,
+                args,
+            });
+
+            this.emitter.emit(callback, ...args);
+        }
+
+        /**
+         * Listen to a debug event.
+         *
+         * @param {any} args
+         */
+        on(...args) {
+            this.emitter.on(...args);
+        }
+    };
 }
 
-export default DebugUser;
+export default getDebugUser;

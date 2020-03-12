@@ -29,9 +29,6 @@ await el.click();
 ## Classes
 
 <dl>
-<dt><a href="#DebugUser">DebugUser</a></dt>
-<dd><p>Helper class for providing debug information.</p>
-</dd>
 <dt><a href="#SimulateUser">SimulateUser</a></dt>
 <dd><p>Simulate a user</p>
 </dd>
@@ -40,8 +37,20 @@ await el.click();
 ## Functions
 
 <dl>
+<dt><a href="#getDebugUser">getDebugUser(Klass)</a> ⇒ <code>DebugUser</code></dt>
+<dd><p>Get a debug user extending a user class.user</p>
+</dd>
 <dt><a href="#get">get(target, prop)</a> ⇒ <code>any</code></dt>
 <dd><p>Get the needed property.</p>
+</dd>
+<dt><a href="#build">build()</a> ⇒ <code>Proxy.&lt;DebugUser&gt;</code></dt>
+<dd><p>Generate a instance using the same class constructor and debug emitter</p>
+</dd>
+<dt><a href="#emit">emit(callback, ...args)</a></dt>
+<dd><p>Emit and log an event.</p>
+</dd>
+<dt><a href="#on">on(...args)</a></dt>
+<dd><p>Listen to a debug event.</p>
 </dd>
 </dl>
 
@@ -55,63 +64,6 @@ await el.click();
 string or number, for a <code>select</code> it can be a string or a <code>SearchProperties</code></p>
 </dd>
 </dl>
-
-<a name="DebugUser"></a>
-
-## DebugUser
-Helper class for providing debug information.
-
-**Kind**: global class  
-
-* [DebugUser](#DebugUser)
-    * [new DebugUser(...args)](#new_DebugUser_new)
-    * [.build()](#DebugUser+build) ⇒ [<code>Proxy.&lt;DebugUser&gt;</code>](#DebugUser)
-    * [.emit(callback, ...args)](#DebugUser+emit)
-    * [.on(...args)](#DebugUser+on)
-
-<a name="new_DebugUser_new"></a>
-
-### new DebugUser(...args)
-Setup the class.
-
-
-| Param | Type |
-| --- | --- |
-| ...args | <code>any</code> | 
-
-<a name="DebugUser+build"></a>
-
-### debugUser.build() ⇒ [<code>Proxy.&lt;DebugUser&gt;</code>](#DebugUser)
-Generate a instance using the same class constructor and debug emitter
-
-**Kind**: instance method of [<code>DebugUser</code>](#DebugUser)  
-
-| Param | Type |
-| --- | --- |
-| ...args | <code>\*</code> | 
-
-<a name="DebugUser+emit"></a>
-
-### debugUser.emit(callback, ...args)
-Emit and log an event.
-
-**Kind**: instance method of [<code>DebugUser</code>](#DebugUser)  
-
-| Param | Type |
-| --- | --- |
-| callback | <code>string</code> | 
-| ...args | <code>any</code> | 
-
-<a name="DebugUser+on"></a>
-
-### debugUser.on(...args)
-Listen to a debug event.
-
-**Kind**: instance method of [<code>DebugUser</code>](#DebugUser)  
-
-| Param | Type |
-| --- | --- |
-| ...args | <code>any</code> | 
 
 <a name="SimulateUser"></a>
 
@@ -529,6 +481,17 @@ Change a value by the option text
 Send a change event
 
 **Kind**: instance method of [<code>SimulateUser</code>](#SimulateUser)  
+<a name="getDebugUser"></a>
+
+## getDebugUser(Klass) ⇒ <code>DebugUser</code>
+Get a debug user extending a user class.user
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| Klass | [<code>SimulateUser</code>](#SimulateUser) | 
+
 <a name="get"></a>
 
 ## get(target, prop) ⇒ <code>any</code>
@@ -538,8 +501,42 @@ Get the needed property.
 
 | Param | Type |
 | --- | --- |
-| target | [<code>DebugUser</code>](#DebugUser) | 
+| target | <code>DebugUser</code> | 
 | prop | <code>any</code> | 
+
+<a name="build"></a>
+
+## build() ⇒ <code>Proxy.&lt;DebugUser&gt;</code>
+Generate a instance using the same class constructor and debug emitter
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| ...args | <code>\*</code> | 
+
+<a name="emit"></a>
+
+## emit(callback, ...args)
+Emit and log an event.
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| callback | <code>string</code> | 
+| ...args | <code>any</code> | 
+
+<a name="on"></a>
+
+## on(...args)
+Listen to a debug event.
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| ...args | <code>any</code> | 
 
 <a name="SearchProperties"></a>
 
