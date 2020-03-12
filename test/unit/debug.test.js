@@ -19,22 +19,41 @@ describe('DebugUser', () => {
         user.on('afterCall', afterCall);
     });
 
-    it('will emit beforeCall', () => {
-        user.find({ text: 'Input' });
-
-        expect(beforeCall).toHaveBeenCalledWith({
-            method: 'find',
-            args: [{ text: 'Input' }],
+    describe('when calling', () => {
+        beforeEach(() => {
+            user.find({ text: 'Input' });
         });
-    });
 
-    it('will emit afterCall', () => {
-        user.find({ text: 'Input' });
+        it('will emit beforeCall', () => {
+            expect(beforeCall).toHaveBeenCalledWith({
+                method: 'find',
+                args: [{ text: 'Input' }],
+            });
+        });
 
-        expect(afterCall).toHaveBeenCalledWith({
-            method: 'find',
-            args: [{ text: 'Input' }],
-            returned: expect.any(Promise),
+        it('will emit afterCall', () => {
+            expect(afterCall).toHaveBeenCalledWith({
+                method: 'find',
+                args: [{ text: 'Input' }],
+                returned: expect.any(Promise),
+            });
+        });
+
+        it('adds to the logs', () => {
+            expect(user.logs).toEqual([{
+                callback: 'beforeCall',
+                args: [{
+                    method: 'find',
+                    args: [{ text: 'Input' }],
+                }],
+            }, {
+                callback: 'afterCall',
+                args: [{
+                    method: 'find',
+                    args: [{ text: 'Input' }],
+                    returned: expect.any(Promise),
+                }],
+            }]);
         });
     });
 
@@ -55,6 +74,63 @@ describe('DebugUser', () => {
             expect(beforeCall).toHaveBeenCalledWith({
                 method: 'find',
                 args: [{ text: 'Textarea' }],
+            });
+        });
+
+        it('adds to the logs', () => {
+            expect(user.logs).toEqual([{
+                callback: 'beforeCall',
+                args: [{
+                    method: 'getElementById',
+                    args: ['a'],
+                }],
+            }, {
+                child: [],
+            }, {
+                callback: 'afterCall',
+                args: [{
+                    method: 'getElementById',
+                    args: ['a'],
+                    returned: expect.anything(),
+                }],
+            }]);
+        });
+
+        describe('when calling methods on the child wrapper', () => {
+            beforeEach(async () => {
+                await inputWrapper.click();
+            });
+
+            it('will add to the child logs', () => {
+                expect(user.logs).toEqual([{
+                    callback: 'beforeCall',
+                    args: [{
+                        method: 'getElementById',
+                        args: ['a'],
+                    }],
+                }, {
+                    child: [{
+                        callback: 'beforeCall',
+                        args: [{
+                            method: 'click',
+                            args: [],
+                        }],
+                    }, {
+                        callback: 'afterCall',
+                        args: [{
+                            method: 'click',
+                            args: [],
+                            returned: expect.any(Promise),
+                        }],
+                    }],
+                }, {
+                    callback: 'afterCall',
+                    args: [{
+                        method: 'getElementById',
+                        args: ['a'],
+                        returned: expect.anything(),
+                    }],
+                }]);
             });
         });
     });

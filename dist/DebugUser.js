@@ -25,7 +25,11 @@ var _events = _interopRequireDefault(require("events"));
 
 var _SimulateUser2 = _interopRequireDefault(require("./SimulateUser"));
 
-var OWN_PROPERTIES = ['on'];
+var OWN_PROPERTIES = ['on', 'emit'];
+var CALLBACKS = {
+  BEFORE_CALL: 'beforeCall',
+  AFTER_CALL: 'afterCall'
+};
 /**
  * Helper class for providing debug information.
  */
@@ -54,6 +58,7 @@ function (_SimulateUser) {
 
     _this = (0, _possibleConstructorReturn2["default"])(this, (_getPrototypeOf2 = (0, _getPrototypeOf3["default"])(DebugUser)).call.apply(_getPrototypeOf2, [this].concat(args)));
     _this.emitter = new _events["default"]();
+    _this.logs = [];
     return (0, _possibleConstructorReturn2["default"])(_this, new Proxy((0, _assertThisInitialized2["default"])(_this), {
       /**
        * Get the needed property.
@@ -78,7 +83,7 @@ function (_SimulateUser) {
             args[_key2] = arguments[_key2];
           }
 
-          target.emitter.emit('beforeCall', {
+          target.emit(CALLBACKS.BEFORE_CALL, {
             method: prop,
             args: args
           });
@@ -87,7 +92,7 @@ function (_SimulateUser) {
             returned = target[prop].apply(target, args);
             return returned;
           } finally {
-            target.emitter.emit('afterCall', {
+            target.emit(CALLBACKS.AFTER_CALL, {
               method: prop,
               args: args,
               returned: returned
@@ -117,7 +122,33 @@ function (_SimulateUser) {
 
       var instance = (0, _construct2["default"])(Klass, args);
       instance.emitter = this.emitter;
+      this.logs.push({
+        child: instance.logs
+      });
       return instance;
+    }
+    /**
+     * Emit and log an event.
+     *
+     * @param {string} callback
+     * @param {any} args
+     */
+
+  }, {
+    key: "emit",
+    value: function emit(callback) {
+      var _this$emitter;
+
+      for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+        args[_key4 - 1] = arguments[_key4];
+      }
+
+      this.logs.push({
+        callback: callback,
+        args: args
+      });
+
+      (_this$emitter = this.emitter).emit.apply(_this$emitter, [callback].concat(args));
     }
     /**
      * Listen to a debug event.
@@ -128,9 +159,9 @@ function (_SimulateUser) {
   }, {
     key: "on",
     value: function on() {
-      var _this$emitter;
+      var _this$emitter2;
 
-      (_this$emitter = this.emitter).on.apply(_this$emitter, arguments);
+      (_this$emitter2 = this.emitter).on.apply(_this$emitter2, arguments);
     }
   }]);
   return DebugUser;

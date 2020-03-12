@@ -1,7 +1,12 @@
 import EventEmitter from 'events';
 import SimulateUser from './SimulateUser';
 
-const OWN_PROPERTIES = ['on'];
+const OWN_PROPERTIES = ['on', 'emit'];
+
+const CALLBACKS = {
+    BEFORE_CALL: 'beforeCall',
+    AFTER_CALL: 'afterCall',
+};
 
 /**
  * Helper class for providing debug information.
@@ -17,6 +22,7 @@ class DebugUser extends SimulateUser {
         super(...args);
 
         this.emitter = new EventEmitter();
+        this.logs = [];
 
         return new Proxy(this, {
             /**
@@ -38,14 +44,14 @@ class DebugUser extends SimulateUser {
                 return function(...args) {
                     let returned;
 
-                    target.emitter.emit('beforeCall', { method: prop, args });
+                    target.emit(CALLBACKS.BEFORE_CALL, { method: prop, args });
 
                     try {
                         returned = target[prop](...args);
 
                         return returned;
                     } finally {
-                        target.emitter.emit('afterCall', {
+                        target.emit(CALLBACKS.AFTER_CALL, {
                             method: prop,
                             args,
                             returned,
@@ -68,7 +74,26 @@ class DebugUser extends SimulateUser {
         const instance = new Klass(...args);
         instance.emitter = this.emitter;
 
+        this.logs.push({
+            child: instance.logs,
+        });
+
         return instance;
+    }
+
+    /**
+     * Emit and log an event.
+     *
+     * @param {string} callback
+     * @param {any} args
+     */
+    emit(callback, ...args) {
+        this.logs.push({
+            callback,
+            args,
+        });
+
+        this.emitter.emit(callback, ...args);
     }
 
     /**
