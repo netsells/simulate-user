@@ -43,9 +43,8 @@ class SimulateUser {
      */
     build(...args) {
         const Klass = this.constructor;
-        const instance = new Klass(...args);
 
-        return instance;
+        return new Klass(...args);
     }
 
     /**

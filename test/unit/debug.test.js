@@ -9,7 +9,6 @@ describe('DebugUser', () => {
     let user;
     let beforeCall;
     let afterCall;
-    let inputWrapper;
 
     beforeEach(() => {
         document.body.innerHTML = app;
@@ -19,11 +18,6 @@ describe('DebugUser', () => {
         user.on('beforeCall', beforeCall);
         user.on('afterCall', afterCall);
     });
-
-    // it('will return debug child wrappers', () => {
-    //     inputWrapper = user.getElementById('a');
-    //     expect(inputWrapper.debug).toBe(true);
-    // });
 
     it('will emit beforeCall', () => {
         user.find({ text: 'Input' });
@@ -41,6 +35,27 @@ describe('DebugUser', () => {
             method: 'find',
             args: [{ text: 'Input' }],
             returned: expect.any(Promise),
+        });
+    });
+
+    describe('with a child wrapper', () => {
+        let inputWrapper;
+
+        beforeEach(() => {
+            inputWrapper = user.getElementById('a');
+        });
+
+        it('will return debug child wrappers', () => {
+            expect(inputWrapper).toBeInstanceOf(DebugUser);
+        });
+
+        it('will emit beforeCall on the existing callbacks', () => {
+            user.find({ text: 'Textarea' });
+
+            expect(beforeCall).toHaveBeenCalledWith({
+                method: 'find',
+                args: [{ text: 'Textarea' }],
+            });
         });
     });
 });

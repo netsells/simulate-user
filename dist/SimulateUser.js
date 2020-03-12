@@ -81,8 +81,7 @@ function () {
         args[_key] = arguments[_key];
       }
 
-      var instance = (0, _construct2["default"])(Klass, args);
-      return instance;
+      return (0, _construct2["default"])(Klass, args);
     }
     /**
      * Returns a promise which resolves in a certain amount of milliseconds
