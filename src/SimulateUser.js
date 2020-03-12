@@ -1,11 +1,5 @@
 import { timeout, TimeoutError } from 'promise-timeout';
 import stringSimilarity from 'string-similarity';
-import EventEmitter from 'events';
-
-const UNLOGGABLE = [
-    'constructor',
-    'on',
-];
 
 /**
  * @typedef SearchProperties
@@ -38,14 +32,6 @@ class SimulateUser {
      */
     constructor(node = document) {
         this.node = node;
-    }
-
-    on(...args) {
-        if (!this.debug) {
-            return;
-        }
-
-        this.emitter.on(...args);
     }
 
     /**
