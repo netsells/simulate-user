@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0 (13/3/19)
+
+- Add `DebugUser` for debugging
+
 ## 2.0.1 (28/2/19)
 
 - Use consola instead of console for debug

@@ -25,11 +25,11 @@ var _events = _interopRequireDefault(require("events"));
 
 var _SimulateUser2 = _interopRequireDefault(require("./SimulateUser"));
 
-var OWN_PROPERTIES = ['on', 'emit'];
-var CALLBACKS = {
+var OWN_PROPERTIES = Object.freeze(['on', 'emit']);
+var CALLBACKS = Object.freeze({
   BEFORE_CALL: 'beforeCall',
   AFTER_CALL: 'afterCall'
-};
+});
 /**
  * Helper class for providing debug information.
  */
