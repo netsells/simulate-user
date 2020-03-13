@@ -9,6 +9,8 @@ exports["default"] = void 0;
 
 var _construct2 = _interopRequireDefault(require("@babel/runtime/helpers/construct"));
 
+var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
+
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
@@ -67,7 +69,6 @@ function getDebugUser() {
 
         _this = (0, _possibleConstructorReturn2["default"])(this, (_getPrototypeOf2 = (0, _getPrototypeOf3["default"])(DebugUser)).call.apply(_getPrototypeOf2, [this].concat(args)));
         _this.emitter = new _events["default"]();
-        _this.logs = [];
         return (0, _possibleConstructorReturn2["default"])(_this, new Proxy((0, _assertThisInitialized2["default"])(_this), {
           /**
            * Get the needed property.
@@ -92,20 +93,20 @@ function getDebugUser() {
                 args[_key2] = arguments[_key2];
               }
 
-              target.emit(CALLBACKS.BEFORE_CALL, {
+              var beforeCall = {
                 method: prop,
-                args: args
-              });
+                args: args,
+                target: target
+              };
+              target.emit(CALLBACKS.BEFORE_CALL, beforeCall);
 
               try {
                 returned = target[prop].apply(target, args);
                 return returned;
               } finally {
-                target.emit(CALLBACKS.AFTER_CALL, {
-                  method: prop,
-                  args: args,
+                target.emit(CALLBACKS.AFTER_CALL, (0, _objectSpread2["default"])({}, beforeCall, {
                   returned: returned
-                });
+                }));
               }
             };
           }
@@ -131,9 +132,6 @@ function getDebugUser() {
 
           var instance = (0, _construct2["default"])(Klass, args);
           instance.emitter = this.emitter;
-          this.logs.push({
-            child: instance.logs
-          });
           return instance;
         }
         /**
@@ -151,11 +149,6 @@ function getDebugUser() {
           for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
             args[_key4 - 1] = arguments[_key4];
           }
-
-          this.logs.push({
-            callback: callback,
-            args: args
-          });
 
           (_this$emitter = this.emitter).emit.apply(_this$emitter, [callback].concat(args));
         }

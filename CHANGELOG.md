@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.2 (13/3/19)
+
+- Added target to callbacks
+
 ## 2.1.0 (13/3/19)
 
 - Add `DebugUser` for debugging

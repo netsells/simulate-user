@@ -29,7 +29,6 @@ function getDebugUser(Klass = SimulateUser) {
             super(...args);
 
             this.emitter = new EventEmitter();
-            this.logs = [];
 
             return new Proxy(this, {
                 /**
@@ -50,8 +49,13 @@ function getDebugUser(Klass = SimulateUser) {
 
                     return function(...args) {
                         let returned;
+                        const beforeCall = {
+                            method: prop,
+                            args,
+                            target,
+                        };
 
-                        target.emit(CALLBACKS.BEFORE_CALL, { method: prop, args });
+                        target.emit(CALLBACKS.BEFORE_CALL, beforeCall);
 
                         try {
                             returned = target[prop](...args);
@@ -59,8 +63,7 @@ function getDebugUser(Klass = SimulateUser) {
                             return returned;
                         } finally {
                             target.emit(CALLBACKS.AFTER_CALL, {
-                                method: prop,
-                                args,
+                                ...beforeCall,
                                 returned,
                             });
                         }
@@ -81,10 +84,6 @@ function getDebugUser(Klass = SimulateUser) {
             const instance = new Klass(...args);
             instance.emitter = this.emitter;
 
-            this.logs.push({
-                child: instance.logs,
-            });
-
             return instance;
         }
 
@@ -95,11 +94,6 @@ function getDebugUser(Klass = SimulateUser) {
          * @param {any} args
          */
         emit(callback, ...args) {
-            this.logs.push({
-                callback,
-                args,
-            });
-
             this.emitter.emit(callback, ...args);
         }
 
