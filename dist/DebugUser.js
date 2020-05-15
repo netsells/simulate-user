@@ -27,13 +27,14 @@ var _events = _interopRequireDefault(require("events"));
 
 var _SimulateUser = _interopRequireDefault(require("./SimulateUser"));
 
+/* global DebugUser */
 var OWN_PROPERTIES = Object.freeze(['on', 'emit']);
 var CALLBACKS = Object.freeze({
   BEFORE_CALL: 'beforeCall',
   AFTER_CALL: 'afterCall'
 });
 /**
- * Get a debug user extending a user class.user
+ * Get a debug user extending a user class.user.
  *
  * @param {SimulateUser} Klass
  * @returns {DebugUser}
@@ -113,10 +114,9 @@ function getDebugUser() {
         }));
       }
       /**
-       * Generate a instance using the same class constructor and debug emitter
+       * Generate a instance using the same class constructor and debug emitter.
        *
-       * @param {*} ...args
-       *
+       * @param {any} args
        * @returns {Proxy<DebugUser>}
        */
 

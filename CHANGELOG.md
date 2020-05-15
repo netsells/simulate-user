@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.0 (15/5/20)
+
+- Add find options to field function
+- Upgraded linting config
+
 ## 2.1.2 (13/3/19)
 
 - Added target to callbacks

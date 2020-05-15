@@ -1060,23 +1060,26 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@netsells/eslint-config@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@netsells/eslint-config/-/eslint-config-2.4.0.tgz#da242b3ce79ec169a26ced92c7eb1ab319377504"
-  integrity sha512-hb0GGEStPTaFvhCRPuo8q293nD9wL1p/5x7WHHPC5+zCgKCXUEziBZAb46b115qWgzibNjzET6iduT7srC0atA==
+"@netsells/eslint-config@^3.8.0":
+  version "3.8.0"
+  resolved "https://npm.netsells.tools/@netsells%2feslint-config/-/eslint-config-3.8.0.tgz#94cacc8cc051bb16a528abbb3aa2122afdd2f014"
+  integrity sha512-Y1sUqEtnHrryUFYKRfOzCMxqe1cxi1tXkLv5oYOCeFjN1rYPo3k2kwix0aJ0FiMTm2logdYSYtDbYmNkor51jQ==
   dependencies:
-    "@netsells/eslint-plugin-netsells" "^1.0.0"
-    eslint "^5.16.0"
+    "@netsells/eslint-plugin-netsells" "^1.2.1"
+    eslint "^6.8.0"
     eslint-plugin-jquery "^1.5.1"
-    eslint-plugin-nuxt "^0.4.3"
+    eslint-plugin-jsdoc "^24.0.0"
+    eslint-plugin-nuxt "^0.5.1"
     eslint-plugin-require-jsdoc-except "^1.3.0"
-    eslint-plugin-vue "^5.2.2"
+    eslint-plugin-vue "^6.2.0"
     glob "^7.1.4"
 
-"@netsells/eslint-plugin-netsells@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@netsells/eslint-plugin-netsells/-/eslint-plugin-netsells-1.0.0.tgz#1c081b6f9b9ed7f40421d5bbb6bd660e069fb2a3"
-  integrity sha512-CMjB4tYD3CjpZqdx5tBVpp7KZdpBHQxgfQ7/Acgn736eb533t9c/MQsH+TdviUw7jzlI9m44I5/tRl/H99qoqg==
+"@netsells/eslint-plugin-netsells@^1.2.1":
+  version "1.2.1"
+  resolved "https://npm.netsells.tools/@netsells%2feslint-plugin-netsells/-/eslint-plugin-netsells-1.2.1.tgz#317f177cad5ca2850c2b09eee02cd5aa21b69964"
+  integrity sha512-Cw2nvFnAph/2Tv31fwGuQ+Ia8fyzRNEMJcQtngMq5OVrL4Fc4/zYHnzNmIRaAPhHsoM5QxLLjsrii/XKnU3N5g==
+  dependencies:
+    case "^1.6.2"
 
 "@stryker-mutator/api@^2.1.0":
   version "2.1.0"
@@ -1188,6 +1191,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/color-name@^1.1.1":
+  version "1.1.1"
+  resolved "https://npm.netsells.tools/@types%2fcolor-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
+  integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
+
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.1.tgz#42995b446db9a48a11a07ec083499a860e9138ff"
@@ -1260,6 +1268,11 @@ acorn-jsx@^5.0.0:
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.0.1.tgz#32a064fd925429216a09b141102bfdd185fae40e"
   integrity sha512-HJ7CfNHrfJLlNTzIEUTj43LNWGkqpRLxm3YjAlcD0ACydk9XynzYsCBHxut+iqt+1aBXkx9UP/w/ZqMr13XIzg==
 
+acorn-jsx@^5.2.0:
+  version "5.2.0"
+  resolved "https://npm.netsells.tools/acorn-jsx/-/acorn-jsx-5.2.0.tgz#4c66069173d6fdd68ed85239fc256226182b2ebe"
+  integrity sha512-HiUX/+K2YpkpJ+SzBffkM/AQ2YE03S0U1kjTLVpoJdhZMOWy8qvXVN9JdLqv2QsaQ6MPYQIuNmwD8zOiYUofLQ==
+
 acorn-walk@^6.0.1:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-6.2.0.tgz#123cb8f3b84c2171f1f7fb252615b1c78a6b1a8c"
@@ -1280,10 +1293,15 @@ acorn@^6.0.1:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.3.0.tgz#0087509119ffa4fc0a0041d1e93a417e68cb856e"
   integrity sha512-/czfa8BwS88b9gWQVhc8eknunSA2DoJpJyTQkhheIf5E48u1N0R4q/YxxsAeqRrmK9TQ/uYfgLDfZo91UlANIA==
 
-acorn@^6.0.2, acorn@^6.0.7:
+acorn@^6.0.2:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.1.1.tgz#7d25ae05bb8ad1f9b699108e1094ecd7884adc1f"
   integrity sha512-jPTiwtOxaHNaAPg/dmrJ/beuzLRnXtB0kQPQ8JpotKJgTB6rX6c8mlf315941pyjBSaPg8NHXS9fhP4u17DpGA==
+
+acorn@^7.1.1:
+  version "7.2.0"
+  resolved "https://npm.netsells.tools/acorn/-/acorn-7.2.0.tgz#17ea7e40d7c8640ff54a694c889c26f31704effe"
+  integrity sha512-apwXVmYVpQ34m/i71vrApRrRKCWQnZZF1+npOD0WV5xZFfwWOmKGQ2RWlfdy9vWITsenisM8M0Qeq8agcFHNiQ==
 
 agent-base@5:
   version "5.1.1"
@@ -1312,6 +1330,16 @@ ajv@^5.2.3, ajv@^5.3.0:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.3.0"
 
+ajv@^6.10.0:
+  version "6.12.2"
+  resolved "https://npm.netsells.tools/ajv/-/ajv-6.12.2.tgz#c629c5eced17baf314437918d2da88c99d5958cd"
+  integrity sha512-k+V+hzjm5q/Mr8ef/1Y9goCmlsK4I6Sm74teeyGvFk1XrOsbsKLjEdrvny42CZ+a8sXbk8KWpY/bDwS+FLL2UQ==
+  dependencies:
+    fast-deep-equal "^3.1.1"
+    fast-json-stable-stringify "^2.0.0"
+    json-schema-traverse "^0.4.1"
+    uri-js "^4.2.2"
+
 ajv@^6.5.5:
   version "6.10.2"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.10.2.tgz#d3cea04d6b017b2894ad69040fec8b623eb4bd52"
@@ -1339,7 +1367,7 @@ ansi-escape-sequences@^4.0.0:
   dependencies:
     array-back "^3.0.1"
 
-ansi-escapes@^3.0.0, ansi-escapes@^3.2.0:
+ansi-escapes@^3.0.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-3.2.0.tgz#8780b98ff9dbf5638152d1f1fe5c1d7b4442976b"
   integrity sha512-cBhpre4ma+U0T1oM5fXg7Dy1Jw7zzwv7lt/GoCpr+hDQJoYnKVPLL4dCvSEFMmQurOQvSrwT7SL/DAlhBI97RQ==
@@ -1366,6 +1394,11 @@ ansi-regex@^4.0.0, ansi-regex@^4.1.0:
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-4.1.0.tgz#8b9f8f08cf1acb843756a839ca8c7e3168c51997"
   integrity sha512-1apePfXM1UOSqw0o9IiFAovVz9M5S1Dg+4TrDwfMewQ6p/rmMueb7tWZjQ1rx4Loy1ArBggoqGpfqqdI4rondg==
 
+ansi-regex@^5.0.0:
+  version "5.0.0"
+  resolved "https://npm.netsells.tools/ansi-regex/-/ansi-regex-5.0.0.tgz#388539f55179bf39339c81af30a654d69f87cb75"
+  integrity sha512-bY6fj56OUQ0hU1KjFNDQuJFezqKdrAyFdIevADiqrWHwSlbmBNMHp5ak2f40Pm8JTFyM2mqxkG6ngkHO11f/lg==
+
 ansi-styles@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-2.2.1.tgz#b432dd3358b634cf75e1e4664368240533c1ddbe"
@@ -1377,6 +1410,14 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   integrity sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==
   dependencies:
     color-convert "^1.9.0"
+
+ansi-styles@^4.1.0:
+  version "4.2.1"
+  resolved "https://npm.netsells.tools/ansi-styles/-/ansi-styles-4.2.1.tgz#90ae75c424d008d2624c5bf29ead3177ebfcf359"
+  integrity sha512-9VGjrMsG1vePxcSweQsN20KY/c4zN0h9fLjqAbwbPfahM3t+NL+M9HC8xeXG2I8pX5NoamTGNuomEUFI7fcUjA==
+  dependencies:
+    "@types/color-name" "^1.1.1"
+    color-convert "^2.0.1"
 
 anymatch@^2.0.0:
   version "2.0.0"
@@ -1728,6 +1769,11 @@ capture-exit@^2.0.0:
   dependencies:
     rsvp "^4.8.4"
 
+case@^1.6.2:
+  version "1.6.3"
+  resolved "https://npm.netsells.tools/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
+  integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
+
 caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
@@ -1759,6 +1805,14 @@ chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.4.2, chalk@~2.4.1:
     ansi-styles "^3.2.1"
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
+
+chalk@^3.0.0:
+  version "3.0.0"
+  resolved "https://npm.netsells.tools/chalk/-/chalk-3.0.0.tgz#3f73c2bf526591f574cc492c51e2456349f844e4"
+  integrity sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
 
 chardet@^0.4.0:
   version "0.4.2"
@@ -1886,10 +1940,22 @@ color-convert@^1.9.0:
   dependencies:
     color-name "1.1.3"
 
+color-convert@^2.0.1:
+  version "2.0.1"
+  resolved "https://npm.netsells.tools/color-convert/-/color-convert-2.0.1.tgz#72d3a68d598c9bdb3af2ad1e84f21d896abd4de3"
+  integrity sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==
+  dependencies:
+    color-name "~1.1.4"
+
 color-name@1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
   integrity sha1-p9BVi9icQveV3UIyj3QIMcpTvCU=
+
+color-name@~1.1.4:
+  version "1.1.4"
+  resolved "https://npm.netsells.tools/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
+  integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
 combined-stream@^1.0.6, combined-stream@~1.0.6:
   version "1.0.8"
@@ -1943,6 +2009,11 @@ commander@~3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-3.0.1.tgz#4595aec3530525e671fb6f85fb173df8ff8bf57a"
   integrity sha512-UNgvDd+csKdc9GD4zjtkHKQbT8Aspt2jCBqNSPp53vAS0L1tS9sXB2TCEOPHJ7kt9bN/niWkYj8T3RQSoMXdSQ==
+
+comment-parser@^0.7.4:
+  version "0.7.4"
+  resolved "https://npm.netsells.tools/comment-parser/-/comment-parser-0.7.4.tgz#f5eb83cbae323cae6533c057f41d52692361c83a"
+  integrity sha512-Nnl77/mt6sj1BiYSVMeMWzvD0183F2MFOJyFRmZHimUVDYS9J40AvXpiFA7RpU5pQH+HkvYc0dnsHpwW2xmbyQ==
 
 common-sequence@^1.0.2:
   version "1.0.2"
@@ -2308,13 +2379,40 @@ eslint-plugin-jquery@^1.5.1:
   resolved "https://registry.yarnpkg.com/eslint-plugin-jquery/-/eslint-plugin-jquery-1.5.1.tgz#d6bac643acf9484ce76394e27e2b07baca06662e"
   integrity sha512-L7v1eaK5t80C0lvUXPFP9MKnBOqPSKhCOYyzy4LZ0+iK+TJwN8S9gAkzzP1AOhypRIwA88HF6phQ9C7jnOpW8w==
 
-eslint-plugin-nuxt@^0.4.3:
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-nuxt/-/eslint-plugin-nuxt-0.4.3.tgz#4a6114372c3b1311685d19a00a470233fa6a477e"
-  integrity sha512-Irw6YjbfNJpC8zykyvWA8cMRGfF97xGNKhwFLyMEeXKMXug9o/FKe7fHhN1qEoMJWI1SKgFr/spVW6ZV41geAQ==
+eslint-plugin-jsdoc@^24.0.0:
+  version "24.0.6"
+  resolved "https://npm.netsells.tools/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-24.0.6.tgz#360f75b7b79a64eb6f072de9f37322588578abf0"
+  integrity sha512-WDzUgShMK7Zg9N6s19LxUqy71At/PxCuMEXaKyBzybhABq6iU4DaZtWZ+4fkCMBvMzMwMAPa2oRD/+fQGORMhg==
   dependencies:
-    eslint-plugin-vue "^5.2.2"
-    vue-eslint-parser "^5.0.0"
+    comment-parser "^0.7.4"
+    debug "^4.1.1"
+    jsdoctypeparser "^6.1.0"
+    lodash "^4.17.15"
+    regextras "^0.7.0"
+    semver "^6.3.0"
+    spdx-expression-parse "^3.0.0"
+
+eslint-plugin-jsdoc@^25.4.1:
+  version "25.4.1"
+  resolved "https://npm.netsells.tools/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-25.4.1.tgz#d7fc913bb7c0a4668628e40b8525b3b409370bc4"
+  integrity sha512-EixCLTv36/etbr5GGC89n0GLDkU/5NmadPzI3x6gSzldqrZpyQVh6qqN3jarWdfTvJsimorP4KNCIwe5mk/7TA==
+  dependencies:
+    comment-parser "^0.7.4"
+    debug "^4.1.1"
+    jsdoctypeparser "^6.1.0"
+    lodash "^4.17.15"
+    regextras "^0.7.1"
+    semver "^6.3.0"
+    spdx-expression-parse "^3.0.0"
+
+eslint-plugin-nuxt@^0.5.1:
+  version "0.5.2"
+  resolved "https://npm.netsells.tools/eslint-plugin-nuxt/-/eslint-plugin-nuxt-0.5.2.tgz#638cdfd0fc0473d285ca848e7e30b8b8e6f59f91"
+  integrity sha512-kOWUSrix6h+gGTCe6He51ett065yAzXsMiteKkBo5pdjc94A3gBMBrWtRZGyZGv91P1wRcJpF8l4CWMhNm3oWg==
+  dependencies:
+    eslint-plugin-vue "^6.2.2"
+    semver "^7.1.3"
+    vue-eslint-parser "^7.0.0"
 
 eslint-plugin-require-jsdoc-except@^1.3.0:
   version "1.3.0"
@@ -2324,12 +2422,21 @@ eslint-plugin-require-jsdoc-except@^1.3.0:
     lodash.assignin "^4.2.0"
     lodash.get "^4.4.2"
 
-eslint-plugin-vue@^5.2.2, eslint-plugin-vue@^5.2.3:
+eslint-plugin-vue@^5.2.3:
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-5.2.3.tgz#3ee7597d823b5478804b2feba9863b1b74273961"
   integrity sha512-mGwMqbbJf0+VvpGR5Lllq0PMxvTdrZ/ZPjmhkacrCHbubJeJOt+T6E3HUzAifa2Mxi7RSdJfC9HFpOeSYVMMIw==
   dependencies:
     vue-eslint-parser "^5.0.0"
+
+eslint-plugin-vue@^6.2.0, eslint-plugin-vue@^6.2.2:
+  version "6.2.2"
+  resolved "https://npm.netsells.tools/eslint-plugin-vue/-/eslint-plugin-vue-6.2.2.tgz#27fecd9a3a24789b0f111ecdd540a9e56198e0fe"
+  integrity sha512-Nhc+oVAHm0uz/PkJAWscwIT4ijTrK5fqNqz9QB1D35SbbuMG1uB6Yr5AJpvPSWg+WOw7nYNswerYh0kOk64gqQ==
+  dependencies:
+    natural-compare "^1.4.0"
+    semver "^5.6.0"
+    vue-eslint-parser "^7.0.0"
 
 eslint-scope@^3.7.1:
   version "3.7.3"
@@ -2339,7 +2446,7 @@ eslint-scope@^3.7.1:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-scope@^4.0.0, eslint-scope@^4.0.3:
+eslint-scope@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-4.0.3.tgz#ca03833310f6889a3264781aa82e63eb9cfe7848"
   integrity sha512-p7VutNr1O/QrxysMo3E45FjYDTeXBy0iTltPFNSqKAIfjDSXC+4dj+qfyuD8bfAXrW/y6lW3O76VaYNPKfpKrg==
@@ -2347,14 +2454,22 @@ eslint-scope@^4.0.0, eslint-scope@^4.0.3:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-utils@^1.3.1:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/eslint-utils/-/eslint-utils-1.4.2.tgz#166a5180ef6ab7eb462f162fd0e6f2463d7309ab"
-  integrity sha512-eAZS2sEUMlIeCjBeubdj45dmBHQwPHWyBcT1VSYB7o9x9WRRqKxyUoiXlRjyAwzN7YEzHJlYg0NmzDRWx6GP4Q==
+eslint-scope@^5.0.0:
+  version "5.0.0"
+  resolved "https://npm.netsells.tools/eslint-scope/-/eslint-scope-5.0.0.tgz#e87c8887c73e8d1ec84f1ca591645c358bfc8fb9"
+  integrity sha512-oYrhJW7S0bxAFDvWqzvMPRm6pcgcnWc4QnofCAqRTRfQC0JcwenzGglTtsLyIuuWFfkqDG9vz67cnttSd53djw==
   dependencies:
-    eslint-visitor-keys "^1.0.0"
+    esrecurse "^4.1.0"
+    estraverse "^4.1.1"
 
-eslint-visitor-keys@^1.0.0:
+eslint-utils@^1.4.3:
+  version "1.4.3"
+  resolved "https://npm.netsells.tools/eslint-utils/-/eslint-utils-1.4.3.tgz#74fec7c54d0776b6f67e0251040b5806564e981f"
+  integrity sha512-fbBN5W2xdY45KulGXmLHZ3c3FHfVYmKg0IrAKGOkT/464PQsx2UeIzfz1RmEci+KLm1bBaAzZAh8+/E+XAeZ8Q==
+  dependencies:
+    eslint-visitor-keys "^1.1.0"
+
+eslint-visitor-keys@^1.0.0, eslint-visitor-keys@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.1.0.tgz#e2a82cea84ff246ad6fb57f9bde5b46621459ec2"
   integrity sha512-8y9YjtM1JBJU/A9Kc+SbaOV4y29sSWckBwMHa+FGtVj5gN/sbnKDf6xJUl+8g7FAij9LVaP8C24DUiH/f/2Z9A==
@@ -2403,47 +2518,48 @@ eslint@^4.10.0:
     table "4.0.2"
     text-table "~0.2.0"
 
-eslint@^5.16.0:
-  version "5.16.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-5.16.0.tgz#a1e3ac1aae4a3fbd8296fcf8f7ab7314cbb6abea"
-  integrity sha512-S3Rz11i7c8AA5JPv7xAH+dOyq/Cu/VXHiHXBPOU1k/JAM5dXqQPt3qcrhpHSorXmrpu2g0gkIBVXAqCpzfoZIg==
+eslint@^6.8.0:
+  version "6.8.0"
+  resolved "https://npm.netsells.tools/eslint/-/eslint-6.8.0.tgz#62262d6729739f9275723824302fb227c8c93ffb"
+  integrity sha512-K+Iayyo2LtyYhDSYwz5D5QdWw0hCacNzyq1Y821Xna2xSJj7cijoLLYmLxTQgcgZ9mC61nryMy9S7GRbYpI5Ig==
   dependencies:
     "@babel/code-frame" "^7.0.0"
-    ajv "^6.9.1"
+    ajv "^6.10.0"
     chalk "^2.1.0"
     cross-spawn "^6.0.5"
     debug "^4.0.1"
     doctrine "^3.0.0"
-    eslint-scope "^4.0.3"
-    eslint-utils "^1.3.1"
-    eslint-visitor-keys "^1.0.0"
-    espree "^5.0.1"
+    eslint-scope "^5.0.0"
+    eslint-utils "^1.4.3"
+    eslint-visitor-keys "^1.1.0"
+    espree "^6.1.2"
     esquery "^1.0.1"
     esutils "^2.0.2"
     file-entry-cache "^5.0.1"
     functional-red-black-tree "^1.0.1"
-    glob "^7.1.2"
-    globals "^11.7.0"
+    glob-parent "^5.0.0"
+    globals "^12.1.0"
     ignore "^4.0.6"
     import-fresh "^3.0.0"
     imurmurhash "^0.1.4"
-    inquirer "^6.2.2"
-    js-yaml "^3.13.0"
+    inquirer "^7.0.0"
+    is-glob "^4.0.0"
+    js-yaml "^3.13.1"
     json-stable-stringify-without-jsonify "^1.0.1"
     levn "^0.3.0"
-    lodash "^4.17.11"
+    lodash "^4.17.14"
     minimatch "^3.0.4"
     mkdirp "^0.5.1"
     natural-compare "^1.4.0"
-    optionator "^0.8.2"
-    path-is-inside "^1.0.2"
+    optionator "^0.8.3"
     progress "^2.0.0"
     regexpp "^2.0.1"
-    semver "^5.5.1"
-    strip-ansi "^4.0.0"
-    strip-json-comments "^2.0.1"
+    semver "^6.1.2"
+    strip-ansi "^5.2.0"
+    strip-json-comments "^3.0.1"
     table "^5.2.3"
     text-table "^0.2.0"
+    v8-compile-cache "^2.0.3"
 
 espree@^3.5.4:
   version "3.5.4"
@@ -2462,14 +2578,14 @@ espree@^4.1.0:
     acorn-jsx "^5.0.0"
     eslint-visitor-keys "^1.0.0"
 
-espree@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/espree/-/espree-5.0.1.tgz#5d6526fa4fc7f0788a5cf75b15f30323e2f81f7a"
-  integrity sha512-qWAZcWh4XE/RwzLJejfcofscgMc9CamR6Tn1+XRXNzrvUSSbiAjGOI/fggztjIi7y9VLPqnICMIPiGyr8JaZ0A==
+espree@^6.1.2:
+  version "6.2.1"
+  resolved "https://npm.netsells.tools/espree/-/espree-6.2.1.tgz#77fc72e1fd744a2052c20f38a5b575832e82734a"
+  integrity sha512-ysCxRQY3WaXJz9tdbWOwuWr5Y/XrPTGX9Kiz3yoUXwW0VZ4w30HTkQLaGx/+ttFjF8i+ACbArnB4ce68a9m5hw==
   dependencies:
-    acorn "^6.0.7"
-    acorn-jsx "^5.0.0"
-    eslint-visitor-keys "^1.0.0"
+    acorn "^7.1.1"
+    acorn-jsx "^5.2.0"
+    eslint-visitor-keys "^1.1.0"
 
 esprima@^3.1.3:
   version "3.1.3"
@@ -2635,12 +2751,17 @@ fast-deep-equal@^2.0.1:
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
   integrity sha1-ewUhjd+WZ79/Nwv3/bLLFf3Qqkk=
 
+fast-deep-equal@^3.1.1:
+  version "3.1.1"
+  resolved "https://npm.netsells.tools/fast-deep-equal/-/fast-deep-equal-3.1.1.tgz#545145077c501491e33b15ec408c294376e94ae4"
+  integrity sha512-8UEa58QDLauDNfpbrX55Q9jrGHThw2ZMdOky5Gl1CDtVeJDPVrG4Jxx1N8jw2gkWaff5UUuX1KJd+9zGe2B+ZA==
+
 fast-json-stable-stringify@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/fast-json-stable-stringify/-/fast-json-stable-stringify-2.0.0.tgz#d5142c0caee6b1189f87d3a76111064f86c8bbf2"
   integrity sha1-1RQsDK7msRifh9OnYREGT4bIu/I=
 
-fast-levenshtein@~2.0.4:
+fast-levenshtein@~2.0.4, fast-levenshtein@~2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   integrity sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
@@ -2883,6 +3004,13 @@ glob-parent@^3.1.0:
     is-glob "^3.1.0"
     path-dirname "^1.0.0"
 
+glob-parent@^5.0.0:
+  version "5.1.1"
+  resolved "https://npm.netsells.tools/glob-parent/-/glob-parent-5.1.1.tgz#b6c1ef417c4e5663ea498f1c45afac6916bbc229"
+  integrity sha512-FnI+VGOpnlGHWZxthPGR+QhR78fuiK0sNLkHQv+bL9fQi57lNNdquIbna/WrfROrolq8GK5Ek6BiMwqL/voRYQ==
+  dependencies:
+    is-glob "^4.0.1"
+
 glob@^7.0.0, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@~7.1.2:
   version "7.1.4"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.4.tgz#aa608a2f6c577ad357e1ae5a5c26d9a8d1969255"
@@ -2895,10 +3023,17 @@ glob@^7.0.0, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@~7.1.2:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-globals@^11.0.1, globals@^11.1.0, globals@^11.7.0:
+globals@^11.0.1, globals@^11.1.0:
   version "11.12.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-11.12.0.tgz#ab8795338868a0babd8525758018c2a7eb95c42e"
   integrity sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==
+
+globals@^12.1.0:
+  version "12.4.0"
+  resolved "https://npm.netsells.tools/globals/-/globals-12.4.0.tgz#a18813576a41b00a24a97e7f815918c2e19925f8"
+  integrity sha512-BWICuzzDvDoH54NHKCseDanAhE3CeDorgDL5MT6LMXXj2WCnd9UC2szdk4AWLfjdgNBCXLUanXYcpBBKOSWGwg==
+  dependencies:
+    type-fest "^0.8.1"
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.2:
   version "4.2.0"
@@ -2950,6 +3085,11 @@ has-flag@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
   integrity sha1-tdRU3CGZriJWmfNGfloH87lVuv0=
+
+has-flag@^4.0.0:
+  version "4.0.0"
+  resolved "https://npm.netsells.tools/has-flag/-/has-flag-4.0.0.tgz#944771fd9c81c81265c4d6941860da06bb59479b"
+  integrity sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==
 
 has-symbols@^1.0.0:
   version "1.0.0"
@@ -3144,23 +3284,23 @@ inquirer@^3.0.6:
     strip-ansi "^4.0.0"
     through "^2.3.6"
 
-inquirer@^6.2.2:
-  version "6.4.1"
-  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-6.4.1.tgz#7bd9e5ab0567cd23b41b0180b68e0cfa82fc3c0b"
-  integrity sha512-/Jw+qPZx4EDYsaT6uz7F4GJRNFMRdKNeUZw3ZnKV8lyuUgz/YWRCSUAJMZSVhSq4Ec0R2oYnyi6b3d4JXcL5Nw==
+inquirer@^7.0.0:
+  version "7.1.0"
+  resolved "https://npm.netsells.tools/inquirer/-/inquirer-7.1.0.tgz#1298a01859883e17c7264b82870ae1034f92dd29"
+  integrity sha512-5fJMWEmikSYu0nv/flMc475MhGbB7TSPd/2IpFV4I4rMklboCH2rQjYY5kKiYGHqUF9gvaambupcJFFG9dvReg==
   dependencies:
-    ansi-escapes "^3.2.0"
-    chalk "^2.4.2"
-    cli-cursor "^2.1.0"
+    ansi-escapes "^4.2.1"
+    chalk "^3.0.0"
+    cli-cursor "^3.1.0"
     cli-width "^2.0.0"
     external-editor "^3.0.3"
-    figures "^2.0.0"
-    lodash "^4.17.11"
-    mute-stream "0.0.7"
-    run-async "^2.2.0"
-    rxjs "^6.4.0"
-    string-width "^2.1.0"
-    strip-ansi "^5.1.0"
+    figures "^3.0.0"
+    lodash "^4.17.15"
+    mute-stream "0.0.8"
+    run-async "^2.4.0"
+    rxjs "^6.5.3"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
     through "^2.3.6"
 
 inquirer@~7.0.0:
@@ -3320,7 +3460,7 @@ is-glob@^3.1.0:
   dependencies:
     is-extglob "^2.1.0"
 
-is-glob@^4.0.0:
+is-glob@^4.0.0, is-glob@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-4.0.1.tgz#7567dbe9f2f5e2467bc77ab83c4a29482407a5dc"
   integrity sha512-5G0tKtBTFImOqDnLB2hG6Bp2qcKEFduo4tZu9MT/H6NQv/ghhy30o55ufafxJ/LdH79LLs2Kfrn85TLKyA7BUg==
@@ -3836,7 +3976,7 @@ js-tokens@^3.0.2:
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
   integrity sha1-mGbfOVECEw449/mWvOtlRDIJwls=
 
-js-yaml@3.13.1, js-yaml@^3.13.0, js-yaml@^3.13.1, js-yaml@^3.9.1:
+js-yaml@3.13.1, js-yaml@^3.13.1, js-yaml@^3.9.1:
   version "3.13.1"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.13.1.tgz#aff151b30bfdfa8e49e05da22e7415e9dfa37847"
   integrity sha512-YfbcO7jXDdyj0DGxYVSlSeQNHbD7XPWvrVWeVUujrQEoZzWJIRrCPoyk6kL6IAjAG2IolMK4T0hNUe0HOUs5Jw==
@@ -3915,6 +4055,11 @@ jsdoc@^3.6.3:
     strip-json-comments "^3.0.1"
     taffydb "2.6.2"
     underscore "~1.9.1"
+
+jsdoctypeparser@^6.1.0:
+  version "6.1.0"
+  resolved "https://npm.netsells.tools/jsdoctypeparser/-/jsdoctypeparser-6.1.0.tgz#acfb936c26300d98f1405cb03e20b06748e512a8"
+  integrity sha512-UCQBZ3xCUBv/PLfwKAJhp6jmGOSLFNKzrotXGNgbKhWvz27wPsCsVeP7gIcHPElQw2agBmynAitXqhxR58XAmA==
 
 jsdom@^11.5.1:
   version "11.12.0"
@@ -4630,6 +4775,18 @@ optionator@^0.8.1, optionator@^0.8.2:
     type-check "~0.3.2"
     wordwrap "~1.0.0"
 
+optionator@^0.8.3:
+  version "0.8.3"
+  resolved "https://npm.netsells.tools/optionator/-/optionator-0.8.3.tgz#84fa1d036fe9d3c7e21d99884b601167ec8fb495"
+  integrity sha512-+IW9pACdk3XWmmTXG8m3upGUJst5XRGzxMRjXzAuJ1XnIFNvfhjjIuYkDvysnPQ7qzqVzLt78BCruntqRhWQbA==
+  dependencies:
+    deep-is "~0.1.3"
+    fast-levenshtein "~2.0.6"
+    levn "~0.3.0"
+    prelude-ls "~1.1.2"
+    type-check "~0.3.2"
+    word-wrap "~1.2.3"
+
 os-homedir@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/os-homedir/-/os-homedir-1.0.2.tgz#ffbc4988336e0e833de0c168c7ef152121aa7fb3"
@@ -5060,6 +5217,11 @@ regexpu-core@^4.5.4:
     unicode-match-property-ecmascript "^1.0.4"
     unicode-match-property-value-ecmascript "^1.1.0"
 
+regextras@^0.7.0, regextras@^0.7.1:
+  version "0.7.1"
+  resolved "https://npm.netsells.tools/regextras/-/regextras-0.7.1.tgz#be95719d5f43f9ef0b9fa07ad89b7c606995a3b2"
+  integrity sha512-9YXf6xtW+qzQ+hcMQXx95MOvfqXFgsKDZodX3qZB0x2n5Z94ioetIITsBtvJbiOyxa/6s9AtyweBLCdPmPko/w==
+
 regjsgen@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/regjsgen/-/regjsgen-0.5.0.tgz#a7634dc08f89209c2049adda3525711fb97265dd"
@@ -5252,6 +5414,11 @@ run-async@^2.2.0:
   dependencies:
     is-promise "^2.1.0"
 
+run-async@^2.4.0:
+  version "2.4.1"
+  resolved "https://npm.netsells.tools/run-async/-/run-async-2.4.1.tgz#8440eccf99ea3e70bd409d49aab88e10c189a455"
+  integrity sha512-tvVnVv01b8c1RrA6Ep7JkStj85Guv/YrMcwqYQnwjsAS2cTmmPGBBjAjpCW7RrSodNSoE2/qg9O4bceNvUuDgQ==
+
 run-node@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/run-node/-/run-node-1.0.0.tgz#46b50b946a2aa2d4947ae1d886e9856fd9cabe5e"
@@ -5273,6 +5440,13 @@ rxjs@^6.4.0:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.2.tgz#2e35ce815cd46d84d02a209fb4e5921e051dbec7"
   integrity sha512-HUb7j3kvb7p7eCUHE3FqjoDsC1xfZQ4AHFWfTKSpZ+sAhhz5X1WX0ZuUqWbzB2QhSLp3DoLUG+hMdEDKqWo2Zg==
+  dependencies:
+    tslib "^1.9.0"
+
+rxjs@^6.5.3:
+  version "6.5.5"
+  resolved "https://npm.netsells.tools/rxjs/-/rxjs-6.5.5.tgz#c5c884e3094c8cfee31bf27eb87e54ccfc87f9ec"
+  integrity sha512-WfQI+1gohdf0Dai/Bbmk5L5ItH5tYqm3ki2c5GdWhKjalzjg93N3avFjVStyZZz+A2Em+ZxKH5bNghw9UeylGQ==
   dependencies:
     tslib "^1.9.0"
 
@@ -5340,7 +5514,7 @@ semver@^5.6.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.1.tgz#a954f931aeba508d307bbf069eff0c01c96116f7"
   integrity sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==
 
-semver@^6.0.0, semver@^6.2.0, semver@~6.3.0:
+semver@^6.0.0, semver@^6.1.2, semver@^6.2.0, semver@^6.3.0, semver@~6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
@@ -5349,6 +5523,11 @@ semver@^6.1.1:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.1.2.tgz#079960381376a3db62eb2edc8a3bfb10c7cfe318"
   integrity sha512-z4PqiCpomGtWj8633oeAdXm1Kn1W++3T8epkZYnwiVgIYIJ0QHszhInYSJTYxebByQH7KVCEAn8R9duzZW2PhQ==
+
+semver@^7.1.3:
+  version "7.3.2"
+  resolved "https://npm.netsells.tools/semver/-/semver-7.3.2.tgz#604962b052b81ed0786aae84389ffba70ffd3938"
+  integrity sha512-OrOb32TeeambH6UrhtShmF7CRDqhL6/5XpPNp2DuRH6+9QLw/orhp72j87v8Qa1ScDkvrrBNpZcDejAirJmfXQ==
 
 set-blocking@^2.0.0, set-blocking@~2.0.0:
   version "2.0.0"
@@ -5687,6 +5866,13 @@ strip-ansi@^5.0.0, strip-ansi@^5.1.0, strip-ansi@^5.2.0:
   dependencies:
     ansi-regex "^4.1.0"
 
+strip-ansi@^6.0.0:
+  version "6.0.0"
+  resolved "https://npm.netsells.tools/strip-ansi/-/strip-ansi-6.0.0.tgz#0b1571dd7669ccd4f3e06e14ef1eed26225ae532"
+  integrity sha512-AuvKTrTfQNYNIctbR1K/YGTR1756GycPsg7b9bdV9Duqur4gv6aKqHXah67Z8ImS7WEz5QVcOtlfW2rZEugt6w==
+  dependencies:
+    ansi-regex "^5.0.0"
+
 strip-bom@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/strip-bom/-/strip-bom-3.0.0.tgz#2334c18e9c759f7bdd56fdef7e9ae3d588e68ed3"
@@ -5697,15 +5883,15 @@ strip-eof@^1.0.0:
   resolved "https://registry.yarnpkg.com/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
   integrity sha1-u0P/VZim6wXYm1n80SnJgzE2Br8=
 
-strip-json-comments@^2.0.1, strip-json-comments@~2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
-  integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
-
 strip-json-comments@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.0.1.tgz#85713975a91fb87bf1b305cca77395e40d2a64a7"
   integrity sha512-VTyMAUfdm047mwKl+u79WIdrZxtFtn+nBxHeb844XBQ9uMNTuTHdx2hc5RiAJYqwTj3wc/xe5HLSdJSkJ+WfZw==
+
+strip-json-comments@~2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
+  integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
 stubs@^3.0.0:
   version "3.0.0"
@@ -5730,6 +5916,13 @@ supports-color@^6.1.0:
   integrity sha512-qe1jfm1Mg7Nq/NSh6XE24gPXROEVsWHxC1LIx//XNlD9iw7YZQGjZNjYN7xGaEG6iKdA8EtNFW6R0gjnVXp+wQ==
   dependencies:
     has-flag "^3.0.0"
+
+supports-color@^7.1.0:
+  version "7.1.0"
+  resolved "https://npm.netsells.tools/supports-color/-/supports-color-7.1.0.tgz#68e32591df73e25ad1c4b49108a2ec507962bfd1"
+  integrity sha512-oRSIpR8pxT1Wr2FquTNnGet79b3BWljqOuoW/h4oBhxJ/HUbX5nX6JSruTkvXDCFMwDPvsaTTbvMLKZWSy0R5g==
+  dependencies:
+    has-flag "^4.0.0"
 
 surrial@~1.0.0:
   version "1.0.0"
@@ -5976,6 +6169,11 @@ type-fest@^0.5.2:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.5.2.tgz#d6ef42a0356c6cd45f49485c3b6281fc148e48a2"
   integrity sha512-DWkS49EQKVX//Tbupb9TFa19c7+MK1XmzkrZUR8TAktmE/DizXoaoJV6TZ/tSIPXipqNiRI6CyAe7x69Jb6RSw==
 
+type-fest@^0.8.1:
+  version "0.8.1"
+  resolved "https://npm.netsells.tools/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
+  integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
+
 typed-inject@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/typed-inject/-/typed-inject-2.0.0.tgz#78fc8b3e27104fb2945c3242d7eff9bc1e5e6320"
@@ -6118,6 +6316,11 @@ uuid@^3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.3.tgz#4568f0216e78760ee1dbf3a4d2cf53e224112866"
   integrity sha512-pW0No1RGHgzlpHJO1nsVrHKpOEIxkGg1xB+v0ZmdNH5OAeAwzAVrCnI2/6Mtx+Uys6iaylxa+D3g4j63IKKjSQ==
 
+v8-compile-cache@^2.0.3:
+  version "2.1.0"
+  resolved "https://npm.netsells.tools/v8-compile-cache/-/v8-compile-cache-2.1.0.tgz#e14de37b31a6d194f5690d67efc4e7f6fc6ab30e"
+  integrity sha512-usZBT3PW+LOjM25wbqIlZwPeJV+3OSz3M1k1Ws8snlW39dZyYL9lOGC5FgPVHfk0jKmjiDV8Z0mIbVQPiwFs7g==
+
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/validate-npm-package-license/-/validate-npm-package-license-3.0.4.tgz#fc91f6b9c7ba15c857f4cb2c5defeec39d4f410a"
@@ -6146,6 +6349,18 @@ vue-eslint-parser@^5.0.0:
     espree "^4.1.0"
     esquery "^1.0.1"
     lodash "^4.17.11"
+
+vue-eslint-parser@^7.0.0:
+  version "7.0.0"
+  resolved "https://npm.netsells.tools/vue-eslint-parser/-/vue-eslint-parser-7.0.0.tgz#a4ed2669f87179dedd06afdd8736acbb3a3864d6"
+  integrity sha512-yR0dLxsTT7JfD2YQo9BhnQ6bUTLsZouuzt9SKRP7XNaZJV459gvlsJo4vT2nhZ/2dH9j3c53bIx9dnqU2prM9g==
+  dependencies:
+    debug "^4.1.1"
+    eslint-scope "^5.0.0"
+    eslint-visitor-keys "^1.1.0"
+    espree "^6.1.2"
+    esquery "^1.0.1"
+    lodash "^4.17.15"
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"
@@ -6224,6 +6439,11 @@ wide-align@^1.1.0:
   integrity sha512-QGkOQc8XL6Bt5PwnsExKBPuMKBxnGxWWW3fU55Xt4feHozMUhdUMaBCk290qpm/wG5u/RSKzwdAC4i51YigihA==
   dependencies:
     string-width "^1.0.2 || 2"
+
+word-wrap@~1.2.3:
+  version "1.2.3"
+  resolved "https://npm.netsells.tools/word-wrap/-/word-wrap-1.2.3.tgz#610636f6b1f703891bd34771ccb17fb93b47079c"
+  integrity sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==
 
 wordwrap@~0.0.2:
   version "0.0.3"
