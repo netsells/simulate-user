@@ -306,6 +306,11 @@ Object.keys(classes).forEach(className => {
                     const field = await user.field('Select');
                     expect(field.tag).toBe('select');
                 });
+
+                it('can get field based on case insensitive label for name', async () => {
+                    const field = await user.field('SELECT', { caseSensitive: false });
+                    expect(field.tag).toBe('select');
+                });
             });
 
             describe('fieldSet', () => {

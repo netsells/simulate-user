@@ -260,12 +260,18 @@ class SimulateUser {
      * Get a field based on its label
      *
      * @param {String} label
+     * @param {Object} [findOptions={}]
      *
      * @returns {SimulateUser|null}
      * @throws {Error}
      */
-    async field(label) {
-        const wrapper = await this.find({ query: 'label', text: label, caseSensitive: true });
+    async field(label, findOptions = {}) {
+        const wrapper = await this.find({
+            query: 'label',
+            text: label,
+            caseSensitive: true,
+            ...findOptions,
+        });
 
         return this.getElementById(wrapper.htmlFor) || this.getElementsByName(wrapper.htmlFor)[0];
     }

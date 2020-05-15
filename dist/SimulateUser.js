@@ -386,6 +386,7 @@ function () {
      * Get a field based on its label
      *
      * @param {String} label
+     * @param {Object} [findOptions={}]
      *
      * @returns {SimulateUser|null}
      * @throws {Error}
@@ -397,23 +398,26 @@ function () {
       var _field = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee3(label) {
-        var wrapper;
+        var findOptions,
+            wrapper,
+            _args3 = arguments;
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
-                return this.find({
+                findOptions = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
+                _context3.next = 3;
+                return this.find((0, _objectSpread2["default"])({
                   query: 'label',
                   text: label,
                   caseSensitive: true
-                });
+                }, findOptions));
 
-              case 2:
+              case 3:
                 wrapper = _context3.sent;
                 return _context3.abrupt("return", this.getElementById(wrapper.htmlFor) || this.getElementsByName(wrapper.htmlFor)[0]);
 
-              case 4:
+              case 5:
               case "end":
                 return _context3.stop();
             }

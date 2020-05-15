@@ -96,7 +96,7 @@ Simulate a user
     * [.all(options)](#SimulateUser+all) ⇒ [<code>SimulateUser</code>](#SimulateUser) \| <code>null</code>
     * [.first(options)](#SimulateUser+first) ⇒ [<code>SimulateUser</code>](#SimulateUser) \| <code>null</code>
     * [.find(options, limit)](#SimulateUser+find) ⇒ [<code>SimulateUser</code>](#SimulateUser)
-    * [.field(label)](#SimulateUser+field) ⇒ [<code>SimulateUser</code>](#SimulateUser) \| <code>null</code>
+    * [.field(label, [findOptions])](#SimulateUser+field) ⇒ [<code>SimulateUser</code>](#SimulateUser) \| <code>null</code>
     * [.fieldSet(legend)](#SimulateUser+fieldSet) ⇒ [<code>SimulateUser</code>](#SimulateUser) \| <code>null</code>
     * [.dispatchEvent(event)](#SimulateUser+dispatchEvent)
     * [.click(search)](#SimulateUser+click)
@@ -322,7 +322,7 @@ updating)
 
 <a name="SimulateUser+field"></a>
 
-### simulateUser.field(label) ⇒ [<code>SimulateUser</code>](#SimulateUser) \| <code>null</code>
+### simulateUser.field(label, [findOptions]) ⇒ [<code>SimulateUser</code>](#SimulateUser) \| <code>null</code>
 Get a field based on its label
 
 **Kind**: instance method of [<code>SimulateUser</code>](#SimulateUser)  
@@ -331,9 +331,10 @@ Get a field based on its label
 - <code>Error</code> 
 
 
-| Param | Type |
-| --- | --- |
-| label | <code>String</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| label | <code>String</code> |  | 
+| [findOptions] | <code>Object</code> | <code>{}</code> | 
 
 <a name="SimulateUser+fieldSet"></a>
 
