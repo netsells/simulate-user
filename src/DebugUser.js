@@ -1,3 +1,5 @@
+/* global DebugUser */
+
 import EventEmitter from 'events';
 import SimulateUser from './SimulateUser';
 
@@ -9,7 +11,7 @@ const CALLBACKS = Object.freeze({
 });
 
 /**
- * Get a debug user extending a user class.user
+ * Get a debug user extending a user class.user.
  *
  * @param {SimulateUser} Klass
  * @returns {DebugUser}
@@ -73,10 +75,9 @@ function getDebugUser(Klass = SimulateUser) {
         }
 
         /**
-         * Generate a instance using the same class constructor and debug emitter
+         * Generate a instance using the same class constructor and debug emitter.
          *
-         * @param {*} ...args
-         *
+         * @param {any} args
          * @returns {Proxy<DebugUser>}
          */
         build(...args) {

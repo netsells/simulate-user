@@ -27,34 +27,36 @@ var _promiseTimeout = require("promise-timeout");
 
 var _stringSimilarity = _interopRequireDefault(require("string-similarity"));
 
+/* global Files */
+
 /**
  * @typedef SearchProperties
- * @type {Object}
- * @property {String} text - Text to search on
- * @property {String} query - Optional query to filter on
- * @property {Boolean} caseSensitive - Whether text is case sensitive
- * @property {Boolean} exact - Whether text match should be exact (not including trimmed white space)
- * @property {Function} predicate - Predicate function wrappers must match
- * @property {Boolean} visible - If element must be visible or not
- * @property {Boolean} direct - If text should be a direct child or not
+ * @type {object}
+ * @property {string} text - Text to search on.
+ * @property {string} query - Optional query to filter on.
+ * @property {boolean} caseSensitive - Whether text is case sensitive.
+ * @property {boolean} exact - Whether text match should be exact (not including trimmed white space).
+ * @property {Function} predicate - Predicate function wrappers must match.
+ * @property {boolean} visible - If element must be visible or not.
+ * @property {boolean} direct - If text should be a direct child or not.
  */
 
 /**
  * A generic value selector. For a `textarea` or `input` it should always be a
- * string or number, for a `select` it can be a string or a `SearchProperties`
+ * string or number, for a `select` it can be a string or a `SearchProperties`.
  *
  * @typedef ValueSelector
- * @type {SearchProperties|String|Number}
+ * @type {SearchProperties|string|number}
  */
 
 /**
- * Simulate a user
+ * Simulate a user.
  */
 var SimulateUser =
 /*#__PURE__*/
 function () {
   /**
-   * Create a SimulateUser class for a page element
+   * Create a SimulateUser class for a page element.
    *
    * @param {HTMLElement} node
    */
@@ -64,10 +66,9 @@ function () {
     this.node = node;
   }
   /**
-   * Generate a instance using the same class constructor and debug emitter
+   * Generate a instance using the same class constructor and debug emitter.
    *
-   * @param {*} ...args
-   *
+   * @param {...any} args
    * @returns {Proxy<SimulateUser>}
    */
 
@@ -84,9 +85,9 @@ function () {
       return (0, _construct2["default"])(Klass, args);
     }
     /**
-     * Returns a promise which resolves in a certain amount of milliseconds
+     * Returns a promise which resolves in a certain amount of milliseconds.
      *
-     * @param {Number} timeout
+     * @param {number} timeout
      *
      * @returns {Promise<undefined>}
      */
@@ -100,10 +101,10 @@ function () {
     }
     /**
      * Returns a promise which times out if the passed in promise doesn't
-     * resolve in time
+     * resolve in time.
      *
      * @param {Function} func
-     * @param {Number} limit
+     * @param {number} limit
      *
      * @returns {Promise<*>}
      */
@@ -115,11 +116,11 @@ function () {
       return (0, _promiseTimeout.timeout)(func(), limit);
     }
     /**
-     * Get options for an event
+     * Get options for an event.
      *
-     * @param {Object} options
+     * @param {object} options
      *
-     * @returns {Object}
+     * @returns {object}
      */
 
   }, {
@@ -132,9 +133,9 @@ function () {
 
     /**
      * Proxy for querySelectorAll but returns an array of wrappers instead of
-     * nodes
+     * nodes.
      *
-     * @param {String|Array<String>} query
+     * @param {string|Array<string>} query
      *
      * @returns {Array<SimulateUser>}
      */
@@ -156,9 +157,9 @@ function () {
       });
     }
     /**
-     * getElementById but returns a wrapper
+     * GetElementById but returns a wrapper.
      *
-     * @param {String} id
+     * @param {string} id
      *
      * @returns {SimulateUser|null}
      */
@@ -170,9 +171,9 @@ function () {
       return node && this.build(node);
     }
     /**
-     * getElementsByName but returns an array of wrappers
+     * GetElementsByName but returns an array of wrappers.
      *
-     * @param {String} name
+     * @param {string} name
      *
      * @returns {Array<SimulateUser>}
      */
@@ -185,10 +186,9 @@ function () {
       });
     }
     /**
-     * closest but returns a wrapper
+     * Closest but returns a wrapper.
      *
-     * @param {*} ...args
-     *
+     * @param {...any} args
      * @returns {SimulateUser|null}
      */
 
@@ -202,7 +202,7 @@ function () {
       return node && this.build(node);
     }
     /**
-     * Search through page elements as a user would, using text
+     * Search through page elements as a user would, using text.
      *
      * @param {SearchProperties} options
      *
@@ -256,7 +256,7 @@ function () {
       return all;
     }
     /**
-     * Get the first element of a query to `all`
+     * Get the first element of a query to `all`.
      *
      * @param {SearchProperties} options
      *
@@ -270,12 +270,12 @@ function () {
     }
     /**
      * Get the first element of a query to `all`, but throws an error if it's
-     * not found. Will wait for an element to appear (e.g. if a form is
-     * updating)
+     * not found. Will wait for an element to appear (e.g. If a form is
+     * updating).
      *
      * @param {SearchProperties} options
-     * @param {Boolean} [options.similar] - If no exact matches found, fall back to a fuzzy search
-     * @param {Number} limit
+     * @param {boolean} [options.similar] - If no exact matches found, fall back to a fuzzy search.
+     * @param {number} limit
      *
      * @returns {SimulateUser}
      * @throws {Error}
@@ -383,9 +383,10 @@ function () {
       return find;
     }()
     /**
-     * Get a field based on its label
+     * Get a field based on its label.
      *
-     * @param {String} label
+     * @param {string} label
+     * @param {object} [findOptions={}]
      *
      * @returns {SimulateUser|null}
      * @throws {Error}
@@ -397,23 +398,26 @@ function () {
       var _field = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee3(label) {
-        var wrapper;
+        var findOptions,
+            wrapper,
+            _args3 = arguments;
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
-                return this.find({
+                findOptions = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
+                _context3.next = 3;
+                return this.find((0, _objectSpread2["default"])({
                   query: 'label',
                   text: label,
                   caseSensitive: true
-                });
+                }, findOptions));
 
-              case 2:
+              case 3:
                 wrapper = _context3.sent;
                 return _context3.abrupt("return", this.getElementById(wrapper.htmlFor) || this.getElementsByName(wrapper.htmlFor)[0]);
 
-              case 4:
+              case 5:
               case "end":
                 return _context3.stop();
             }
@@ -428,18 +432,18 @@ function () {
       return field;
     }()
     /**
-     * Check if the node is visible
+     * Check if the node is visible.
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      */
 
   }, {
     key: "fieldSet",
 
     /**
-     * Get a fieldset based on its legend
+     * Get a fieldset based on its legend.
      *
-     * @param {String} legend
+     * @param {string} legend
      *
      * @returns {SimulateUser|null}
      * @throws {Error}
@@ -480,7 +484,7 @@ function () {
     }() // Actions
 
     /**
-     * Proxy for dispatchEvent
+     * Proxy for dispatchEvent.
      *
      * @param {Event} event
      */
@@ -491,7 +495,7 @@ function () {
       this.node.dispatchEvent(event);
     }
     /**
-     * Click this node
+     * Click this node.
      *
      * @param {SearchProperties?} search
      */
@@ -547,9 +551,9 @@ function () {
       return click;
     }()
     /**
-     * Attach files to this input element
+     * Attach files to this input element.
      *
-     * @param {Enumerable<Files>} files
+     * @param {Array<Files>} files
      */
 
   }, {
@@ -627,9 +631,9 @@ function () {
       return attach;
     }()
     /**
-     * Check this checkbox
+     * Check this checkbox.
      *
-     * @param {Boolean} checked
+     * @param {boolean} checked
      */
 
   }, {
@@ -639,7 +643,7 @@ function () {
       this.node.checked = checked;
     }
     /**
-     * Focus this element
+     * Focus this element.
      */
 
   }, {
@@ -653,7 +657,7 @@ function () {
       })));
     }
     /**
-     * Blur this element
+     * Blur this element.
      */
 
   }, {
@@ -667,9 +671,9 @@ function () {
       })));
     }
     /**
-     * Type a single key on this element
+     * Type a single key on this element.
      *
-     * @param {String} key
+     * @param {string} key
      */
 
   }, {
@@ -686,9 +690,9 @@ function () {
       })));
     }
     /**
-     * Type a string on this element
+     * Type a string on this element.
      *
-     * @param {String} text
+     * @param {string} text
      */
 
   }, {
@@ -702,9 +706,9 @@ function () {
     }
     /**
      * Type into a fields value. Only simulates the final key press then
-     * triggers a single change event
+     * triggers a single change event.
      *
-     * @param {String|Number} text
+     * @param {string|number} text
      */
 
   }, {
@@ -722,12 +726,12 @@ function () {
       this.sendChangeEvent();
     }
     /**
-     * Find a field by its label then fill it in
+     * Find a field by its label then fill it in.
      *
-     * @param {String} label
+     * @param {string} label
      * @param {ValueSelector} value
      *
-     * @returns {SimulateUser} - The field wrapper
+     * @returns {SimulateUser} - The field wrapper.
      */
 
   }, {
@@ -767,7 +771,7 @@ function () {
       return fillIn;
     }()
     /**
-     * Fill in this node as a field
+     * Fill in this node as a field.
      *
      * @param {ValueSelector} value
      */
@@ -812,7 +816,7 @@ function () {
       return fill;
     }()
     /**
-     * Change a value by the option text
+     * Change a value by the option text.
      *
      * @param {ValueSelector} value
      */
@@ -856,7 +860,7 @@ function () {
       return select;
     }()
     /**
-     * Send a change event
+     * Send a change event.
      */
 
   }, {
@@ -874,7 +878,7 @@ function () {
     } // Getters
 
     /**
-     * nextElementSibling but returns a wrapper
+     * NextElementSibling but returns a wrapper.
      *
      * @returns {SimulateUser|null}
      */
@@ -885,9 +889,9 @@ function () {
       return !this.hidden;
     }
     /**
-     * Check if the node is hidden
+     * Check if the node is hidden.
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      */
 
   }, {
@@ -901,9 +905,9 @@ function () {
       return this.node.nextElementSibling && this.build(this.node.nextElementSibling);
     }
     /**
-     * Get all select option values
+     * Get all select option values.
      *
-     * @returns {Array<String>}
+     * @returns {Array<string>}
      */
 
   }, {
@@ -918,9 +922,9 @@ function () {
       });
     }
     /**
-     * Get trimmed text content
+     * Get trimmed text content.
      *
-     * @returns {String}
+     * @returns {string}
      */
 
   }, {
@@ -929,9 +933,9 @@ function () {
       return (this.node.textContent || '').trim();
     }
     /**
-     * Get text content which is a direct child of this node
+     * Get text content which is a direct child of this node.
      *
-     * @returns {String}
+     * @returns {string}
      */
 
   }, {
@@ -944,7 +948,7 @@ function () {
       }).join('').trim();
     }
     /**
-     * Get the parentElement in a wrapper
+     * Get the parentElement in a wrapper.
      *
      * @returns {SimulateUser}
      */
@@ -955,9 +959,9 @@ function () {
       return this.node.parentElement && this.build(this.node.parentElement);
     }
     /**
-     * Proxy for className
+     * Proxy for className.
      *
-     * @returns {String}
+     * @returns {string}
      */
 
   }, {
@@ -966,9 +970,9 @@ function () {
       return this.node.className;
     }
     /**
-     * Proxy for value
+     * Proxy for value.
      *
-     * @returns {String}
+     * @returns {string}
      */
 
   }, {
@@ -977,9 +981,9 @@ function () {
       return this.node.value;
     }
     /**
-     * Proxy for htmlFor
+     * Proxy for htmlFor.
      *
-     * @returns {String}
+     * @returns {string}
      */
 
   }, {
@@ -988,9 +992,9 @@ function () {
       return this.node.htmlFor;
     }
     /**
-     * tagName but lower case
+     * TagName but lower case.
      *
-     * @returns {String}
+     * @returns {string}
      */
 
   }, {

@@ -306,6 +306,15 @@ Object.keys(classes).forEach(className => {
                     const field = await user.field('Select');
                     expect(field.tag).toBe('select');
                 });
+
+                it('can not get field based on label which does not match case for name', async () => {
+                    await expect(user.field('SELECT')).rejects.toThrow();
+                });
+
+                it('can get field based on case insensitive label for name using options', async () => {
+                    const field = await user.field('SELECT', { caseSensitive: false });
+                    expect(field.tag).toBe('select');
+                });
             });
 
             describe('fieldSet', () => {
