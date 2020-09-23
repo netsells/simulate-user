@@ -1,9 +1,7 @@
-/* global DebugUser */
-
 import EventEmitter from 'events';
 import SimulateUser from './SimulateUser';
 
-const OWN_PROPERTIES = Object.freeze(['on', 'emit']);
+const OWN_PROPERTIES = Object.freeze(['on', 'emit', 'build']);
 
 const CALLBACKS = Object.freeze({
     BEFORE_CALL: 'beforeCall',
@@ -14,13 +12,19 @@ const CALLBACKS = Object.freeze({
  * Get a debug user extending a user class.user.
  *
  * @param {SimulateUser} Klass
- * @returns {DebugUser}
+ * @returns {object}
+ */
+/**
+ * Get a debug user extending a user class.user.
+ *
+ * @param {SimulateUser} Klass
+ * @returns {object}
  */
 function getDebugUser(Klass = SimulateUser) {
     /**
      * Helper class for providing debug information.
      */
-    return class DebugUser extends Klass {
+    class DebugUser extends Klass {
         /**
          * Setup the class.
          *
@@ -31,12 +35,13 @@ function getDebugUser(Klass = SimulateUser) {
             super(...args);
 
             this.emitter = new EventEmitter();
+            this.__target__ = this;
 
-            return new Proxy(this, {
+            const proxy = new Proxy(this, {
                 /**
                  * Get the needed property.
                  *
-                 * @param {DebugUser} target
+                 * @param {object} target
                  * @param {any} prop
                  * @returns {any}
                  */
@@ -51,6 +56,7 @@ function getDebugUser(Klass = SimulateUser) {
 
                     return function(...args) {
                         let returned;
+
                         const beforeCall = {
                             method: prop,
                             args,
@@ -60,7 +66,7 @@ function getDebugUser(Klass = SimulateUser) {
                         target.emit(CALLBACKS.BEFORE_CALL, beforeCall);
 
                         try {
-                            returned = target[prop](...args);
+                            returned = target[prop].apply(proxy, args);
 
                             return returned;
                         } finally {
@@ -72,17 +78,18 @@ function getDebugUser(Klass = SimulateUser) {
                     };
                 },
             });
+
+            return proxy;
         }
 
         /**
          * Generate a instance using the same class constructor and debug emitter.
          *
          * @param {any} args
-         * @returns {Proxy<DebugUser>}
+         * @returns {Proxy<object>}
          */
         build(...args) {
-            const Klass = this.constructor;
-            const instance = new Klass(...args);
+            const instance = new DebugUser(...args);
             instance.emitter = this.emitter;
 
             return instance;
@@ -107,6 +114,8 @@ function getDebugUser(Klass = SimulateUser) {
             this.emitter.on(...args);
         }
     };
+
+    return DebugUser;
 }
 
 export default getDebugUser;

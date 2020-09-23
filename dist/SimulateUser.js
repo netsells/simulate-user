@@ -28,7 +28,8 @@ var _promiseTimeout = require("promise-timeout");
 var _stringSimilarity = _interopRequireDefault(require("string-similarity"));
 
 /* global Files */
-
+var DEFAULT_TIMEOUT_LIMIT = 2000;
+var DEFAULT_SLEEP_TIME = 10;
 /**
  * @typedef SearchProperties
  * @type {object}
@@ -52,6 +53,7 @@ var _stringSimilarity = _interopRequireDefault(require("string-similarity"));
 /**
  * Simulate a user.
  */
+
 var SimulateUser =
 /*#__PURE__*/
 function () {
@@ -112,7 +114,7 @@ function () {
   }, {
     key: "timeout",
     value: function timeout(func) {
-      var limit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.constructor.timeoutLimit;
+      var limit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.constructor.timeoutLimit || DEFAULT_TIMEOUT_LIMIT;
       return (0, _promiseTimeout.timeout)(func(), limit);
     }
     /**
@@ -307,7 +309,7 @@ function () {
                       switch (_context.prev = _context.next) {
                         case 0:
                           _context.next = 2;
-                          return _this2.sleep(_this2.constructor.sleepTime);
+                          return _this2.sleep(_this2.constructor.sleepTime || DEFAULT_SLEEP_TIME);
 
                         case 2:
                           node = _this2.first(options);
@@ -1006,7 +1008,7 @@ function () {
   return SimulateUser;
 }();
 
-SimulateUser.timeoutLimit = 2000;
-SimulateUser.sleepTime = 10;
+SimulateUser.timeoutLimit = DEFAULT_TIMEOUT_LIMIT;
+SimulateUser.sleepTime = DEFAULT_SLEEP_TIME;
 var _default = SimulateUser;
 exports["default"] = _default;

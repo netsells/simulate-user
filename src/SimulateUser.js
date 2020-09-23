@@ -3,6 +3,9 @@
 import { timeout, TimeoutError } from 'promise-timeout';
 import stringSimilarity from 'string-similarity';
 
+const DEFAULT_TIMEOUT_LIMIT = 2000;
+const DEFAULT_SLEEP_TIME = 10;
+
 /**
  * @typedef SearchProperties
  * @type {object}
@@ -68,7 +71,7 @@ class SimulateUser {
      *
      * @returns {Promise<*>}
      */
-    timeout(func, limit = this.constructor.timeoutLimit) {
+    timeout(func, limit = this.constructor.timeoutLimit || DEFAULT_TIMEOUT_LIMIT) {
         return timeout(func(), limit);
     }
 
@@ -221,7 +224,7 @@ class SimulateUser {
                 let node;
 
                 do {
-                    await this.sleep(this.constructor.sleepTime);
+                    await this.sleep(this.constructor.sleepTime || DEFAULT_SLEEP_TIME);
 
                     node = this.first(options);
                 } while(!node);
@@ -584,7 +587,7 @@ class SimulateUser {
     }
 }
 
-SimulateUser.timeoutLimit = 2000;
-SimulateUser.sleepTime = 10;
+SimulateUser.timeoutLimit = DEFAULT_TIMEOUT_LIMIT;
+SimulateUser.sleepTime = DEFAULT_SLEEP_TIME;
 
 export default SimulateUser;

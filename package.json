@@ -1,6 +1,6 @@
 {
   "name": "@netsells/simulate-user",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Library for simulating user interactions using JavaScript in the browser",
   "main": "dist/index.js",
   "scripts": {
